@@ -1,0 +1,226 @@
+00:37:42	Aggie Zub:	yes
+00:37:43	Ning Lai:	yes
+00:37:44	Ping Zhang:	yes
+00:37:44	Haoyang Zhang:	yes
+00:37:44	Yucheng Zhao:	yes
+00:37:44	Yuhui Pang:	yes
+00:37:44	Zitian Zhou:	ok
+00:37:44	Yuxin Cao:	Yes
+00:37:45	Mamta Grewal:	yes
+00:37:46	Joanna:	yes
+00:37:46	Shulang Liu:	yes
+00:42:31	guoqing xiong:	Will this affect the accuracy for old task?
+00:42:59	Qinyu Zhao:	In the step b or e, do we build a new model from scratch, or we can just adjust the old one?
+00:50:49	Qinyu Zhao:	Should x-axis be weight, and y be height?
+00:51:22	Aggie Zub:	lots of short fat people ??
+00:51:26	Yuchen Liu:	LOL
+00:59:32	Xin Yang:	how yn-ThetaXn <-> Y-XTheta?
+01:00:10	david:	It's repalcing a series of equations as a single matrix equation
+01:00:18	Ning Lai:	Y-XTheta is a matrix formular
+01:00:57	Xin Yang:	So it means that ThetaX = XTheta in this equation?
+01:01:14	Qinyu Zhao:	The table of examples {x1, x2, …} are concatenated and written as x ∈ ℝ^{N*D}.
+01:01:59	Xin Yang:	Cool! Thanks!
+01:06:55	Yiran Wang:	why θTXTy = yTXθ?
+01:07:28	Qinyu Zhao:	The result’s a scalar I think. So you can transpose it.
+01:07:55	Ning Lai:	it can be treated as Inner Product, following the symmetric property, I think
+01:08:12	Surya Teja:	it is a symmetric matrix that's why both are same
+01:08:30	Surya Teja:	they add up to get 2*(that one)
+01:12:41	Xin Yang:	Gaussian distribution = Normal Distribution ?
+01:13:05	david:	Yes
+01:15:03	Xin Yang:	So Maximum Likelihood is try to make every points in the center of Gaussian distribution?
+01:16:10	Zeyu Li:	what does Xt @ θ stand for?
+01:16:37	david:	It assumes each data point has gaussian noise, and we choose the paramters to make it as likely as possible those points were generated
+01:16:46	Jack Kennedy:	Why are the x and y symbols different for the training data and targets?
+01:17:06	Surya Teja:	Is X.T @ theta writing a equation of line in terms of matrix
+01:17:21	Xin Yang:	Thank you
+01:18:28	Qinyu Zhao:	Why don’t we consider p(x, y| theta)?
+01:18:42	Feiyang Yu:	Is probability the same as likelihood?
+01:20:36	Xin Yang:	Sounds good. Log makes linear
+01:23:08	Haoyang Zhang:	i think yes, MLE is to find a model that output y(hat) whose distribution has most probablity to be the same as the real distribution of y.
+01:24:00	Xin Yang:	Why do we like negative log-likelihood but not positive log-likelihood?
+01:24:39	Rita Wang:	To find the minimum is easier than finding the maximum
+01:24:41	Qinyu Zhao:	I guess that’s because we like minimization
+01:24:43	Haoyang Zhang:	Because we like to do optimization by finding minimum
+01:24:48	Xin Yang:	Thank you
+01:24:49	Rita Wang:	As max -> infinitive, min->0
+01:25:33	Ning Lai:	maybe just for computation precision, I think
+01:25:40	Qinyu Zhao:	But min may -> negative infinitive
+01:25:46	Qinyu Zhao:	I feel it’s just a choice
+01:25:52	Ning Lai:	To avoid overflow
+01:26:03	Rita Wang:	1/inifinitve —> 0 not -finititive
+01:26:14	Rita Wang:	@Qinyu Zhao
+01:26:15	Haoyang Zhang:	here the function is probability, we can not have negative probablity
+01:26:49	Qinyu Zhao:	Then, max -> 0
+01:27:01	Qinyu Zhao:	Now that probability is in [0,1]
+01:27:16	Qinyu Zhao:	Log prob is in (-inf, 0]
+01:27:40	Qinyu Zhao:	I don’t think there is any problem
+01:27:53	Ning Lai:	Yeah
+01:28:04	Qinyu Zhao:	🤣Maybe Liang can help us
+01:28:34	Ning Lai:	Draw a curve for -log(•), and you will get the answer
+01:29:40	Qinyu Zhao:	Sorry, it’s not my question. Xin asked Why do we like negative log-likelihood but not positive log-likelihood?
+01:31:02	Xin Yang:	Thank you!
+01:31:14	Qinyu Zhao:	Thank you all!
+01:34:09	Xin Yang:	If diagonalization / Jordon Form can help us if XTX is big matrix
+01:41:32	david:	If X^T X is big, diagonalisation may also be expensive
+01:44:31	Xin Yang:	Thank you !
+01:46:50	Haosen YIN:	What is closed form solution?
+01:47:46	David Quarel:	a formula that explicitly describes the solution
+01:48:17	David Quarel:	like how the quadratic equation is a closef form solution for a quadratic polynomial
+01:48:52	Xin Yang:	We may introduce Taylor here?
+01:49:08	Xin Yang:	To mimic such sin/cos function
+01:49:14	Xin Yang:	t
+01:49:14	Haoyang Zhang:	what is the dimension of the theta in linear regression with features?
+01:49:15	Yucheng Zhao:	y
+01:49:16	Yuchen Liu:	T
+01:49:16	Qinyu Zhao:	True
+01:49:16	Yupeng Chao:	t
+01:49:17	Ge Zhan:	yes
+01:49:17	Ning Lai:	yes
+01:49:17	Haoyang Zhang:	y
+01:49:18	Wenjia Cheng:	y
+01:49:18	Jinghang Feng:	Y
+01:49:19	Zeyu Li:	t
+01:49:20	Xingshu Wang:	true
+01:49:20	Mingyu Sheng:	y
+01:49:20	Xinyue Hu:	T
+01:49:20	Ning Lai:	T
+01:49:21	Yuqi GE:	y
+01:49:22	Boyu Ding:	Y
+01:49:22	Junhao, Wang:	y
+01:49:22	Ka'Yil Shaw:	yep
+01:49:23	Kye-Li Tan:	T
+01:49:25	Shulang Liu:	T
+01:49:25	Youming Liu:	y
+01:49:34	Yucheng Zhao:	no
+01:49:35	Ning Lai:	F
+01:49:36	Mingyu Sheng:	n
+01:49:36	Xin Yang:	f
+01:49:37	Mingda Song:	n
+01:49:37	Wenjia Cheng:	n
+01:49:37	Junhao, Wang:	f
+01:49:38	Yupeng Chao:	f
+01:49:38	Ge Zhan:	no
+01:49:38	Yuchen Liu:	F
+01:49:38	Ka'Yil Shaw:	no
+01:49:38	Qinyu Zhao:	No
+01:49:38	Shulang Liu:	F
+01:49:38	Ping Zhang:	f
+01:49:39	Jinghang Feng:	N
+01:49:39	Kye-Li Tan:	no
+01:49:39	Xinyue Hu:	F
+01:49:40	Youming Liu:	n
+01:49:40	Boyu Ding:	F
+01:49:42	Haoyang Zhang:	n
+01:49:44	Xingshu Wang:	n
+01:50:11	Junhao, Wang:	f
+01:50:14	Mingda Song:	n
+01:50:17	Xin Yang:	F?
+01:50:19	Haosen YIN:	y
+01:50:20	Shulang Liu:	F
+01:50:21	Mingyu Sheng:	y
+01:50:21	Yuchen Liu:	T？
+01:50:22	Yupeng Chao:	t?
+01:50:23	Kye-Li Tan:	not sure
+01:50:23	Xingshu Wang:	t
+01:50:24	Rita Wang:	n
+01:50:24	Luyang Tang:	f
+01:50:25	Ge Zhan:	yes
+01:50:26	Yucheng Zhao:	y?
+01:50:28	Ping Zhang:	t
+01:50:29	Qinyu Zhao:	T
+01:50:30	Jinghang Feng:	y
+01:50:31	Ka'Yil Shaw:	y
+01:50:40	Karthik Vemireddy:	y
+01:50:42	Shulang Liu:	T
+01:51:22	Junhao, Wang:	t
+01:51:22	Ning Lai:	F
+01:51:26	Karthik Vemireddy:	f
+01:51:26	Kye-Li Tan:	true
+01:51:27	Mingyu Sheng:	y
+01:51:27	Ping Zhang:	f
+01:51:28	Xin Yang:	y
+01:51:28	Rui Lu:	t
+01:51:28	Jinghang Feng:	y
+01:51:28	Yuchen Liu:	T
+01:51:29	Xin Yang:	y
+01:51:29	Xingshu Wang:	t
+01:51:30	Jiayi Shen:	T
+01:51:31	Ka'Yil Shaw:	y
+01:51:32	Qinyu Zhao:	F
+01:51:34	Yuqi GE:	T
+01:51:34	Yucheng Zhao:	f
+01:51:36	Joanna:	Yes
+01:51:37	Ning Lai:	F
+01:51:37	Haosen YIN:	f
+01:51:40	Youming Liu:	y
+01:51:44	Shulang Liu:	F
+01:51:54	Junhao, Wang:	ouch
+01:52:29	Qinyu Zhao:	cosine function of days?
+01:52:32	Haoyang Zhang:	cosine
+01:52:33	Jin Gao:	cosine
+01:52:34	Ge Zhan:	cosine
+01:52:34	Jinghang Feng:	cos
+01:52:34	Shulang Liu:	Cosine
+01:52:35	Mingyu Sheng:	cosine
+01:52:35	Joanna:	Days
+01:52:36	Haosen YIN:	cos
+01:52:37	Ka'Yil Shaw:	cosine function
+01:52:37	Xingshu Wang:	second one
+01:52:41	Junhao, Wang:	cosine
+01:52:42	Yuchen Liu:	cosine
+01:52:42	Xin Yang:	cos
+01:52:45	Youming Liu:	cosine
+01:52:46	Karthik Vemireddy:	cos
+01:52:50	Xinyue Hu:	cos
+01:52:52	Ping Zhang:	cos
+01:55:15	Feiyang Yu:	Overfitting = too many parameters too little data
+01:56:28	Qinyu Zhao:	Why don't we maximizing p(x, y | theta) or p(theta | x, y)?
+01:56:48	Karthik Vemireddy:	whaat is dimensional data exactly
+02:00:34	Liang Zheng:	Source-free image generation
+02:01:08	Zeyu Li:	what is theta exactly
+02:01:11	Rita Wang:	I guess dimensional data may refers to the input data [x11, x12, x13,…]  for an example X1, and x11,x12… may refers to the pixels in one image
+02:01:34	Rita Wang:	Theta may refers to the hyperparameters like weights or bias in neural network
+02:02:27	Karthik Vemireddy:	theta is a parameter
+02:02:38	Karthik Vemireddy:	it can be anything right?
+02:02:44	Rita Wang:	I guess maybe observing x and y is not realistic if the data is too much?
+02:03:41	Yuchen Liu:	generate train set based on the model itself?
+02:03:53	Yuchen Liu:	*identify
+02:03:53	Youming Liu:	i think theta is our model right？
+02:03:59	Xin Yang:	So it means the model as the parameter?
+02:04:37	Shulang Liu:	dataset sensitive
+02:04:46	Haosen YIN:	theta | x, y can be used for cyber security
+02:05:40	Karthik Vemireddy:	what is dimensional data?
+02:06:55	Luyang Tang:	P23, Q4 why (XT)*X is not invertible?
+02:07:15	Karthik Vemireddy:	oh got it
+02:08:30	Zeyu Li:	thx,got it
+02:10:12	Xin Yang:	For Y = X Theta, for the Theta in this equation should be always linear, while the input of X can be not linear. (e.g. x = cosx…) Is my understanding correct?
+02:13:39	Youming Liu:	got it
+02:14:04	Xin Yang:	I got it .
+02:14:53	Luyang Tang:	sorry I think I understand my question, thank you
+02:15:49	Xin Yang:	Based on Luyang’s question, could we use Pusedo Inverse if Inverse is not existed?
+02:16:27	Luyang Tang:	got it thank you! 0v0
+02:18:44	Xin Yang:	Thank you. I will try it ^ ^
+02:18:44	Luyang Tang:	I think XT*X is a square matrix, is the Pusedo Inverse used for non-square matrix?
+02:20:21	david:	The Psuedo-inverse is sometimes defined for non-square matricies. For example there is no psuedo-inverse of the zero matrix
+02:20:26	Xin Yang:	Thank you !
+02:20:44	Qinyu Zhao:	If rank(x^T x) < D, rank((x^T x)^T (x^T x)) = rand( (x^T x) (x^T x)) < rank(x^T x) < D
+02:20:44	Haosen YIN:	But why after transfomations of x, x are unchanged from your figures in the last few slides
+02:21:13	david:	The psuedo-inverse is defined whenever the inverse is defined, and they agre, so the psuedo-inverse is a generalisation of the inverse
+02:21:22	david:	*agree
+02:21:41	Haosen YIN:	Yes this slide
+02:21:43	Haosen YIN:	x unchanged
+02:23:11	Qinyu Zhao:	If rank(x^T x) < D (non=invertible), 
+rank((x^T x)^T (x^T x)) 
+= rand( (x^T x) (x^T x)) 
+<= rank(x^T x) < D
+Thus, we cannot use pseudo-inverse for x^T x. Is this correct?
+02:24:12	Haosen YIN:	Oh i see
+02:24:46	Haosen YIN:	Yes
+02:26:13	Haosen YIN:	Can you also go through again incremental learning, how to preserve old classifiers?
+02:26:26	Qinyu Zhao:	Thank you for your time!
+02:26:42	Xin Yang:	Thank you!
+02:26:47	Ka'Yil Shaw:	Thank you for staying back for so long
+02:26:59	Xinyue Hu:	Thanks!
+02:28:07	Haosen YIN:	How to learn from teachers?
+02:28:16	Haosen YIN:	Just feed new data?
+02:28:39	Yuchen Liu:	Thanks!

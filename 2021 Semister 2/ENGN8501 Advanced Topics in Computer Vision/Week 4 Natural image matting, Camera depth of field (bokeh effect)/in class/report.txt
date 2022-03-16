@@ -1,0 +1,15 @@
+[1. are the papers's contributions significant]
+
+[2. are the author's main claims valid]
+
+[3. limitation and weaknesses]
+Higher reselution
+need static background
+we require a static background and small camera motion
+our approach is specialized to foregrounds of (one or more) people. 
+
+[4. Extension and future work]
+
+[5. is the paper stimulation or inspiring]
+
+yes. can work with any background.and result is very good.

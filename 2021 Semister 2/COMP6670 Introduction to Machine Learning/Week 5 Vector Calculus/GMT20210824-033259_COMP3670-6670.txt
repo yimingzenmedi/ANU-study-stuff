@@ -1,0 +1,56 @@
+00:31:39	Kye-Li Tan:	yep!
+00:31:40	sonamtobgay:	yes
+00:31:41	Mingyu Sheng:	yes
+00:33:55	XIANGYU HUI:	we won't use Taylor series?
+00:34:02	XIANGYU HUI:	in ML?
+00:48:07	Qinyu Zhao:	n
+00:48:44	Kye-Li Tan:	sorry, can you go through how you got the h^i-1?
+00:49:14	Kye-Li Tan:	ohhh right okay!! I forgot about the h in the denominator thanks :D
+00:52:22	Xin Yang:	do we need PDE skills to solve this?
+00:55:20	XIANGYU HUI:	n is a hyperparameter?
+00:55:53	Mingrui Zhao:	I think so
+00:56:26	Yucheng Zhao:	f means the loss function?
+00:57:49	XIANGYU HUI:	what If the function is convex? does that mean our model is bad?
+00:58:41	Yucheng Zhao:	Is F the loss function?
+01:03:18	Aggie Zub:	what does the prime stand for? is that time step?
+01:04:14	Aggie Zub:	thanks
+01:07:40	Qinyu Zhao:	We can directly use the properties of limit in this course. Is that right?
+01:37:15	Xin Yang:	Why we use a 1x2 row for df/dx but 2x1 column for dx/dt?
+01:37:54	Xin Yang:	Just to make the df/dt can be defined in Matrix Multiplication?
+01:38:33	Mingrui Zhao:	I reckon its bc dim(grad)=num_func * num_variables
+01:39:26	Jeff Cheng:	Could you explain again why p x/ pt is of size 2x1?
+01:39:32	Xin Yang:	Cool. Thank you
+01:44:34	Shulang Liu:	what if xi has different number of variables
+01:45:22	Kye-Li Tan:	what's that number by the first R at the top (?)
+01:45:35	Shulang Liu:	yes. thanks david
+01:45:44	Kye-Li Tan:	oh so sorry I meant the second line
+01:46:12	Kye-Li Tan:	okay! thank you :D
+01:46:15	Jeff Cheng:	What if xi : R^n -> R^m m>1?
+01:47:09	Jeff Cheng:	yes, thanks.
+01:50:46	Haosen YIN:	Can you go through again x1 has differnt numer of variables?
+01:58:54	Qinyu Zhao:	Did you mean Kronecker Delta?
+01:58:58	Ning Lai:	thanks David
+01:59:04	John (MinJae) Kim:	Thank you david
+01:59:10	Jared Piuh:	thank you
+01:59:15	Siya Yan:	thanks
+01:59:18	Yuqing Li:	than you
+01:59:24	Jin Gao:	thanks
+01:59:27	Jack Kennedy:	Thanks!
+01:59:31	Linda Kwan:	Thank you!
+02:00:48	Mingrui Zhao:	to apply the differentiation equation to vector input, how does the division in vector h work?
+02:02:34	Yuchen Liu:	Any exercies (like assignment 1) to today's lecture for practice? Thanks!
+02:03:52	Qinyu Zhao:	Thank you
+02:03:54	Kye-Li Tan:	thanks!
+02:03:55	Mingrui Zhao:	do we have to write out the element-wise differentiation in assignment 2, too?
+02:04:08	wzb:	thanks
+02:04:11	Xin Yang:	Thank you
+02:04:27	Yucheng Zhao:	What does 'first order' partial derivative mean?
+02:05:02	Mingrui Zhao:	thank you!
+02:05:59	Haosen YIN:	If we do numerical guess often in ML instead of calcualting the gradients why do we practice lots of math here lol?
+02:05:59	Yucheng Zhao:	Oh I got it thanks
+02:06:21	Xin Yang:	so partial derivation and gradient are both a linear mapping?
+02:07:35	Xin Yang:	Linear is good. We love linear
+02:08:23	Xin Yang:	Thank you
+02:08:34	Karthik Vemireddy:	Thanks david
+02:08:36	Yuchen Liu:	When is the next lec
+02:08:44	Yuchen Liu:	Thanks

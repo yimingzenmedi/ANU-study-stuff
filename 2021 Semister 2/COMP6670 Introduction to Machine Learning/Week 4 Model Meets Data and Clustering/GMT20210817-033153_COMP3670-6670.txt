@@ -1,0 +1,331 @@
+00:51:12	Qinyu Zhao:	I suppose X*theta is linear. How could it fit a curve when lambda = 0?
+00:52:12	Qinyu Zhao:	Thank you!
+00:52:29	Xin Yang:	e.g theta1 x^3 + theta2 x^2 + theta3 x, so if we want the simpler function, we will give theta1 more penalty?
+00:54:12	Xin Yang:	Thank you
+00:54:19	Qinyu Zhao:	I’m wondering how to find the best value of lambda. It’s a empirical choice?
+00:54:58	Qinyu Zhao:	Thank you! I see
+00:56:03	Leiber Baoqian LYU:	What is dev set?
+00:56:07	Jiawei(Kevin) Li:	same question
+00:56:36	Ning Lai:	Development ?
+00:56:37	Qinyu Zhao:	Maybe you mean development set?
+00:56:47	Leiber Baoqian LYU:	train/dev/test
+00:57:33	Leiber Baoqian LYU:	https://blog.csdn.net/luoying_1993/article/details/87178165
+00:57:51	Qinyu Zhao:	I found it! Validation set is also called dev set. https://en.wikipedia.org/wiki/Training,_validation,_and_test_sets
+00:58:53	Jiawei(Kevin) Li:	So in this case, we need to repeat 5 times training?
+00:59:05	william:	Is there any assumption when we split the set? do they need to have the same distribution?
+00:59:40	Surya Teja:	normally 80% training and 20% test set
+00:59:54	Jiaan Guo:	so which mdoel to choose from those five models?
+01:04:03	Harry Jordan:	Does the gains from cross validation and more data overlap? ie, some of the benefits of cross validation goes away if you get more data?
+01:04:14	Jin Gao:	true
+01:04:14	Jeff Cheng:	False
+01:04:14	Youming Liu:	no
+01:04:14	Kye-Li Tan:	true I think
+01:04:15	Yuchen Liu:	T
+01:04:15	Rui Lu:	true
+01:04:15	Jiawei(Kevin) Li:	t
+01:04:16	ping:	y
+01:04:16	Siya Yan:	t
+01:04:16	Qinyu Zhao:	True
+01:04:16	Yuqing Li:	ture
+01:04:17	Tianchen Gan:	f
+01:04:18	Xiangyu Chen:	false
+01:04:19	Lei Zhang:	f
+01:04:19	Chengyu Zhang:	t
+01:04:19	Karly W:	true
+01:04:21	Yifeng Huang:	True
+01:04:21	Brian:	T
+01:04:21	william:	T
+01:04:22	Hao Lu:	true
+01:04:23	Ding Khoo:	T
+01:04:23	Mengfan Yan:	true
+01:04:23	Linda Kwan:	t
+01:04:25	Lucas Hempton:	Probably
+01:04:25	Harry Jordan:	Most of the time, could get lucky
+01:04:25	Mingyu Sheng:	F
+01:04:26	Jiawei(Kevin) Li:	it depends
+01:04:30	Jiayi Shen:	t
+01:04:36	Shulang Liu:	Depends
+01:04:42	Ka'Yil Shaw:	depends
+01:05:04	Hamzah:	false
+01:05:05	Yuchen Liu:	F
+01:05:05	Jinwu wang:	Flase
+01:05:06	Jinghang Feng:	F
+01:05:06	Kye-Li Tan:	depends
+01:05:06	Jin Gao:	false
+01:05:06	Jeff Cheng:	False
+01:05:07	Shulang Liu:	F
+01:05:07	Yanghaolin:	f
+01:05:08	Harry Jordan:	False
+01:05:08	Yuqing Li:	false
+01:05:09	Xin Yang:	FFF
+01:05:09	Karly W:	f
+01:05:09	ping:	f
+01:05:10	Ka'Yil Shaw:	false
+01:05:10	Siya Yan:	f
+01:05:10	william:	F
+01:05:10	Yifan Wang:	f
+01:05:11	Yifeng Huang:	N
+01:05:11	Linda Kwan:	f
+01:05:11	Ding Khoo:	F
+01:05:11	Yue julia:	f
+01:05:12	Kye-Li Tan:	wait false
+01:05:12	David Sun:	f
+01:05:13	Mengfan Yan:	f
+01:05:13	Rui Lu:	f
+01:05:13	Yifeng Huang:	F
+01:05:13	Chengyu Zhang:	f
+01:05:14	Jiawei(Kevin) Li:	f
+01:05:14	Yanjun Liu:	false
+01:05:16	Guoqing Xiong:	f
+01:05:17	Karthik Vemireddy:	f
+01:05:18	Jialiang Chen:	f
+01:05:19	Ziye Guo:	f
+01:05:19	Xiangyu Chen:	false
+01:05:22	Lucas Hempton:	Not true by definition right
+01:05:50	Karthik Vemireddy:	t
+01:05:50	Qinyu Zhao:	true
+01:05:51	Jeff Cheng:	True
+01:05:51	Mengfan Yan:	t
+01:05:51	Chengyu Zhang:	t
+01:05:51	Jinwu wang:	True
+01:05:51	Yanghaolin:	t
+01:05:52	Karly W:	t
+01:05:52	william:	T
+01:05:52	Hamzah:	true
+01:05:52	Ka'Yil Shaw:	true
+01:05:52	Ding Khoo:	T
+01:05:53	ping:	t
+01:05:53	Jialiang Chen:	t
+01:05:54	Jinghang Feng:	T
+01:05:54	Rui Lu:	t
+01:05:54	Xin Yang:	t
+01:05:54	Kye-Li Tan:	true
+01:05:54	Yifan Wang:	t
+01:05:54	Jin Gao:	true
+01:05:55	Yuqing Li:	true
+01:05:55	Xin Yang:	t
+01:05:55	Xiangyu Chen:	t
+01:05:55	Hao Lu:	true
+01:05:56	Tianchen Gan:	t
+01:05:56	Siya Yan:	t
+01:05:56	Yuchen Liu:	T
+01:05:56	Ning Lai:	T
+01:05:57	Ziye Guo:	t
+01:05:57	Yue julia:	t
+01:05:57	Zichen Zhang:	true
+01:05:57	nn:	t
+01:05:57	Shulang Liu:	T
+01:05:57	Yifeng Huang:	T
+01:05:57	Haoyang Zhang:	t
+01:06:00	Xinyue Hu:	T
+01:06:02	Lihong Zhang:	true
+01:06:12	ping:	t
+01:06:12	Ning Lai:	F
+01:06:13	Xin Yang:	f
+01:06:13	Shulang Liu:	T
+01:06:13	Yuqing Li:	true
+01:06:14	Hamzah:	false
+01:06:15	Karly W:	f
+01:06:15	Lei Zhang:	f
+01:06:15	Mengfan Yan:	t
+01:06:15	Harry Jordan:	False
+01:06:15	Jinghang Feng:	F
+01:06:16	Jin Gao:	False
+01:06:16	Yifeng Huang:	F
+01:06:16	Qinyu Zhao:	false
+01:06:16	Ding Khoo:	f
+01:06:17	Hengtong Wu:	t
+01:06:17	nn:	f
+01:06:17	Ziye Guo:	f
+01:06:17	Kye-Li Tan:	false(?)
+01:06:19	Linda Kwan:	f
+01:06:19	Yuchen Liu:	F
+01:06:19	Ka'Yil Shaw:	false
+01:06:19	Zichen Zhang:	false
+01:06:19	Jiaan Guo:	f
+01:06:19	Yue julia:	f
+01:06:20	william:	F
+01:06:20	Xinyue Hu:	T
+01:06:21	Youming Liu:	f
+01:06:21	Ziye Guo:	？
+01:06:21	Karthik Vemireddy:	f
+01:06:21	Chengyu Zhang:	f
+01:06:22	Siya Yan:	f
+01:06:22	Rui Lu:	f
+01:06:23	Hao Lu:	false
+01:06:24	Yanghaolin:	f
+01:06:25	Jialiang Chen:	t
+01:06:26	Jinwu wang:	f
+01:06:26	Lihong Zhang:	false
+01:06:31	Xiangyu Chen:	f
+01:06:58	Jeff Cheng:	true
+01:06:59	Yuchen Liu:	T
+01:06:59	Kye-Li Tan:	t
+01:07:00	Ning Lai:	T
+01:07:00	Guoqing Xiong:	t
+01:07:01	Yuqing Li:	true
+01:07:01	Siya Yan:	T
+01:07:01	Chengyu Zhang:	t
+01:07:01	Jiayi Shen:	t
+01:07:02	Ka'Yil Shaw:	true
+01:07:02	Jialiang Chen:	t
+01:07:02	Mengfan Yan:	t
+01:07:03	Robert Ohms:	F
+01:07:03	Yanghaolin:	t
+01:07:03	Xingshu Wang:	true
+01:07:04	Hengtong Wu:	t
+01:07:05	Mingyu Sheng:	T
+01:07:05	Jiawei(Kevin) Li:	y
+01:07:05	Youming Liu:	t
+01:07:06	william:	T
+01:07:08	Ziye Guo:	t
+01:07:10	Xiangyu Chen:	t
+01:07:14	Zichen Zhang:	true
+01:07:15	Linda Kwan:	t
+01:07:44	Yuchen Liu:	T
+01:07:46	Jeff Cheng:	True
+01:07:47	John (Min Jae) Kim:	t
+01:07:47	Jiawei(Kevin) Li:	t
+01:07:47	Mengfan Yan:	t
+01:07:48	Siya Yan:	t
+01:07:48	Chengyu Zhang:	t
+01:07:48	Karly W:	t
+01:07:48	Jin Gao:	true
+01:07:48	Ka'Yil Shaw:	t
+01:07:49	Youming Liu:	t
+01:07:49	Shulang Liu:	TT
+01:07:50	Ding Khoo:	t
+01:07:50	Guoqing Xiong:	true
+01:07:51	Qinyu Zhao:	True
+01:07:51	Hengtong Wu:	t
+01:07:51	Yuqing Li:	t
+01:07:51	Xin Yang:	t
+01:07:52	Xinyue Hu:	T
+01:07:52	Mingyu Sheng:	T
+01:07:52	Kye-Li Tan:	t(?)
+01:07:53	Xiangyu Chen:	t
+01:07:53	Zichen Zhang:	t
+01:07:53	Wayne:	t
+01:07:53	Xingshu Wang:	true
+01:07:54	Jiayi Shen:	t
+01:07:54	Linda Kwan:	t
+01:07:56	Jiaan Guo:	false
+01:07:56	Jialiang Chen:	t
+01:07:57	Karthik Vemireddy:	t
+01:07:57	william:	T
+01:07:58	Lei Zhang:	t
+01:08:01	Joanna:	t
+01:08:40	Haosen YIN:	2-fold is 1 test set and 1 validaiton set?
+01:08:53	Jiaan Guo:	for the last one, the test set shoould be validation set?
+01:09:40	Haosen YIN:	3-fold is 2 test set and 1 validation set?
+01:10:57	Yi Zhang:	？？
+01:11:02	Qinyu Zhao:	You can mute others, David
+01:11:02	Yupeng Chao:	？
+01:11:06	Yi Zhang:	Someone s mic is on hhh
+01:11:06	Zichen Zhang:	？
+01:11:09	Mingda Song:	?
+01:11:15	Yuchen Liu:	LOL
+01:11:27	Alex Wu:	this guy is odering his luch....................
+01:11:35	Yuxin Hong:	lol
+01:11:37	Chunjie Liu:	lol
+01:11:46	Kye-Li Tan:	www
+01:12:33	Guoqing Xiong:	lol
+01:12:36	Mingda Song:	?
+01:12:48	Jinghang Feng:	？
+01:12:50	Yupeng Chao:	?
+01:12:53	Brian:	???
+01:12:55	Yupeng Chao:	wtf
+01:12:58	Harry Jordan:	he needs to be super muted
+01:13:04	manasprasad:	Bruh
+01:13:08	Tony:	sudo mute
+01:13:12	Yi Zhang:	I think he s using his earphone’s mic
+01:13:13	Alex Wu:	David you can mute this guy
+01:13:43	Mingda Song:	pip install mutethisgay
+01:13:50	Yi Zhang:	Every time he tries to talk over phone the zoom s mic s automatically turned on
+01:17:13	Jeff Cheng:	Do people usually use clustering to process data which can be used later for supervised learning ?
+01:19:02	Yupeng Chao:	will the model be better even though with less para?
+01:20:27	Jiaan Guo:	can this method helps with overfitting?
+01:21:19	Yupeng Chao:	how can we determine m, by our computation ability need?
+01:21:47	Karthik Vemireddy:	can clustering be used for image compression and stuff?
+01:22:11	Qinyu Zhao:	Can unsupervised learning also overfit the data? Learn some features from noise or something else
+01:23:45	Yupeng Chao:	what kind of length do we use?
+01:25:08	Qinyu Zhao:	How to determine the K? We can see there are 3 clusters in the figure because there are 2 dimensions. If the data are high-dimensional, I feel it’s hard to find the k.
+01:25:48	Yuchen Liu:	maybe the K is so called hyperparameter
+01:25:50	Qinyu Zhao:	Thank you!
+01:25:57	Harry Jordan:	I spend so long in the 2420 assignment figuring out the best k
+01:26:10	Karthik Vemireddy:	do we using gaussian difference to find similarity between elements?
+01:26:15	Kirat Alreja u7119530:	Aye 2420
+01:28:52	Jeff Cheng:	What if the point lies between boundaries?
+01:32:29	Yuchen Liu:	How to chose from euclidean distance and cosine similarity? Depends on the certain problem?
+01:34:18	Yuchen Liu:	Thanks
+01:40:21	Qinyu Zhao:	What if I set k = the number of samples? Then every single point is a cluster, so the loss will be 0! Does that mean optimal clustering?
+01:40:42	Yuchen Liu:	Overfitting?
+01:40:48	Surya Teja:	Hi David can you go a bit slow :)
+01:41:03	Kirat Alreja u7119530:	Agreed Surya
+01:41:21	Qinyu Zhao:	Thank you
+01:41:47	Kirat Alreja u7119530:	Can you please explain the 2nd equation in “where” again, thank you
+01:42:45	Qinyu Zhao:	It seems that there are many 0’s in the R and the equation. Is that good? Could we make it simpler?
+01:44:03	Jiaan Guo:	what is the m matrix in this case?
+01:44:18	Luyang Tang:	So the matrix R only have one 1 each row, right? Can some rows have no 1 but only 0?
+01:44:58	Chunjie Liu:	no, cuz each data point has to be in a cluster
+01:45:02	Jeff Cheng:	Isn't that we want data in different clusters to be far from each other?
+01:45:54	Jeff Cheng:	and close to each other if they are in the same cluster
+01:46:02	Karthik Vemireddy:	So its taking the summation of differences between each element with the centroid/rep element in all clusters and we have to make sure this sum is as low as possible (obviously without overfitting)
+01:46:17	Yuchen Liu:	Is there any way to evaluate the two clustering methods? Now we calculating the distance from each point to its clustering center, can we also consider the distance between different clusters?
+01:47:24	Hamzah:	But R can have columns of all 0s right? Because we are allowed to have clusters with no data points? How would this affect the formula?
+01:48:00	Harry Jordan:	Doesn't each cluster have to be defined by a centroid or equivalent? or no?
+01:48:38	Harry Jordan:	Yep
+01:49:13	Karthik Vemireddy:	I feel like if we are taking origin into consideration distance is better than cosine similarity I guess
+01:59:01	Yuchen Liu:	When to stop when using K-Means?
+01:59:24	Zhengyang Yu:	when every point is perfectly clustered
+01:59:30	Qinyu Zhao:	If we choose different initial centers, will the results be different accordingly?
+01:59:51	Yuchen Liu:	consider the noise it may not really STOP at the end?
+02:00:17	william:	what if a point has equal distance between both of the representives?
+02:00:51	Yuchen Liu:	Seems K-Means dont need to consider the overfitting situation?
+02:01:39	Yuchen Liu:	Oh i see. Thanks!
+02:05:29	Jack Kennedy:	Thanks!
+02:05:29	Haoyang Zhang:	how to prevent achieving local optimal when using Kmeans?
+02:05:33	Kye-Li Tan:	thanks so much!!
+02:05:35	Brian:	thanks~
+02:05:40	Ruiyang Meng:	Thanks
+02:05:40	Karly W:	Thanks!
+02:05:40	Jiawei(Kevin) Li:	thanks~
+02:05:41	william:	Thanks!
+02:05:41	Chaoran:	Thanks
+02:05:42	Yupeng Chao:	thx
+02:05:43	Mingda Song:	thanks
+02:05:43	Lo-Hsuan Lin:	Thanks!
+02:05:44	Yuchen Liu:	Thanks~~
+02:05:44	Harry Jordan:	Thanks David
+02:05:45	Ahmad Zahir Rabbani:	thank you
+02:05:46	Ka'Yil Shaw:	thank you
+02:05:46	Yuqing Li:	thx!
+02:05:46	Shulang Liu:	Thanks David
+02:05:48	Ning Lai:	thx
+02:05:50	Linda Kwan:	Thank you!
+02:06:01	Yanjun Liu:	On the optimization algorithm page, should be j belong to {1,...,K}, and u_j, r_nj in the formula of part b?
+02:06:44	Haoyang Zhang:	maybe use different start points to do kmeans many times will prevent local optimal?
+02:07:22	Yanjun Liu:	yap
+02:07:27	Yiran Wang:	after we find the average of the error after cross validation, what should we do next?
+02:08:42	Yiran Wang:	we use validation to find hyper-parameters or parameters?
+02:08:53	Ding Khoo:	For cross validation, you mentioned that we can get the final model by averaging the models in each K-fold. Does this mean that if I have a linear equation y = ax + b, I take the mean of slope as the final slope and mean of intercept as the final intercept?
+02:10:38	Ding Khoo:	So there is no explicit form of the final model?
+02:10:52	Yiran Wang:	do we need to use test sets to ensure the model is good enough?
+02:11:05	Ding Khoo:	Thank you!
+02:11:20	Jiayi Shen:	Which part of the textbook is related to today’s lesson?
+02:11:31	Yiran Wang:	but validation sets are also checking the quality of the model
+02:11:31	Lei Zhang:	Thanks David!
+02:11:39	Haosen YIN:	Can you go through regularation again?
+02:12:17	Haosen YIN:	Yes
+02:12:21	Haosen YIN:	This slide
+02:12:21	Qinyu Zhao:	Is that a drawback of cross validation, because we have k models to store and use? After finding the optimal hyper-pam by using Cross Validation, Could we train a final model based on the whole train set without cross validation?
+02:14:27	Haosen YIN:	Yes
+02:15:09	Qinyu Zhao:	Thank you
+02:15:15	Yiran Wang:	but cross validation may also find the parameters of the model like what you have mentioned before, therefore we could not find to new model
+02:15:52	Yiran Wang:	so validation is all about hyper parameters?
+02:16:41	Yiran Wang:	thx
+02:16:50	ping:	what situation we should  use big lambda?
+02:17:36	ping:	thx
+02:17:56	Qinyu Zhao:	Thank you!
+02:17:56	Yuchen Liu:	THANKS
+02:18:02	Lei Zhang:	thanks david

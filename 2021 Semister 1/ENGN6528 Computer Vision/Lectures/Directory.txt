@@ -1,0 +1,6 @@
+Week 1:	Basic image representation
+Week 2:	Basic image process
+Week 3:	Image filtering: Gaussian, Sharpening, Derivative filters and others
+Week 4:	Binary image, openning, closing, ...
+	Line fitting, Corner extraction, LoG, Sobel, Canny, Total least squares, Robust M-estimator, RANSAC, Hough Transform, Feature Extraction, Harris,
+Week 5: 	SIFT, Kmeans, Mean-Shift, Face, Template matching, Dimensionality reduction, eigenfaces, PCA, FLD

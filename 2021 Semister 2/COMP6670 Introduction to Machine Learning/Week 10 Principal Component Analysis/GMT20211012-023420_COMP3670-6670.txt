@@ -1,0 +1,90 @@
+00:36:16	XIANGYU HUI:	So we will initialize same number of clusters as target set?
+00:37:31	david:	PCA isn't quite clustering, it's moving all the points to obtain a lower0dimensional set, while ensuring the error introduced is minimal
+00:38:05	Harry Jordan:	Sydney house data probably
+00:38:05	XIANGYU HUI:	Oh I mean the domain research at the beginning.
+00:38:27	Sam O'Brien:	Is PCS a way of essentially reducing the size of data? do we need that for A4T1.2?
+00:39:20	david:	It reduces not the number of data points, but the dimension of the space in which they reside. It's used to ignore irrelevent features, and focus on only the dimensions what are information, to speed up training
+00:39:53	XIANGYU HUI:	like first PCA then GMM?
+00:41:36	Harry Jordan:	Does this rely on the data being linear? if all the houses didn't have the same price and area would it work?
+00:42:37	XIANGYU HUI:	Oh same question, But I guess it could be not that linear, tolerate some information loss.
+00:44:13	XIANGYU HUI:	I think we want to find a really good coordinate(a sub-basis) which will cause least loss?
+00:46:20	Harry Jordan:	Yes that makes sense
+00:52:31	XIANGYU HUI:	in this case, z=3?
+00:55:37	Qinyu Zhao:	“Maximum variance represents the most information”, Is it an assumption or statistical theory?
+00:58:33	david:	it's a bit complicated, but it comes from statistics, you can define the mean squared error of an unbiased estimator of a paramter as the variance of that paramter, and then the Cramer-Rao bound gives you bounds on the variance in terms of the Fisher information. It's a lot of stats stuff that we don't cover in this course, but that's where it comes from
+00:59:00	Qinyu Zhao:	Thank you so much!!
+00:59:20	david:	long story short: it's not an assumption, but backed up by stats theory that would take an entire course (several in fact!) to cover
+00:59:26	Ke Ning:	what is the concreted data?
+00:59:57	Ke Ning:	sry... what is the centered data....
+01:00:12	Jiaan GUO:	mean = 0
+01:00:17	david:	subtract out the mean
+01:00:19	Ke Ning:	Thx!
+01:00:39	Xin Yang:	what does B.T here mean?
+01:00:52	Qinyu Zhao:	Now that we define z = B^Tx.. could we derictly write V(z) = V(B^Tx).. Why not?
+01:01:37	JiajieLi:	show that centering will not change the variance?
+01:01:40	Xin Yang:	Ooo ! I get it.
+01:08:12	Qinyu Zhao:	Thanks, Jiajie!
+01:24:36	Qinyu Zhao:	How to make sure S has real eigenvalues? What if it has not?
+01:25:17	Qinyu Zhao:	Oh! S is real symmetric?
+01:25:25	Ning Lai:	I think so
+01:25:27	JiajieLi:	is covariance matrix always be positive definite matrix?
+01:25:37	Qinyu Zhao:	Thank you!
+01:26:21	Zeyu Zhang:	positive semi-definite matrix I think
+01:26:53	Xinyue Hu:	What's the meaning of Lagrangain?
+01:27:04	Hoa Nguyen:	I think semi-definite only when the variance is zero or matrix X is not full-ranked
+01:27:50	JiajieLi:	thanks!
+01:30:24	Mingrui Zhao:	S:= 1/N sum xx_T should always be positive semi-definition tho, as xx_T is positive definite
+01:30:35	Mingrui Zhao:	*semi-definite
+01:31:47	david:	@Xinyue Hu 
+A Lagrangian multiplier is a method for finidng maxima of multi-dimensional functions subject to constraints. We don't cover it in this course,but wikipedia describes it pretty well if you're interested https://en.wikipedia.org/wiki/Lagrange_multiplier
+01:34:54	Xinyue Hu:	Thank you! David
+01:37:09	Qinyu Zhao:	Do we need to use elbow method to determine the number of components? Why we choose 784…I’m confused.
+01:37:46	david:	Number of components is unfortunately a hyperparamter, so yeah you'll have to use something like an elbow method if you're not sure ahead of tiem how many components you want to keep
+01:38:14	Qinyu Zhao:	In Figure (a), I feel it’s very hard to tell which number is the best…
+01:38:18	Yuchen Liu:	28 * 28 = 784
+01:38:34	Qinyu Zhao:	@Yuchen, Got it!
+01:38:38	Ding Jie Khoo:	If I recall PCA also requires us to scale the data so that it has variance 1 (aside from centering it to have mean 0). Is this point missed out in the lecture?
+01:38:39	Xin Yang:	So it means we just need to select the most several biggest Eigenvalue to explain our data?
+01:39:33	Hoa Nguyen:	I may not go beyond index 25
+01:39:43	Hoa Nguyen:	based on the graph on the left
+01:40:04	Xin Yang:	Cool!
+01:40:09	Ning Lai:	I think PCA do not need the variance to be 1? ( I never heard that before lol )
+01:42:09	Hoa Nguyen:	Not sure I understand how to find the optimal M here
+01:42:57	Ding Jie Khoo:	https://stats.stackexchange.com/questions/385775/normalizing-vs-scaling-before-pca/385782
+01:43:28	Hoa Nguyen:	Thanks @Khoo
+01:43:55	Ding Jie Khoo:	Oh no, this is not related to your question @Hoa
+01:44:09	Ding Jie Khoo:	Sorry
+01:44:27	Hoa Nguyen:	No worries, @Khoo. The link you sent is very interesting
+01:44:50	Ning Lai:	I get that, thanks Khoo!
+01:51:46	Harry Jordan:	Thanks Liang
+01:51:55	Hoa Nguyen:	Thanks Liang
+01:51:56	Ning Lai:	Thank you !
+01:51:57	Kye-Li Tan:	thanks!
+01:52:03	Yi Zhang:	tahnks
+01:52:11	Qinyu Zhao:	I have question about Page 6. For example, x1 represents salary while x2 represents the height of a person. Although the variance of x2 is small (let’s say 10^2) and the variance of x1 is large (100^2), 100 in salary is in fact small (intuitively) while 10 cm in height is very big. How to fix this problem?
+01:52:14	Hoa Nguyen:	Thanks Liang
+01:53:47	Hoa Nguyen:	I have a question on pg. 16 — how can we choose the number of largest eigen values? From the graph it looks like the curve bends around 20. Is it the best?
+01:54:00	Luyang Tang:	Can we use the regression method? I think the regression can also do a projection of data points from higher dimension to lower dimension. Is there big differences between PCA and regression?
+01:54:32	Qinyu Zhao:	Thank you!!!
+01:55:13	Qinyu Zhao:	If we use PCA {x1, x2, x3} -> {z1, z2}. x1, x2,and x3 have real-life meaning. Maybe x1 represents height, x2 represents salary. But z1 and z2 are components. Will it be a problem? I feel it’s hard to understand the new dataset
+01:55:36	Hoa Nguyen:	the function is concave
+01:55:39	Ning Lai:	As Khoo mention before, should we scale the data so that it has variance 1 ? ( aside from centering it to have mean 0)  Is it the same as you mention just now that we should normalize the data?
+01:56:57	Hoa Nguyen:	is 95% the rule of thumb?
+01:57:51	Hoa Nguyen:	Thanks!
+01:59:39	Luyang Tang:	Thank you very much!
+01:59:50	Yuchen Liu:	@Qingyu Since PCA used SVD seems like a black-box method just tell you how to find max variance from different component but does not offer actural meaning of output?
+02:04:05	Qinyu Zhao:	Thank you Yuchen!
+02:05:26	Qinyu Zhao:	About Ning’s question.. If we normalize our data, then the variance is always 1. So only covariance has a effect on the results?
+02:09:59	Men Junyi:	Variance can be seen as information contained? Larger variance means this direction contain more information?
+02:10:22	Men Junyi:	Thanks
+02:11:39	Xin Yang:	Based on Maximum Variance Perspective, do we only recognize each dimension as single factor but ignore their interaction?
+02:11:50	Qinyu Zhao:	Just imagination… Could we add the label in PCA? The PCA here doesn’t care about the labels. Maybe we want to know the most information to distinguish two classes of data
+02:12:02	Xin Yang:	Like x1 and x2’s interaction
+02:13:43	Xin Yang:	Thank you!
+02:15:11	Qinyu Zhao:	🤣No worries. I will google it
+02:15:12	Haosen YIN:	S can be the direction of data right?
+02:15:15	Qinyu Zhao:	Thank you!
+02:15:29	Haosen YIN:	Caputures the data direction
+02:16:39	Ning Lai:	thank you Liang!
+02:16:45	Qinyu Zhao:	Thank you for your time
+02:17:07	Ning Lai:	bye

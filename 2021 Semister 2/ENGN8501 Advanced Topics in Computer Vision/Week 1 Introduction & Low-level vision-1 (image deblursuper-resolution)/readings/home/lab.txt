@@ -1,0 +1,26 @@
+Deep Convolutional Neural Network for Image Deconvolution
+
+
+[1. Are the contributions significant?]
+Yes. instead of using generate model.
+
+[2. Are the main claims valid?]
+
+
+[3. Limitations and weaknesses]
+1. The network is difficult to train as a whole - Not end to end
+
+[4. Extension and future work]
+Still has some noise.
+
+[5. Is the paper stimulating or inspiring?]
+Yes. It improved the result much and have a better performance on the noise.
+
+[6. Conclusion and personal reflection]
+used CNN to improve the process and get a better result.
+Transfor the large 2D convolution into two 1D convolutions (SVD).
+
+
+
+Q: What will happen if we directly apply the known kernel?
+The result will not be so good. The target is to calculate a kernel to make it better.

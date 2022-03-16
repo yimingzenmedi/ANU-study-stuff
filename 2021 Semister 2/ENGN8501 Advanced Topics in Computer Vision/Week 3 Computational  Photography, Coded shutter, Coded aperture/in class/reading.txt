@@ -1,0 +1,12 @@
+【disadvantage】
+
+1. （对于当前的设备）需要插片，或需要特殊设计的设备。
+2. 需要图片中具有纹理，纹理不足时需要人工干预。
+3. 会影响光圈的大小，在拍摄时可能会对环境有限制（需要更强的光线）。
+4. requires an exact calibration of the blur filter over depth values，需要存储对焦点信息。
+
+
+【advantage】
+
+1. 只要拍一张照片
+2. 允许同时恢复高分辨率的图像信息和半自动提取图像分层深度表示的深度信息。

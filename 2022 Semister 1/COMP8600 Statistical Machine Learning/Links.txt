@@ -1,0 +1,14 @@
+[Microsoft Stream]
+https://web.microsoftstream.com/channel/546c94fb-fb55-416e-822b-e71e17ef7891
+
+[Gradescope]
+http://gradescope.com
+
+[Piazza]
+https://piazza.com/class/kx6v4tv3f7h3u4
+
+[Course Website]
+https://cm.cecs.anu.edu.au/sml2022/
+
+[Resources]
+https://piazza.com/anu.edu.au/spring2022/comp4670comp8600/resources

@@ -1,0 +1,68 @@
+00:54:10	Harry Jordan:	It's best to expand along a column or row with the most 0s right?
+00:54:37	Qinyu Zhao:	Agree with you
+00:57:06	Yupeng Chao:	so we can also do it on the second row and second column?
+00:58:39	david:	sure
+00:59:01	Yupeng Chao:	ok, thanks
+01:14:34	Qinyu Zhao:	Do we assume that we left-multiply a matrix?
+01:18:23	Mingrui Zhao:	coordinates are 2*1 matrix so it would not make sense to right multiply a 2*2 matrix
+01:27:26	Qinyu Zhao:	Oh! I see!
+01:27:40	Qinyu Zhao:	Thank you
+01:33:06	Aggie Zub:	What is the definition of rank and how do we work it out?
+01:33:09	G6-Youming Liu:	here，|A| = 入 ？
+01:34:21	david:	I think you're mixing up determinates and eigenvalues
+01:34:48	david:	 λ is an eigenvalue of the matrix A iff there exists non-zero vector v such that Av= λv
+01:35:16	G6-Youming Liu:	thanks
+01:37:06	Karthik:	max multiplicity is equal to dim of the matrix?
+01:39:24	Qinyu Zhao:	I suppose the sum of algebraic multiplicity is equal to that
+01:40:49	david:	yep, mutiplicity cannot exceed the dimension
+01:41:11	Karthik:	thnx
+01:41:54	XIANGYU HUI:	eigenvector should be standard basis vector?
+01:44:13	david:	Not nessecarilly 
+01:45:39	XIANGYU HUI:	thx~
+01:48:15	Rita Xuyang Wang:	How to understand the “span”?
+01:49:34	Ke Ning:	record
+01:50:27	david:	span(v1,...,vn) is the set of all vectors that can be written as a linear comination c1v1 + ... cnvn
+01:51:59	Rita Xuyang Wang:	So if there’s only one vector in the span, such as span([1,0]), then the vector space are the vector of c1*[1,0] ?
+01:53:15	Qinyu Zhao:	Could an invertible matrix be defective?
+01:53:44	Mingrui Zhao:	identity matrix
+01:53:50	Linda Kwan:	What is the difference between algebraic multiplicity and geometric multiplicity?
+01:55:45	Mingrui Zhao:	In is not defective my bad
+01:56:15	XIANGYU HUI:	I think we need declare x !=0 here
+01:57:28	Joanna:	Do we only consider A as square matrix?
+02:00:10	XIANGYU HUI:	which means we count the multiplicity here?
+02:00:16	Qinyu Zhao:	Could an invertible matrix be defective?
+02:00:25	david:	Yes, we can only talk about eigenvalues for a square matrix
+02:00:40	david:	otherise, Av =  λv willnever hold, as the first and second v will be of different dimensions
+02:01:51	Joanna:	on slide 18, is there a typo for Theorem, should A belongs to R (n*n)?
+02:02:43	Yuchen Liu:	when will the record of today's lecture avaliable on echo 360?
+02:02:47	david:	what does defective mean?
+02:02:51	david:	oh
+02:03:07	Qinyu Zhao:	Could we use eigenvectors in Deep learning or other algorithms?  Or it’s a matter of Math? Could you give some application examples?
+02:03:11	david:	Since every vector is an eigenvector of the identity, it is not defiective
+02:03:19	david:	applications: PCA
+02:03:53	Qinyu Zhao:	Oh! Thank you! But I don’t know PCA🤣
+02:04:09	Qinyu Zhao:	I will google it
+02:06:02	XIANGYU HUI:	the last therom
+02:06:32	XIANGYU HUI:	I find we get the lambda via solving the polynomial equation, but I think we cant solve the equation when the degree is high (like greater than x^5)?how to get the lambda in this way?
+02:06:38	Qinyu Zhao:	I’m still confused about “invertible” vs. “defective”. If a matrix is invertible, it has a full rank…But it could be defective, that means its eigenspace is not full ranked.. Amazing
+02:07:57	Ding Jie Khoo:	I think he turned his speaker off
+02:08:23	Joanna:	slide 19
+02:08:40	david:	@Qinya you could imagine a rotation matrix, which is invertible (as you can always rotate backwards), but it has no (real) eigenvalues at all
+02:08:47	david:	as no vector is scaled by a rotation
+02:08:49	Qinyu Zhao:	Professor Liang, some students are speaking…I think you may turned his speaker off
+02:09:05	Qinyu Zhao:	@David， thank you! I will try!
+02:12:50	Joanna:	I mean the Theorem after the definition of "defective"
+02:14:45	david:	intertible doesn't imply defective
+02:14:49	david:	defective doesn't imply invertible
+02:14:55	Luyang Tang:	What if the characteristic polynomial is something like (lambda + 1)^2 + 1 = 0, there is only imaginary solution of lambda?
+02:15:54	Qinyu Zhao:	I agree! Page 18, the matrix A is invertible but also defective
+02:16:17	Joanna:	I'm speaking, but  you couldn't hear me
+02:16:42	Qinyu Zhao:	Yeah… Professor, you cannot hear us…
+02:19:21	Haosen YIN:	How to get eigenspace from week 1 knowledge as you mentioned? I think it is omitted in this lecture
+02:19:50	Haosen YIN:	How to get eigenspace?
+02:21:13	Haosen YIN:	OK
+02:22:19	Haosen YIN:	What is dimensionality of eigenspace?
+02:22:33	Haosen YIN:	dimension
+02:23:27	Haosen YIN:	And it is equal to gemotric mulply right?
+02:25:36	Qinyu Zhao:	Thank you!
+02:25:38	Joanna:	Many thanks, Liang!

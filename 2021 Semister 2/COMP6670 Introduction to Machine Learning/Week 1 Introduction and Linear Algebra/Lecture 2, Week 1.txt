@@ -1,0 +1,175 @@
+00:33:16	Rita Xuyang Wang:	ok
+00:33:37	Peicheng Liu:	math is dull
+00:34:31	David Quarel:	You'll need to for ML
+00:34:50	Peicheng Liu:	indeed
+00:37:16	Jinghang Feng:	using graph neural network?
+00:40:58	Feiyang Yu:	Hi, i have a question, what is ground truth?
+00:41:25	Zhengyang Yu(John):	label
+00:41:33	David Quarel:	Ground truth usually refers to the tue label the model is trying to guess
+00:41:54	ZiLong Wang:	true label, right?
+00:41:56	Feiyang Yu:	Thank you
+00:42:45	XIANGYU HUI:	overfitting caused by local optimum?
+00:44:10	David Quarel:	overfitting is the model fitting too hard to the trainging data, usually fitting to the noise in the training data
+00:44:25	David Quarel:	I wouldn't say it is nessecarily caused by local optima
+00:46:46	Jinghang Feng:	we can judge it by the rank. haha
+00:47:31	David Quarel:	We will see rank later on in the course, but yes
+00:48:28	Yuxin Hong:	equation2 should be x1+x2+2*x3=2?
+00:48:30	Puxi Cao:	I do not think the second one in this page has infinite solutions.
+00:49:09	yuteng:	that make sense
+00:53:53	Rody:	okay I see
+00:54:28	Feiyang Yu:	Why does the textbook says that polynomials are vectors?
+00:54:46	Rody:	shape it to pixel？
+00:54:51	David Quarel:	A vector is anything that satisfies the axioms of a vector space
+00:55:10	yuteng:	Do all images input as 2-dimensional matrix?
+00:55:21	Sam O'Brien:	a + bx + cx^2 can be represented as a matrix of coeficients of 1, x, x^2
+00:55:27	Jinghang Feng:	3 dim is more
+00:55:42	Zhengyang Yu(John):	not for MLP network
+00:55:51	David Quarel:	I can add polynomials, and scalar multiply polynomials, and there is a zero polynomial ect, so they are vectors. Coloquially, we usually say "vector" for a column of numbers in R^n, but there are many other more exotic vector spaces
+00:56:49	David Quarel:	@yuteng, we can usually represent an image as 3 matricies, one for the red channel, blue and green, so a R^(width x height x 3) matrix. Higher dimensional matricies are usually called tensors
+00:57:01	Feiyang Yu:	Thx @David Quarel
+00:57:10	yuteng:	thx
+00:59:14	Aggie Zub:	What does the := mean in  A+B := [..] 
+00:59:39	Linda Kwan:	:= means 'defined as'
+00:59:48	Aggie Zub:	cheers Linda
+01:00:39	David Quarel:	Yep, = means "we can derive these are equal", := means "defined to be equal"
+01:03:10	Aggie Zub:	thanks
+01:18:24	Yucheng Zhao:	so both a and b have to be square matrix in the case that ab = I?
+01:19:01	Yucheng Zhao:	Can we understand in this way?
+01:19:51	Barry K:	didn't we get a square matrix by multiplying a 2x3 by 3x2? im guessing you can get an identity matrix with that
+01:20:41	T20-706-Xinyu Tian:	it's OK
+01:21:05	David Quarel:	Since the inside dimensions match, a 2x3 matrix times a 3x2 matrix is a 2x2 matrix. Yes, I suppose you could still obtain the identity matrix that way, but the definition of the inverse of A, is some matrix B, such that AB=BA=I. In your example, AB and BA would be of different dimensions, and so couldn't possibly be equal
+01:21:32	Karthik:	if matrixes is m1*n1 and n1*m1 respectively, then you can multiply them
+01:21:42	David Quarel:	inverses are only defined for square matricies. We do have a weaker form of an inverse, a psuedo-inverse, defined for non-square matricies. We will see this later
+01:22:09	Yucheng Zhao:	Oh I got that. So a and b has to be both square matrix to achieve ab = ba = I
+01:22:43	Yucheng Zhao:	Ok thanks!
+01:22:49	Qinyu Zhao:	Maybe you are talking about Generalized Inverses. They are not only for square matrices.
+01:24:43	yuteng:	if A is a 2*3 matrix, A's inverse should be 3*2. So it's not only for square matrices.
+01:24:58	David Quarel:	If A is a 2*3 matrix, it's inverse is not defined.
+01:25:08	David Quarel:	It is only for square matricies
+01:25:13	Surya Teja:	Basically Inverse is for Square Matrices ( where rows=columns). But we have another method called"Moore-Penrose Psuedo Inverse " which is designed to find the inverse of non-square matrices
+01:25:26	Qinyu Zhao:	@yuteng, in this case, you cannot make sure AB= BA=I, now that AB is 2*2 but BA is 3*3
+01:26:04	yuteng:	ok
+01:26:33	yuteng:	so if A is not square, A's inverse is not defined
+01:27:10	John (Min Jae) Kim:	Pseudo inverse is not inverse
+01:27:35	David Quarel:	If A is not square, Ai's inverse is not defined. The psuedo inverse *may* be defined
+01:32:22	Danfeng Huang (Alex):	can we use computer to perform this calculation?
+01:33:21	David Quarel:	For the theory assignments, you need to give the full derivation of gaussian elimination. The questions will be rigged so the calculations won't be too tedious
+01:34:45	Peicheng Liu:	I am kind of curious that how extended would the math go? for this course and for the whole concept of ML or AI.
+01:35:50	Juren Xu:	Has to be only 1 column right of above pivot?
+01:35:56	Kenneth Igbokwe:	can all row-echelon forms be reduced?
+01:36:15	David Quarel:	REF can be reduced to RREF
+01:36:49	David Quarel:	@peicheng: lineage algebra, innmer products, norms, some statistics and probability, vector calculus
+01:36:53	David Quarel:	*linear
+01:37:06	Kenneth Igbokwe:	I see. Thank you, David
+01:38:51	Xie HU:	Could be R2-R3
+01:38:57	Zitian Zhou:	yep
+01:39:17	Siya Yan:	y
+01:39:34	Liangyu Zuo:	so 1 is always the pivot?
+01:39:48	Zihan Bao:	should we add the arrow and something like R1+R3->R3 when we do the calulaion on paper
+01:40:10	Yucheng Zhao:	In rref 1 is always the pivot
+01:40:19	Zitian Zhou:	I think we should do it?
+01:40:46	David Quarel:	I prefer writing R3 <- R1 + R3, but yes, when doing gaussian elimination in the theory assignment, you need to write down the step you did
+01:41:25	David Quarel:	R3 := R1 + R3 or something else is fine. The exact notation of an arrow isn't that important, what is important is clearly stating what you did
+01:41:37	Harry Jordan:	do we have to specify which row we are replacing? I like to line up r3 + r1 with the r3 in the new matrix which I think shows what I am doing clear enough
+01:42:44	Kenneth Igbokwe:	In this matrix example in the third row, is 2 the pivot or there is no pivot?
+01:42:47	David Quarel:	So long as it's clear what you are doing, I don't mind how it's presented
+01:43:28	Kenneth Igbokwe:	Nevermind, he mentioned it
+01:43:28	David Quarel:	@kenneth once we scale the third row to be 0 0 0 1 3, it'd be a pivot
+01:43:45	Kenneth Igbokwe:	okay, thanks !
+01:46:40	JialiangChen:	can I set x1 = 1 replace x3= 1
+01:47:06	XIANGYU HUI:	no you cant
+01:47:21	XIANGYU HUI:	x1 is not free variable
+01:47:21	Zhaoyu Cao:	x1 is not a free variable
+01:47:42	Ahmad Zahir Rabbani:	how do we know which one is free variable?
+01:48:00	Yi Zhang:	See if it’s pivot
+01:48:05	Zhaoyu Cao:	find each pivot in rows
+01:48:13	David Quarel:	It's kind of arbitrary which variable is free and which is not. Given the system x_1 - x_2 = 0, I could say that the solution is x1 free, x2=x1, OR x2 free, x1=x2
+01:48:15	Yi Zhang:	If not then its a free variable
+01:48:39	Kenneth Igbokwe:	I think there was a typo in the other example in the slides. It was said that a should equal to -1 but the slides say a must equal to 1 to have solutions
+01:48:46	Jiawei Li:	In what cases do we need to simplify the matrix into RREF form? I can see that the examples are all in REF...
+01:49:15	XIANGYU HUI:	In REF each row the first non 0 entry represent the corresponding column(variable) is basic variable, the rest would  be free virable
+01:49:39	Yucheng Zhao:	whats difference if we just use the frre variables in the general solution? like x1=1+x3
+01:49:45	David Quarel:	@Jaiwei when solving a matrix equation reducing to RREF makes it easy to read the solution off
+01:49:53	David Quarel:	@yucheng what do you mean?
+01:50:28	Yucheng Zhao:	like x1 = x3 + 1, x1 is free?
+01:51:03	David Quarel:	that would normally be fine, yes
+01:51:05	Yucheng Zhao:	leave the free variables to express the solution?
+01:51:20	Yucheng Zhao:	Oh Thanks!
+01:53:47	Sana:	mild conditions?
+01:54:19	Rita Xuyang Wang:	Thank you
+01:54:21	Yi Zhang:	thanks
+01:54:23	Tianchi Zhang:	thank you
+01:54:24	Zhaoyu Cao:	thx
+01:54:24	Ahmad Zahir Rabbani:	thank you
+01:54:26	Maojun Zhu:	tks
+01:54:26	Jinghang Feng:	thanks
+01:54:26	Shuai Zheng:	thanks
+01:54:27	Junhao Wang:	thanks
+01:54:28	Harry Jordan:	Thanks
+01:54:28	Jin Gao:	thanks
+01:54:28	Hengtong Wu:	thanks
+01:54:29	Yucheng Zhao:	Thanks!
+01:54:29	Xiao Cui:	thx
+01:54:30	MIngyu Sheng:	Thanks
+01:54:32	Zichen Zhang:	thx
+01:54:32	Shulang Liu:	Thanks!
+01:54:33	Peicheng Liu:	ty
+01:54:33	Yuqing Li:	thanks
+01:54:33	Nayoon Kim:	thank you!
+01:54:33	Joanna:	Thanks!
+01:54:33	Kenneth Igbokwe:	Thank you!
+01:54:35	Siya Yan:	ths
+01:54:35	末 周:	thanks
+01:54:36	Zitian Zhou:	Thanks!
+01:54:36	lunney zhang:	thx
+01:54:37	Chaoran:	Thanks
+01:54:37	Zhengyang Yu(John):	Thanks!
+01:54:39	Qinyu Zhao:	Thank you~
+01:54:42	xin su:	thx
+01:54:42	Ka'Yil Shaw:	Thank you
+01:54:43	Ning Lai:	thanks
+01:54:46	Yuntao Dai:	Thx
+01:54:50	Henan Yang:	Thank you
+01:54:54	Yuxin Hong:	thanks
+01:54:55	YANSHUO WANG:	Thanks
+01:54:58	Linda Kwan:	Thank you!
+01:55:07	Jiawei Li:	What's the meaning of Mild Condition?
+01:55:08	Xiangyu Chen:	Thanks
+01:55:55	JialiangChen:	thank you
+01:56:41	Danfeng Huang (Alex):	Hi Professor, what is pivot? and how can we find the free variables?
+01:57:11	Harry Jordan:	first non-zero entry in each row is pivot I think
+01:58:09	Peng Zhao:	In textbook, it said ’…under mild assumptions (i.e., A needs to have linearly independent columns) ..’
+01:59:45	Danfeng Huang (Alex):	I see that make sense
+02:00:02	yuteng:	so the first non-zero number will be pivot?
+02:00:03	Oliver Lin:	So the pivot won't always be 1
+02:00:45	Zihan Bao:	you can use a scalar to make it 1
+02:00:57	MIngyu Sheng:	may be 1 is much better than others?
+02:01:07	MIngyu Sheng:	*maybe
+02:01:27	Oliver Lin:	ok
+02:03:15	MIngyu Sheng:	thanks!
+02:03:16	Susie Hu:	Thanks
+02:03:17	Luyang Tang (u6888782) :	Is it possible that we get different solutions due to getting different REF forms for a matrix?
+02:03:30	JialiangChen:	I still don't understand which one can be a free variable?
+02:04:19	Wenhan Dong:	Will this content appear in the final exam?(I get the idea, but cannot do this quickly)
+02:08:26	MIngyu Sheng:	The unknown x which has no corresponding pivot is free variable. Does it make sense?
+02:12:24	Wenhan Dong:	linear algebra?
+02:13:29	Wenhan Dong:	thank you
+02:14:54	MIngyu Sheng:	yep
+02:16:39	MIngyu Sheng:	so free variable has no such big effect on result ?
+02:17:36	MIngyu Sheng:	yea
+02:19:29	MIngyu Sheng:	independent by others
+02:19:32	MIngyu Sheng:	get it
+02:19:57	Juren Xu:	Is that means the free variable does not any particular number but depends on the number of other unknowns
+02:20:06	MIngyu Sheng:	thanks
+02:20:17	Karthik:	basically, anything which is not a pivot and can have more than one value is a free variable
+02:20:57	Juren Xu:	Oh, I see it
+02:20:58	Juren Xu:	thx
+02:21:50	Karthik:	Got it
+02:21:51	Karthik:	Thanks
+02:22:18	Youming Liu:	Thx
+02:22:23	Luyang Tang (u6888782) :	Thank you very much :D
+02:22:29	Wangyi Li:	Thanks~
+02:22:29	Zichen Zhang:	thx
+02:22:35	Karthik:	Thank you
+02:22:37	David Quarel:	Bye!
+02:22:45	Tianchen Gan:	thx，bye

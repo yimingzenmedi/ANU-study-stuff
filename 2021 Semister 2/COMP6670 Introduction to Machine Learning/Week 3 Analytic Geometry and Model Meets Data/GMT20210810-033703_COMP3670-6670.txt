@@ -1,0 +1,292 @@
+00:47:14	Qinyu Zhao:	Does Norm represent the probability of being a person?
+00:53:25	Yucheng Zhao:	Will the projection highlight the dimensions with most information?
+00:54:03	Qinyu Zhao:	Why did we define U but not use it?
+00:54:29	XIANGYU HUI:	I think it is a typo?
+00:54:58	Jiawei Li:	Next slide mentions U
+00:55:09	XIANGYU HUI:	should be V->U ?
+00:55:24	David Quarel:	Depends on the projectino chosen. A projection pi is just defined to be a mapping such that iapplying it twice is the same as applying it once
+00:55:53	Qinyu Zhao:	I checked on our textbook. Pi: V->U. Yes, @xiangyu
+01:01:27	Ning Lai:	Is this inner product only be “Dot product”?
+01:01:40	Zhengyang Yu:	not exactly
+01:02:18	Rita Xuyang Wang:	according to the textbook, the inner product will only use the dot product through out the whole textbook
+01:02:31	Ning Lai:	thx
+01:02:41	Rita Xuyang Wang:	(Though it may have other definition in the other place :P
+01:06:34	XIANGYU HUI:	n is non 0
+01:06:38	XIANGYU HUI:	b'
+01:13:40	Karthik Vemireddy:	cosine similarity
+01:16:13	Jiawei Li:	So is Πu(x) one dimensional or two?
+01:16:32	XIANGYU HUI:	1
+01:16:34	Rita Xuyang Wang:	Depending on the u’s dimension?
+01:16:52	David Quarel:	The illustration uses 2D vectors, but this holds  in N dimensions
+01:17:58	Ning Lai:	How to build a projection matrix ?
+01:18:02	Jiawei Li:	N = U's dimension?
+01:18:56	Joanna:	I assume it's all about angles. 
+01:19:42	David Quarel:	@Ning Lai You can compute the projection onto a vector (or a lower dimensional subspace), and then construct the matrix that represents that transformation
+01:21:24	Ning Lai:	Is that means I should calculate the column vectors in projection matrix for each?
+01:21:24	Chunjie Liu:	how to know its rank is 1?
+01:22:55	Chunjie Liu:	got it
+01:23:28	Qinyu Zhao:	I suppose the matrix P can be seen as the combination of 1 vector (b itself). Its column vectors are b times different entries in b. So its rank is 1. Is it correct?
+01:23:42	XIANGYU HUI:	aggre
+01:26:52	XIANGYU HUI:	outer product right?
+01:31:06	Yuxin Hong:	previously it is said rank(AB) <= rank(A). If so, how does moore-penrose (A^T A)^-1 A^T make non-invertible A be a invertible (A^T A)?
+01:32:12	Qinyu Zhao:	A is a m*n matrix, m>=n, Rank(A) = n, Rank(ATA) = n <= Rank(A). I suppose
+01:32:56	Yuxin Hong:	got it, thx
+01:33:32	XIANGYU HUI:	I think any matrix can be  regard as a linear function. that's why I think Qinyu is right.
+01:41:47	XIANGYU HUI:	I think we still get P squared = P here. interesrting
+01:42:36	Ning Lai:	Agree！ It just look like a magic !
+01:50:03	Yifeng Huang:	So we can assume the column of A be a set of Basis?
+01:50:43	Jiajie Li:	basis of that plane?
+01:50:44	Rita Xuyang Wang:	I think it is more close to the projection matrix
+01:50:54	Rita Xuyang Wang:	Or am I wrong?
+01:57:53	Xin Yang:	yyy
+01:57:54	ping:	y
+01:57:56	Chunjie Liu:	yes
+01:57:57	Qinyu Zhao:	Yes
+01:57:57	Siya Yan:	y
+01:57:58	Yifeng Huang:	yes
+01:57:58	Haorong Yao:	y
+01:57:58	Xingshu Wang:	yes
+01:57:58	Yanghaolin:	y
+01:57:58	Wenjia Cheng:	Y
+01:57:59	John (Min Jae) Kim:	y
+01:57:59	Linda Kwan:	Yes
+01:57:59	Ge Zhan:	yes
+01:57:59	Xiao Mu:	y
+01:57:59	Jeff Cheng:	yes
+01:57:59	Ruiyang Meng:	yest
+01:58:00	Jiajie Li:	yes
+01:58:00	u6872840 Diance Huang:	T
+01:58:00	Joanna:	Yes
+01:58:00	Mengfan Yan:	y
+01:58:00	Ka'Yil Shaw:	y
+01:58:01	Jiayi Shen:	y
+01:58:01	Zhengyang Yu:	yes
+01:58:01	leyang chai:	y
+01:58:01	Yucheng Zhao:	y
+01:58:02	Jinghang Feng:	y
+01:58:02	Jiawei Li:	y
+01:58:04	Karthik Vemireddy:	yes
+01:58:04	Xiangyu Chen:	yes
+01:58:05	Yuxiang Cai:	y
+01:58:05	Yuchen Liu:	T
+01:58:06	Jialiang Chen:	y
+01:58:06	Jin Gao:	y
+01:58:07	Xin Su:	y
+01:58:07	Yiqi Li:	y
+01:58:08	Xiao Cui:	yes
+01:58:09	Kaiqi Chen:	y
+01:58:10	Yupeng Chao:	y
+01:58:10	Youming Liu:	y
+01:58:10	Mingyu Sheng:	y
+01:58:11	Ning Lai:	yes
+01:58:15	Shulang Liu:	Y
+01:58:15	Shaocong Lang:	y
+01:58:16	Haoyang Zhang:	y
+01:58:17	Wenjia Cheng:	Y
+01:58:20	Yuxin Hong:	y
+01:58:21	Qinyu Zhao:	Yes
+01:58:23	Liu Jiaxi:	y
+01:58:23	Chunjie Liu:	yes
+01:58:23	Xiangyu Chen:	yes
+01:58:24	Xin Yang:	yyyy
+01:58:24	Karthik Vemireddy:	yes
+01:58:24	Yupeng Chao:	y
+01:58:24	Yuchen Liu:	T
+01:58:24	Ka'Yil Shaw:	y
+01:58:24	Zhengyang Yu:	yes
+01:58:24	Jin Gao:	y
+01:58:24	ping:	y
+01:58:24	Ruiyang Meng:	y
+01:58:25	Xin Yang:	yyy
+01:58:25	Jeff Cheng:	yes
+01:58:25	Linda Kwan:	Yes
+01:58:26	Xin Yang:	yyyy
+01:58:26	Shaocong Lang:	y
+01:58:26	Shulang Liu:	Y
+01:58:26	Haoyang Zhang:	2. yes
+01:58:26	Xin Yang:	yy
+01:58:26	Haorong Yao:	y
+01:58:27	Xin Yang:	yy
+01:58:27	Yucheng Zhao:	y
+01:58:27	Jiajie Li:	yes
+01:58:27	Xin Yang:	y
+01:58:27	Jialiang Chen:	y
+01:58:27	Xin Yang:	y
+01:58:28	Mengfan Yan:	y
+01:58:28	Yanghaolin:	y
+01:58:28	Jiayi Shen:	y
+01:58:28	Ning Lai:	yes
+01:58:29	Xiao Cui:	yes
+01:58:29	Yifeng Huang:	yes
+01:58:29	Ge Zhan:	yes
+01:58:30	Jiawei Li:	y
+01:58:30	Mingyu Sheng:	y
+01:58:31	Rita Xuyang Wang:	y
+01:58:32	Xingshu Wang:	yes
+01:58:32	Joanna:	Yes
+01:58:32	Siya Yan:	y
+01:58:32	Grahame Reynolds:	y
+01:58:33	Rui Lu:	yes
+01:58:33	leyang chai:	y
+01:58:33	Men Junyi:	y
+01:58:36	Xin Su:	y
+01:58:51	Xiangyu Chen:	yes
+01:58:51	Jiawei Li:	y
+01:58:51	Yupeng Chao:	y
+01:58:52	Rui Lu:	yes
+01:58:52	Joanna:	Yes
+01:58:52	Zhengyang Yu:	yes
+01:58:52	Grahame Reynolds:	y
+01:58:53	Qinyu Zhao:	Yes
+01:58:53	John (Min Jae) Kim:	y
+01:58:54	Ka'Yil Shaw:	y
+01:58:54	ping:	y
+01:58:54	Ge Zhan:	yes
+01:58:54	Xingshu Wang:	yes
+01:58:54	Jiayi Shen:	y
+01:58:54	Yuchen Liu:	T
+01:58:54	Yanghaolin:	y
+01:58:54	Haorong Yao:	y
+01:58:55	leyang chai:	y
+01:58:55	Jeff Cheng:	yes
+01:58:55	Jiajie Li:	yes
+01:58:55	Wenjia Cheng:	Y
+01:58:55	Shaocong Lang:	y
+01:58:56	Linda Kwan:	yes
+01:58:56	Yifei Zhou:	y
+01:58:56	Liu Jiaxi:	y
+01:58:57	Yuqing Li:	yes
+01:58:57	Shulang Liu:	Y
+01:58:57	Karthik Vemireddy:	yes
+01:58:58	Mengfan Yan:	y
+01:58:58	Xin Su:	y
+01:58:59	Ning Lai:	yes
+01:58:59	Xiao Mu:	y
+01:59:00	Jinghang Feng:	yes
+01:59:05	Yucheng Zhao:	y
+01:59:06	Mingyu Sheng:	y
+01:59:06	Yifeng Huang:	yes
+01:59:14	Siya Yan:	y
+01:59:20	Xin Su:	n
+01:59:28	Zhengyang Yu:	yes
+01:59:28	Joanna:	Yes
+01:59:28	Jeff Cheng:	yes
+01:59:28	Yanghaolin:	y
+01:59:28	Qinyu Zhao:	Yes
+01:59:29	Xin Yang:	y
+01:59:29	John (Min Jae) Kim:	n
+01:59:29	Grahame Reynolds:	Yes
+01:59:29	Xin Yang:	y
+01:59:29	Xin Yang:	y
+01:59:29	ping:	y
+01:59:29	Karthik Vemireddy:	yes
+01:59:30	Jiawei Li:	y
+01:59:30	Liu Jiaxi:	y
+01:59:30	Yuqing Li:	yes
+01:59:30	Yupeng Chao:	y
+01:59:30	Xin Yang:	y
+01:59:31	Ge Zhan:	yes
+01:59:31	Jinghang Feng:	y
+01:59:31	Linda Kwan:	yes
+01:59:31	Yifeng Huang:	Yes
+01:59:31	Xin Yang:	y
+01:59:31	Jiajie Li:	yes
+01:59:31	Haorong Yao:	y
+01:59:32	Rui Lu:	yes
+01:59:32	Jin Gao:	y
+01:59:32	Ka'Yil Shaw:	y
+01:59:32	John (Min Jae) Kim:	y
+01:59:33	Shaocong Lang:	y
+01:59:34	Rita Xuyang Wang:	y
+01:59:35	Siya Yan:	y
+01:59:35	Xingshu Wang:	y
+01:59:35	Shulang Liu:	Y
+01:59:37	Xiao Cui:	yes
+01:59:37	Xiangyu Chen:	yes
+01:59:37	Wenjia Cheng:	Y
+01:59:38	Mingyu Sheng:	y
+01:59:42	Hengtong Wu:	y
+01:59:43	Yuxiang Cai:	y
+01:59:50	Ning Lai:	yes
+02:00:00	ping:	y
+02:00:00	Shulang Liu:	Y
+02:00:01	Yupeng Chao:	y
+02:00:01	Jeff Cheng:	yes
+02:00:02	John (Min Jae) Kim:	y
+02:00:02	Xin Yang:	y
+02:00:02	Qinyu Zhao:	Yes
+02:00:02	Xingshu Wang:	yes
+02:00:02	Grahame Reynolds:	Yes
+02:00:02	Liu Jiaxi:	y
+02:00:02	Xin Yang:	y
+02:00:03	Xin Yang:	y
+02:00:03	Ning Lai:	yes
+02:00:03	Xiao Cui:	yes
+02:00:03	Xin Yang:	y
+02:00:03	Jiayi Shen:	y
+02:00:04	Wenjia Cheng:	Y
+02:00:04	Ka'Yil Shaw:	y
+02:00:04	Xin Yang:	y
+02:00:04	Haorong Yao:	y
+02:00:05	Xin Yang:	y
+02:00:05	Yanghaolin:	y
+02:00:05	Xin Yang:	y
+02:00:05	Mingyu Sheng:	y
+02:00:06	Jin Gao:	y
+02:00:06	Ge Zhan:	yes
+02:00:06	Karthik Vemireddy:	yes
+02:00:06	Xin Yang:	y
+02:00:06	Joanna:	Yes
+02:00:06	Shaocong Lang:	y
+02:00:07	Xin Yang:	y
+02:00:07	Mengfan Yan:	y
+02:00:07	廖若星:	y
+02:00:07	Jinghang Feng:	Y
+02:00:08	Xin Yang:	y
+02:00:08	Yifeng Huang:	1
+02:00:08	Xin Yang:	y
+02:00:08	Linda Kwan:	yes
+02:00:09	Jiajie Li:	yes
+02:00:09	Xin Yang:	y
+02:00:09	Rita Xuyang Wang:	y
+02:00:09	Yifeng Huang:	1
+02:00:09	Yuqing Li:	yes
+02:00:10	Xin Yang:	y
+02:00:10	Men Junyi:	y
+02:00:11	Xiangyu Chen:	yes
+02:00:11	Yucheng Zhao:	y
+02:00:14	Xin Su:	yes
+02:00:18	Jialiang Chen:	yyyy
+02:00:32	Siya Yan:	y
+02:00:42	Qinyu Zhao:	We may find a typo in the definition of Orthogonal Projections. pi: V -> U, we suppose, not V -> V
+02:00:43	Yuxin Hong:	thx
+02:00:51	Haoyang Zhang:	when calculating the pseudo inverse (𝑩T𝑩)−1𝑩T, how can we guarantee that BTB has inverse?
+02:00:51	Lei Zhang:	Thx Liang
+02:00:55	Shulang Liu:	Thx
+02:00:55	Siya Yan:	yhx
+02:00:58	Feiyang Yu:	thanks
+02:01:01	Kye-Li Tan:	thank you!
+02:01:02	Ka'Yil Shaw:	thank you
+02:01:03	Junhao, Wang:	See you
+02:01:08	Joanna:	Thanks
+02:01:08	Hengtong Wu:	thx
+02:01:09	Ning Lai:	Thx
+02:01:13	Yifeng Huang:	Bye
+02:01:13	Aggie Zub:	thanks
+02:01:15	Ziye Guo:	thx
+02:01:19	Yifeng Huang:	thanks
+02:01:19	Alex Wu:	thanks
+02:01:31	Xinyue Hu:	Thanks
+02:01:33	Karthik Vemireddy:	Thank you
+02:01:58	Peng Zhao:	Page 4
+02:03:34	Karthik Vemireddy:	BTB will always be a square matrix
+02:03:43	Qinyu Zhao:	Thank you!
+02:04:10	Yuhui Pang:	BTB is a square matrix and full rank
+02:04:52	Yucheng Zhao:	If A is invertible, is it true that ATA is also invertible?
+02:05:06	Qinyu Zhao:	Our textbook said: “A needs to have linearlyindependent columns” Then we can have Moore-Penrose pseudo-inverse
+02:05:27	Qinyu Zhao:	(Page 34-35)
+02:06:37	Yucheng Zhao:	Thanks!
+02:06:43	Qinyu Zhao:	Thank you! See you tomorrow!
+02:06:53	Haoyang Zhang:	So the pseudo inverse of A still have pre condition on A but is weaker than inverse of A?
+02:07:39	Haoyang Zhang:	Thanks I see.
+02:08:37	Xin Su:	nice course！

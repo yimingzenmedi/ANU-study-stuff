@@ -1,0 +1,35 @@
+Topic-1:  Low level vision;  traditional methods for  image (defocus) blur removal and super-resolution
+
+Topic-2:  Hand-shake camera motion blur removal,  w/wo IMU  
+
+Topic-3: Coded photography; aperture and shutter, two filters. 
+
+Topic-4:  Image matting and synthetic depth-of-field Boken effect.
+
+Topic-5:  Physically-based vision (shape from shading,   photometric stereo, and photo relighting).
+
+==
+
+Topic-6:  MRF graphical models  (LBP and Graph-cut).
+
+Topic-7:   Human Pose (2D pose, 3D pose, 3D body shape).
+
+Topic-8:   Indoor scene understanding (Image to 3D model; Room layout)
+
+Topic-9:   Outdoor road scene understanding for Autonomous Driving.
+
+===============
+
+Topic-10 [optional]: Medical imaging reconstruction: Tomography/CT/MRI/PET.
+
+Topic-11 [optional]: Neural image rendering and NeRF.
+
+Topic-12 [optional]:  Vision and NLP-Language.  
+
+Topic-13 [optional]:  Vision and AR/VR, Robotic Nagivation (3D vision,  visual SLAM,  non-rigid dynamic SFM).
+
+Literature will be provided:
+
+A: in-class reading:  2~3 papers per topic, roughly in every 2 weeks' time;
+
+B: home reading and report; select one paper to read/report, from a pool of 5~10 papers per topic.

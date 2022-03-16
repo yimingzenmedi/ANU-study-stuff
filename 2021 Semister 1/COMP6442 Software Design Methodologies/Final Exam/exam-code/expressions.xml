@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<exp>
+    <MulExp>
+        <AddExp>
+            <IntExp>2</IntExp>
+            <IntExp>3</IntExp>
+        </AddExp>
+        <AddExp>
+            <IntExp>1</IntExp>
+            <IntExp>3</IntExp>
+        </AddExp>
+    </MulExp>
+</exp>

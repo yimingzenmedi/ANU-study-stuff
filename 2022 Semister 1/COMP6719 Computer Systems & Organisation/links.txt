@@ -1,0 +1,20 @@
+[Lectures]
+Please save the links below to join the ENGN2219/COMP6719 lectures via zoom starting next week.
+
+Monday:
+https://anu.zoom.us/j/87451001037?pwd=emtEYVdZcTYxeUh5RW1rbldFMlZwdz09
+
+Thursday:
+https://anu.zoom.us/j/84265306965?pwd=OEwrWVpQSWtHTWlaZ3ZFZmQ5VzBTdz09
+
+[Lab]
+https://anu.zoom.us/j/84366785813?pwd=UUpxZXEra3NxT3RUNVF1ODhteXRKUT09
+
+[Course Website]
+https://cs.anu.edu.au/courses/engn2219/
+
+[Piazza]
+https://piazza.com/class/kzhlknnomzwes
+
+[Lecture Recordings]
+https://comp.anu.edu.au/courses/engn2219/lectures/campus_only/

@@ -1,0 +1,439 @@
+00:40:31	Qinyu Zhao:	What’s the difference between self-supervised learning and data augmentation? I feel these images are also results of data augmentation.
+00:40:55	Ning Lai:	same question
+00:47:12	Qinyu Zhao:	Do we need the Closure property? The “cross” is defined by G cross G -> G. The output of cross must be in G.
+00:48:11	Xin Yang:	Same opinion!
+00:50:05	Zitian Zhou:	What is the difference between (Z,+) and (Z,-)?
+00:50:11	Xin Yang:	So neutral element maybe different based on different operators? Like (Z, +) should be 0 while (Z, x) may be 1.
+00:50:51	Qinyu Zhao:	I think so. @Xin
+00:51:44	Qinyu Zhao:	Their operations are different. One is addition, and the other is subtraction @zitian
+00:52:22	Zitian Zhou:	Yep, got it, thx @Qinyu
+00:52:46	Keyang Qian:	why (Z,-) doesn't have a neutral element 0?
+00:53:05	Wenhan Dong:	0-2 not equal 2
+00:53:10	Jinghang Feng:	such as 5 - 0 = 5  0 - 5 = -5
+00:53:21	Keyang Qian:	get it
+00:59:46	Xin Yang:	Why 0 element always need to be the element in the subspace?
+01:00:59	Maojun Zhu:	If 0 belongs to a subspace then this subspace will never be empty, so what s the meaning for the second property?
+01:01:35	Jiajie Li:	not only empty,but also contain 0.
+01:01:42	David Quarel:	Formally, the three axioms are
+1. closure under addition
+2. closure under scalar multiplication
+3. is non-empty
+01:01:44	Yucheng Zhao:	Is vector subspace also a group?
+01:01:53	Jiawei Li:	Just wondering, vector space is a different concept compared with vector?
+01:01:54	Jiajie Li:	Some sets may contain elements other than 0.
+01:02:05	Feiyang Yu:	So subspaces if R^n can only be R^n?
+01:02:10	Junhao, Wang:	what is a homogeneous system
+01:02:29	David Quarel:	Now, we can deduce from these axioms that 0 must be in the space. If the space is non-empty, then some vector x is in the space. Then (-1)x = -x is in the space due to axiom 2. Then x - x = 0 is in the space by axiom 1.
+01:02:44	David Quarel:	@Jaiwei A vector is defined to be an element of a vector space
+01:03:13	David Quarel:	@Feiyang No, we can have non-trivial subspaces of R^n that are not R^n
+01:03:33	Xin Yang:	Null space (A) = solution set(A)
+01:03:45	Wenhan Dong:	I forget what is "non-trivial" means 
+01:04:39	David Quarel:	@Yucheng No, a vector space is not a group as the types don't match. A vector space has two operations, + and x. If you take A vector space V = (S, +, x) and take the set of vectors togetehr with vector addition (S,+), that would form a group
+01:05:10	David Quarel:	"non-trivial" means not the vector space{0}, and not the entire space. Both are always subspaces of any vector space, and are as such "trivial"
+01:08:58	Feiyang Yu:	Thanks @David Quarel
+01:09:59	Yucheng Zhao:	Thanks！
+01:11:42	Karthik Vemireddy:	x3 is dependant
+01:12:44	Xin Yang:	Do we have a more general method? Gaussian Elimination maybe subtle in some conditions
+01:13:35	Surya Teja-u7143732:	maybe you can try k1 = x * k2 + y * k3 and check out if x and y values exist
+01:13:49	Surya Teja-u7143732:	where k1 k2 k3 are column vectors
+01:14:36	Surya Teja-u7143732:	but the issue is it becomes harder for larger dimensional vectors: ((
+01:16:02	David Quarel:	@Surya such an approach ends up being gaussian elimination anyway when you solve for the variables
+01:17:30	Ruizheng Shen:	Maybe calculate the determinant？
+01:18:07	Denny (Yi Lin):	does anyone know the code of piazza for this course? i have just enrolled and have no idea of that
+01:18:11	David Quarel:	COMP3670
+01:18:41	Peicheng Liu:	or 6670
+01:18:52	David Quarel:	@Ruizheng that can also work, but it won't tell you the values of the coefficients c1,...,cn such that c1 v1 + ... + cn vn = 0
+01:18:57	Denny (Yi Lin):	the class access code
+01:19:35	David Quarel:	Signup Link: piazza.com/anu.edu.au/fall2021/comp36706670
+
+Access Code: 1234
+01:20:08	Denny (Yi Lin):	thanks a lot
+01:22:10	Ruizheng Shen:	@David Yes, that’s true. But can we prove linear independence by determinant?
+01:22:24	Ruizheng Shen:	I’m not sure about that.
+01:22:31	David Quarel:	I suppose so, the columns of a matrix are linearly independant if and only if the matrix is invertible
+01:22:51	David Quarel:	and the matrix is invertible if and only if the determinant is non-zero
+01:23:09	Xin Yang:	Cool
+01:23:28	Ruizheng Shen:	@David Thanks
+01:25:05	Feiyang Yu:	How can 4 vectors span R^5?
+01:25:20	David Quarel:	4 vectors cannot span R^5
+01:25:28	David Quarel:	they can span a subspace of R^5
+01:26:24	Louis:	could you plz explain ‘span’
+01:26:47	Ge Zhan:	so is rank = # of pivots ?
+01:27:12	David Quarel:	Span(v1,...,vn) := {c1 v1 + ... + cn vn: c1,...,cn in R}
+01:27:16	Feiyang Yu:	Oh ok I thought the previous slide said the 4 vectors spans R5 thanks David
+01:27:20	Joanna:	rank = no. of features?
+01:27:50	David Quarel:	rank = number of non-redundant columns, if you like
+01:29:29	Ge Zhan:	cool thx !
+01:29:34	Louis:	the same as number of independent columns？
+01:29:48	David Quarel:	yes
+01:29:55	Louis:	got it
+01:30:44	Zitian Zhou:	Can Rank be defined as the number of non-zero rows of the matrix?
+01:31:20	Louis:	I don't think so
+01:31:48	Junhao, Wang:	after Gaussian elimination actually
+01:31:54	Zitian Zhou:	Yep
+01:31:54	Ge Zhan:	non-zero linearly indepedent rows
+01:32:07	Ge Zhan:	I guess
+01:32:11	Zitian Zhou:	After Gaussian
+01:32:11	David Quarel:	I believe that would be equivalent, but I'd have to prove it to be sure
+01:34:09	Yanjun Liu:	just need to observe that after Gaussian elimination, rows of the matrix is either all zeros or contains pivot
+01:40:12	Feiyang Yu:	So the complex plane is also a vector space?
+01:40:47	Ning Lai:	I think it can be
+01:41:34	Linda Kwan:	psi
+01:41:40	Junhao, Wang:	kesai I guess
+01:41:53	Junhao, Wang:	the pronounciation
+01:41:54	David Quarel:	the set of complex numbers C is a vector space, yes
+01:43:30	Junhao, Wang:	pronunciation sry for the wrong spelling
+01:44:36	Xin Yang:	Orthogonal basis?
+01:44:46	David Quarel:	A basis of vectors that are orthogonal
+01:45:13	Feiyang Yu:	Are orthogonal basis the same as canonical basis?
+01:45:41	David Quarel:	No. The canonical basis is the "usual" choice of basis, e_1 = [1,0,0], e_2 = [0,1,0], e_3 = [0,0,1]
+01:45:56	David Quarel:	The canonical basis is an orthogonal basis, but it's not the only one
+01:46:34	Feiyang Yu:	So an orthogonal basis can be [1,1] and [1,-1]?
+01:46:51	Ge Zhan:	what's requirement of orthogonal basis ?
+01:48:37	Jiajie Li:	the product of two vectors are 0?
+01:48:52	David Quarel:	It's in the name: It has to be a basis, and all vectors are pairwise orthogonal
+01:49:45	Feiyang Yu:	Thank you David
+01:49:48	Ge Zhan:	thx David !
+01:51:30	Ning Lai:	a part network of YOLO ?
+01:52:22	Yuxin Hong:	yes
+01:52:23	Sana:	yes
+01:52:23	Qinyu Zhao:	No
+01:52:24	Yupeng Chao:	T
+01:52:24	Yanjun Liu:	yes
+01:52:24	Yuqing Li:	yes
+01:52:24	Ning Lai:	yes
+01:52:25	Feiyang Yu:	Correct
+01:52:25	Joanna:	n
+01:52:25	Leiber Baoqian LYU:	no
+01:52:25	Karthik Vemireddy:	yes
+01:52:25	Jin Gao:	yes
+01:52:25	Ge Zhan:	yes
+01:52:26	Kye-Li Tan:	yes
+01:52:26	Xuan:	no
+01:52:27	Wenjia Cheng:	Y
+01:52:27	Xiaoju Ma:	yes
+01:52:27	Junhao, Wang:	U
+01:52:27	Linda Kwan:	yes
+01:52:27	Bubbles:	yes
+01:52:27	Jeff Cheng:	no
+01:52:27	Xiao Cui:	yes
+01:52:28	Chengyu Zhang:	y
+01:52:28	Yiming Du:	true
+01:52:29	Junhao, Wang:	Y
+01:52:30	Haorong Yao:	y
+01:52:30	Siya Yan:	y
+01:52:32	Leiber Baoqian LYU:	no
+01:52:32	Rita Xuyang Wang:	yes
+01:52:33	Joseph Ho:	yea
+01:52:34	John (Min Jae) Kim:	no
+01:52:34	Ning Lai:	The basis vectors
+01:52:34	Zhengyang Yu(John):	yes
+01:52:34	Mingyu Sheng:	yes
+01:52:34	Xinyue Hu:	Y
+01:52:35	Rui Lu:	yes
+01:52:35	JialiangChen:	y
+01:52:36	Qinyu Zhao:	No, represented by basis
+01:52:37	Shaocong Lang:	y
+01:52:38	Xingshu Wang:	yes
+01:52:38	Maojun Zhu:	y
+01:52:38	Shulang Liu:	yes
+01:52:40	xin su:	yes
+01:52:41	yan sun:	yes
+01:52:41	Ruiyang Meng:	Yes
+01:52:42	Xin Yang:	Yes
+01:53:00	Zihan Bao:	no
+01:53:02	Qinyu Zhao:	No
+01:53:02	Sana:	no
+01:53:04	Kye-Li Tan:	no
+01:53:04	Jiajie Li:	no
+01:53:05	Jinghang Feng:	no
+01:53:05	Rui Lu:	no
+01:53:06	Ning Lai:	no
+01:53:06	Ge Zhan:	no
+01:53:06	YANSHUO WANG:	no
+01:53:07	Linda Kwan:	no
+01:53:07	Mingyu Sheng:	no
+01:53:07	Xiaoju Ma:	no
+01:53:07	Yupeng Chao:	no
+01:53:07	Mengfan Yan:	no
+01:53:07	Jeff Cheng:	no
+01:53:08	Junhao, Wang:	N
+01:53:08	Jin Gao:	no
+01:53:08	Karthik Vemireddy:	no
+01:53:08	Louis:	no
+01:53:08	Yanjun Liu:	no
+01:53:09	Jiayi Shen:	no
+01:53:09	Joanna:	y
+01:53:10	Rita Xuyang Wang:	yes
+01:53:10	Xiao Cui:	no
+01:53:11	Yiqi Li:	n
+01:53:12	Xingshu Wang:	no
+01:53:12	Yue julia:	no
+01:53:12	Shaocong Lang:	n
+01:53:12	Bubbles:	no
+01:53:12	Xin Yang:	yes
+01:53:14	Yuqing Li:	no
+01:53:14	Ning Lai:	no
+01:53:15	Xin Yang:	yes
+01:53:16	Haorong Yao:	n
+01:53:16	shuhui DONG:	no
+01:53:16	Qinyu Zhao:	No
+01:53:16	Shulang Liu:	no
+01:53:16	Ruoxing Liao:	no
+01:53:16	Louis:	no
+01:53:17	Siya Yan:	y
+01:53:17	Xuan:	no
+01:53:17	JialiangChen:	n
+01:53:17	John (Min Jae) Kim:	no
+01:53:18	Wenjia Cheng:	N
+01:53:18	Ping Zhang:	no
+01:53:19	Ruizheng Shen:	No
+01:53:21	Han Zhang:	no
+01:53:21	Yucheng Zhao:	no
+01:53:23	Yiming Du:	no
+01:53:26	Ka'Yil Shaw:	no
+01:53:32	Ning Lai:	Dim of vector is the number of it’s elements
+01:54:04	Jin Gao:	[1,0,0,0]
+01:54:13	Rita Xuyang Wang:	Ah right
+01:54:15	Joanna:	yes
+01:54:43	Xin Yang:	nonono
+01:54:43	Junhao, Wang:	N
+01:54:43	Qinyu Zhao:	No
+01:54:44	Zihan Bao:	no
+01:54:44	Joanna:	N
+01:54:44	Yupeng Chao:	no
+01:54:44	Jeff Cheng:	depends..
+01:54:44	Jinwu wang:	no
+01:54:45	Jinghang Feng:	no
+01:54:45	Yuqing Li:	no
+01:54:45	Jiajie Li:	no
+01:54:45	Han Zhang:	n
+01:54:45	Wenjia Cheng:	N
+01:54:45	Sana:	yes
+01:54:45	Chengyu Zhang:	no
+01:54:45	Linda Kwan:	not necessarily
+01:54:46	Rita Xuyang Wang:	no
+01:54:46	Xin Yang:	nonono
+01:54:46	Yuxin Hong:	no
+01:54:46	Mengfan Yan:	n
+01:54:46	Leiber Baoqian LYU:	no
+01:54:46	Ning Lai:	no
+01:54:46	Xingshu Wang:	no
+01:54:47	Jiayi Shen:	no
+01:54:47	Xin Yang:	nonono
+01:54:48	Youming Liu:	yes
+01:54:48	Ge Zhan:	no
+01:54:49	Xin Yang:	nonono
+01:54:49	Joseph Ho:	nnnn
+01:54:49	Mingyu Sheng:	no
+01:54:49	yuteng:	no
+01:54:50	Ka'Yil Shaw:	no
+01:54:50	Xin Yang:	nonono
+01:54:50	Xinyue Hu:	no
+01:54:51	Ruoxing Liao:	nonono
+01:54:51	Karthik Vemireddy:	no
+01:54:51	Yucheng Zhao:	Can be equal?
+01:54:51	Haorong Yao:	n
+01:54:51	Xin Yang:	nonono
+01:54:51	Jin Gao:	no
+01:54:52	Yue julia:	no
+01:54:52	Xin Yang:	nonono
+01:54:52	Shaocong Lang:	n
+01:54:52	Xiao Cui:	nno
+01:54:52	John (Min Jae) Kim:	no
+01:54:53	Yucheng Zhao:	no
+01:54:53	Xin Yang:	nonono
+01:54:55	Shulang Liu:	no
+01:54:56	Siya Yan:	no
+01:54:56	Ruizheng Shen:	No
+01:54:56	Xiangyu Chen:	no
+01:54:57	Ruiyang Meng:	no
+01:54:58	Xin Yang:	nonono
+01:54:58	Denny (Yi Lin):	no
+01:54:58	Xiaoju Ma:	nonono
+01:54:59	yan sun:	Can be equal?
+01:55:00	Xin Yang:	nonono
+01:55:00	Sana:	less or equal to dim v
+01:55:00	Barry K:	no
+01:55:04	Mamta Grewal:	no
+01:55:04	Xuan:	no
+01:55:05	JialiangChen:	n
+01:55:06	Yanjun Liu:	no
+01:55:06	Junhao, Wang:	can be equal
+01:55:57	Qinyu Zhao:	No
+01:55:57	Rita Xuyang Wang:	no
+01:55:58	Yanjun Liu:	no
+01:55:58	Joanna:	No
+01:55:58	Shaocong Lang:	n
+01:55:58	Xuan:	yes
+01:55:58	Xin Yang:	nonono
+01:55:58	Xiao Cui:	no
+01:55:58	Mingyu Sheng:	no
+01:55:58	Yuqing Li:	no
+01:55:58	Wenjia Cheng:	N
+01:55:59	Linda Kwan:	No
+01:55:59	Xin Yang:	nonono
+01:56:00	Jin Gao:	yes
+01:56:00	Xin Yang:	nonono
+01:56:00	Zihan Bao:	no
+01:56:01	Ning Lai:	yes
+01:56:01	Jeff Cheng:	no
+01:56:01	JialiangChen:	n
+01:56:01	Isha Dai:	no
+01:56:02	Xin Yang:	nonono
+01:56:02	Chengyu Zhang:	n
+01:56:02	Shaocong Lang:	n
+01:56:03	Mengfan Yan:	n
+01:56:03	Shaocong Lang:	n
+01:56:03	Haorong Yao:	n
+01:56:03	Shulang Liu:	no
+01:56:03	Shaocong Lang:	n
+01:56:04	Xin Yang:	nonono
+01:56:04	Yuxin Hong:	no
+01:56:04	Ruoxing Liao:	no
+01:56:04	Shaocong Lang:	n
+01:56:04	Ka'Yil Shaw:	no
+01:56:04	Ge Zhan:	no
+01:56:05	Xin Yang:	nonono
+01:56:05	Ping Zhang:	n
+01:56:05	Xiangyu Chen:	no
+01:56:05	Xin Yang:	nonono
+01:56:05	yuteng:	no
+01:56:06	Xinyue Hu:	n
+01:56:07	John (Min Jae) Kim:	no
+01:56:07	Sana:	no
+01:56:07	Xin Yang:	nonono
+01:56:07	Yuxiang Cai:	no
+01:56:07	yan sun:	yes
+01:56:07	Xin Yang:	nonono
+01:56:08	Jinwu wang:	yes
+01:56:09	Xuan:	no
+01:56:09	Xin Yang:	nonono
+01:56:11	Shulang Liu:	dependent
+01:56:12	Ziyi Guo:	No because more than 3 vectors which implies linear dependence
+01:56:13	Yiran Wang u7079256:	if they are not equal the are still the same ,because it talks about the dim of the vector
+01:56:15	Kenneth Igbokwe:	+
+01:56:15	Yue julia:	no
+01:56:15	Ge Zhan:	no
+01:56:18	Ruiyang Meng:	no
+01:56:38	Xin Yang:	It need to be linear independent
+01:56:46	Jeff Cheng:	not linearly independent
+01:56:55	Qinyu Zhao:	Yes
+01:57:27	Ping Zhang:	redundancy
+01:57:57	Qinyu Zhao:	Yes
+01:57:59	JialiangChen:	y
+01:58:00	Karthik Vemireddy:	yes
+01:58:00	John (Min Jae) Kim:	yes
+01:58:00	Zihan Bao:	yes
+01:58:01	Xiao Cui:	yes
+01:58:01	Yuqing Li:	yes
+01:58:01	Zhengyang Yu(John):	yes
+01:58:01	Linda Kwan:	Yes
+01:58:02	Mengfan Yan:	y
+01:58:02	Chengyu Zhang:	y
+01:58:02	Xuan:	yes
+01:58:03	Xinyue Hu:	y
+01:58:03	Jinghang Feng:	yes
+01:58:03	Yuxiang Cai:	yes
+01:58:03	Isha Dai:	yes
+01:58:04	Ge Zhan:	yes
+01:58:04	yan sun:	yes
+01:58:04	Ning Lai:	yes
+01:58:05	Jin Gao:	yes
+01:58:05	Yanjun Liu:	'yes
+01:58:06	Xiangyu Chen:	y
+01:58:06	yuteng:	yes
+01:58:06	leyang chai:	yes
+01:58:06	Joanna:	Y
+01:58:06	Haorong Yao:	y
+01:58:08	Wenjia Cheng:	Y
+01:58:08	Yuxin Hong:	y
+01:58:08	Ruizheng Shen:	Yes
+01:58:10	Siya Yan:	y
+01:58:12	Junhao, Wang:	Y
+01:58:14	xin su:	yes
+01:58:14	Rita Xuyang Wang:	yes
+01:58:18	shuhui DONG:	y
+01:58:19	Mingyu Sheng:	yes
+01:58:19	Yucheng Zhao:	Yes
+01:58:22	Xin Yang:	yesyesyes
+01:58:22	Xin Yang:	yesyesyes
+01:58:33	Xin Yang:	yyy
+01:58:33	Xin Yang:	yyy
+01:58:34	Xin Yang:	yyy
+01:58:34	Xin Yang:	yyy
+01:58:35	Xiangyu Chen:	yes
+01:58:36	Ruizheng Shen:	Yes
+01:58:36	Linda Kwan:	yes
+01:58:37	Yiran Wang u7079256:	no
+01:58:37	Sana:	yes
+01:58:37	Zhengyang Yu(John):	yes
+01:58:37	Karthik Vemireddy:	yes
+01:58:38	Yupeng Chao:	yes
+01:58:38	Yanjun Liu:	yes
+01:58:38	Ning Lai:	yeah
+01:58:38	Xinyue Hu:	y
+01:58:39	Chengyu Zhang:	y
+01:58:39	Junhao, Wang:	Y
+01:58:39	Haorong Yao:	y
+01:58:39	Yuxin Hong:	y
+01:58:40	John (Min Jae) Kim:	yes
+01:58:41	Yiran Wang u7079256:	yes
+01:58:42	leyang chai:	yes
+01:58:43	Xuan:	y
+01:58:43	Jinwu wang:	yes
+01:58:43	Yiqi Li:	y
+01:58:43	Yuxiang Cai:	yes
+01:58:44	Mengfan Yan:	y
+01:58:44	Zihan Bao:	yes
+01:58:44	Mingyu Sheng:	yes
+01:58:44	Yuqing Li:	yes
+01:58:44	Xiao Cui:	yes
+01:58:45	Isha Dai:	yes
+01:58:45	Ka'Yil Shaw:	yes
+01:58:46	Xin Yang:	yes
+01:58:46	Rita Xuyang Wang:	yes
+01:58:46	Xin Yang:	yes
+01:58:47	Xin Yang:	yes
+01:58:49	Xin Yang:	yyy
+01:58:50	Xin Yang:	yyy
+01:58:51	Shulang Liu:	yes
+01:59:11	Ping Zhang:	yes
+01:59:15	Tianjian Yang:	yes
+01:59:20	Isha Dai:	thx
+01:59:21	Yuxin Hong:	thx
+01:59:26	Linda Kwan:	Thank you
+01:59:27	Shulang Liu:	Thank you
+01:59:29	Hang Su:	thx
+01:59:34	Ka'Yil Shaw:	thank you
+01:59:37	Yupeng Chao:	thx
+01:59:40	Yuqing Li:	thank you
+01:59:50	Aggie Zub:	thank you!!
+02:00:22	Ning Lai:	thx
+02:01:56	Zihan Bao:	Hi, professor, can you add the page numbers on slides ?
+02:02:42	Joanna:	Thanks!
+02:04:41	Siya Yan:	thx
+02:04:48	Alex:	Hi Professor, Could u please explain REF again
+02:05:10	Ding Khoo:	For A), the "certain set of vectors" has to be linearly independent and spans the vector space right?
+02:05:36	Alex:	it seems all 0 at the bottom according to last week’s slide
+02:06:29	Junhao, Wang:	Thanks
+02:06:52	Alex:	okay. thanks
+02:06:53	Isha Dai:	All 0 below pivots
+02:06:55	Surya Teja-u7143732:	From next time if there is any question related to algebraic proof or something is it possible o explain with the help of writing in a white board as it is very difficult sometimes to understand in the slide
+02:07:18	Ding Khoo:	vector space
+02:07:23	Ding Khoo:	yes
+02:09:34	Yucheng Zhao:	Could you please explain again for the second property of the subplace of solutions and dimension? Sorry I cannot catch up with that
+02:10:56	Yucheng Zhao:	The more properties
+02:11:20	Yucheng Zhao:	The page more properties
+02:11:26	Yucheng Zhao:	I think 27?
+02:11:48	Yucheng Zhao:	yes
+02:11:53	Yucheng Zhao:	the second one
+02:13:55	Yucheng Zhao:	yes
+02:15:34	Yucheng Zhao:	yes thanks
+02:17:21	Karthik Vemireddy:	yes we get the area of interest and crop everything else
+02:21:04	yan sun:	U is subspace? The input is subspace?
+02:25:32	Alex:	Hi, professor, can u please try to contact the publisher to get the solutions for exercies in the textbook?
+02:26:16	yan sun:	The original image is the vector space or subspace?
+02:29:24	yan sun:	For second last page
+02:31:53	Alex:	sure, no worries. Professor
+02:32:12	yan sun:	Thank you Professor
