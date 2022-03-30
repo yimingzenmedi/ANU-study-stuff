@@ -6,7 +6,7 @@ from scipy.integrate import quad
 ##### Helper functions (DO NOT CHANGE)
 ################################################################
 
-# @lru_cache  # Makes things go fast
+@lru_cache()  # Makes things go fast
 def normalise_expontial_family(sufstat, eta):
     unnorm_prob = lambda z: np.exp(sufstat(z) @ np.array(eta))
     Z, err = quad(unnorm_prob, -np.inf, np.inf)
