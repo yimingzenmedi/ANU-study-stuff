@@ -1,0 +1,20 @@
+We acknowledge that this work is an original submission.
+Our UIDs are as follows:
+
+1) u7235649
+2) u7230788
+
+
+In addition, we acknowledge the following sources (URL for online and UIDs for
+class mates) as inspiration for some parts of our assignment submission:
+
+1) https://lianera.github.io/post/2014/cpu-step-by-step/#%E7%A7%BB%E4%BD%8D%E5%99%A8
+2)
+3)
+4)
+
+
+Please sign below (name and date, one per group member):
+
+1) Han Zhang, u7235649, 18/04/2022
+2) Jinchao He, u7230788, 18/04/2022

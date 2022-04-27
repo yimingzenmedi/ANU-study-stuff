@@ -1,0 +1,22 @@
+image: benjamingray/engn2219-2022-s1-labs:ass1
+
+variables:
+  GIT_DEPTH: 1
+
+originality:
+  tags:
+    - engn2219
+  script:
+    - /scripts/validate.py --soo statement.txt
+
+build:
+  tags:
+    - engn2219
+  script:
+    - /scripts/test.py src/cpu.dig --tests /data/ass1/cpu.test.dig
+
+report:
+  tags:
+    - engn2219
+  script:
+    - /scripts/validate.py --report report.pdf

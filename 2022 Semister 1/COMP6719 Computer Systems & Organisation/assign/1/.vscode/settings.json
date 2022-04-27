@@ -1,0 +1,10 @@
+{
+    "quac.debug.variables.format": {
+        "R1": "hex",
+        "R2": "hex",
+        "R3": "hex",
+        "R4": "binary",
+        "ALUOP": "binary",
+        "FL": "binary"
+    }
+}
