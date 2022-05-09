@@ -86,7 +86,7 @@ class GPRegressor:
         ----------
         X : ndarray of shape (n_samples, n_features)
             Feature vectors or other representations of training data.
-        y : ndarray of shape (n_samples,) or (n_samples, n_targets)
+        y : ndarray of shape (n_samples, n_targets)
             Target values.
 
         Returns:
@@ -135,9 +135,9 @@ class GPRegressor:
 
         Returns (depending on the case):
         --------------------------------
-        y_mean : ndarray of shape (n_samples,) or (n_samples, n_targets)
+        y_mean : ndarray of shape (n_samples, n_targets)
             Mean of predictive distribution a query points.
-        y_std : ndarray of shape (n_samples,) or (n_samples, n_targets), optional
+        y_std : ndarray of shape (n_samples, n_targets), optional
             Standard deviation of predictive distribution at query points.
             Only returned when `return_std` is True.
         """
@@ -164,7 +164,7 @@ class GPRegressor:
         ----------
         X_train : ndarray of shape (n_samples, n_features)
             Feature vectors or other representations of training data.
-        y_train : ndarray of shape (n_samples,) or (n_samples, n_targets)
+        y_train : ndarray of shape (n_samples, n_targets)
             Target values.
         X_test : ndarray of shape (n_samples, n_features)
             Query points where the GP is evaluated.
@@ -179,9 +179,9 @@ class GPRegressor:
         --------------------------------
         kernel_params: the kernel (hyper)parameters, optional. Only for `optimise_fit=True` case; 
             HINT: use `get_params()` fuction from kernel object. 
-        y_mean : ndarray of shape (n_samples,) or (n_samples, n_targets)
+        y_mean : ndarray of shape (n_samples, n_targets)
             Mean of predictive distribution a query points.
-        y_std : ndarray of shape (n_samples,) or (n_samples, n_targets), optional
+        y_std : ndarray of shape (n_samples, n_targets), optional
             Standard deviation of predictive distribution at query points.
             Only returned when `return_std` is True.
 

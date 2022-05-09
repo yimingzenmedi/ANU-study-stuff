@@ -28,7 +28,7 @@ def probability_improvement(X: np.ndarray, X_sample: np.ndarray,
 
     Returns:
     --------
-        PI: ndarray of shape (1,)
+        PI: ndarray of shape (m,)
     """
     # TODO Q2.4
     # Implement the probability of improvement acquisition function
@@ -62,7 +62,7 @@ def expected_improvement(X: np.ndarray, X_sample: np.ndarray,
 
     Returns:
     --------
-        EI : ndarray of shape (1,)
+        EI : ndarray of shape (m,)
     """
 
     # TODO Q2.4
