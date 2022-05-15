@@ -75,6 +75,10 @@ class GPRegressor:
         # Implement an L-BFGS-B optimisation algorithm using scipy.minimize built-in function
 
         # FIXME
+        
+        res = minimize(obj_func, initial_theta, bounds=bounds)
+#         print("!!!!!!! optimisation res:", res)
+        return res.x, np.array(res.fun)
 
         raise NotImplementedError
 
@@ -115,8 +119,34 @@ class GPRegressor:
         self._y_train = y
 
         # FIXME
+        
+#         res_list = [] 
+        bounds = self.kernel.bounds
+        theta_opt, func_min = self.optimisation(self.minurs_log_marginal_likelihood, self.kernel.theta, bounds)
+#         print("theta_opt:", theta_opt)
+#         print("func_min:", func_min)
+#         res_list.append([theta_opt, func_min])
+        res_theta = theta_opt
+        res_func_min = func_min
+        for i in range(1, self.n_restarts):
+            init_theta = self.kernel.theta  # ?
+            theta_opt, func_min = self.optimisation(self.minurs_log_marginal_likelihood, init_theta, bounds)
+            if func_min < res_func_min:
+                res_theta = theta_opt
+                res_func_min = func_min
+#             res_list.append([theta_opt, func_min])
 
+#         res_list = np.array(res_list)
+#         print("res_list:", res_list)
+
+        self.kernel.theta = res_theta
+        
+        return self
+    
         raise NotImplementedError
+        
+    def minurs_log_marginal_likelihood(self, theta):
+        return 0 - self.log_marginal_likelihood(theta)
 
     def predict(self, X: np.ndarray, return_std: bool = False) -> Union[np.ndarray, Tuple[np.ndarray, np.ndarray]]:
         """
@@ -146,7 +176,50 @@ class GPRegressor:
         # by using the Algorithm (1) from the assignment sheet.
 
         # FIXME
+#         print("2.2 ============================")
+#         print("X_train:", self._X_train, self._X_train.shape)
+#         print("X:", X, X.shape)
+#         print("Y:", self._y_train, self._y_train.shape)
+        
+        Ky = self.kernel(X)
+        Ky = Ky + self.noise_level * np.identity(len(Ky))
+#         print("Ky:", Ky, Ky.shape)
 
+        L = cholesky(Ky).T
+#         print("L:", L, L.shape)
+        alpha = np.linalg.solve(L.T,  np.linalg.solve(L, self._y_train))
+#         print("alpha:", alpha, alpha.shape)
+
+        K_T = self.kernel(X, self._X_train)
+#         print("K*T:", K_T, K_T.shape)
+        K_ = self.kernel(self._X_train, X)
+#         print("K*:", K_, K_.shape)
+
+        F_ = K_T @ alpha
+#         print("F* (mu):", F_, F_.shape)
+#         F_ = K_T @ np.linalg.inv(Ky) @ self._y_train
+#         print("F* (mu):", F_, F_.shape)
+
+        K__ = self.kernel(X)
+#         print("K**:", K__, K__.shape)
+        
+        v = np.linalg.solve(L, K_)
+#         print("v2:", v, v.shape)
+
+        v = np.linalg.solve(L, K_)
+#         print("v:", v, v.shape)
+        V = K__ - v.T @ v
+#         print("V (sigma):", V, V.shape)
+        
+        Vf = []
+        for i in range(len(V)):
+            Vf.append(V[i, i] ** 0.5)
+        Vf = np.array(Vf)
+        if return_std:
+            return F_, Vf
+        return F_
+        
+        
         raise NotImplementedError
 
     def fit_and_predict(self, X_train: np.ndarray, y_train: np.ndarray, X_test: np.ndarray,
@@ -191,6 +264,10 @@ class GPRegressor:
         # should be chosen based on the variable `optimise_fit`.
         if optimise_fit:
             # FIXME
+            
+            self.fit(X_train, y_train)
+            y_mean, y_std = self.predict(X_test, True)
+            return self.kernel.theta, y_mean, y_std
             raise NotImplementedError
         else:
             self._kernel = copy.deepcopy(self.kernel)
@@ -199,6 +276,9 @@ class GPRegressor:
             self._y_train = y_train
 
             # FIXME
+            y_mean, y_std = self.predict(X_test, True)
+            return self.kernel.theta, y_mean, y_std
+            
             raise NotImplementedError
 
     def log_marginal_likelihood(self, theta: np.ndarray) -> float:
@@ -224,4 +304,33 @@ class GPRegressor:
         kernel.theta = theta
 
         # FIXME
+        
+        print("theta :", theta, theta.shape)
+        print("X_train:", self._X_train, self._X_train.shape)
+        print("y_train:", self._y_train, self._y_train.shape)
+        
+        n = self._X_train.shape[0]
+        
+        Ky = self.kernel(self._X_train)
+        Ky = Ky + self.noise_level * np.identity(len(Ky))
+        print("Ky:", Ky, Ky.shape)
+        L = cholesky(Ky).T
+        print("L:", L, L.shape)
+        alpha = np.linalg.solve(L, self._y_train)
+        print("alpha':", alpha, alpha.shape)
+        alpha = np.linalg.solve(L.T, alpha)
+        print("alpha:", alpha, alpha.shape)
+        L_ii = 0
+        for i in range(len(L)):
+            L_ii += np.log(L[i, i])
+            
+        print("L_ii:", L_ii)
+        
+        res = -0.5 * self._y_train.T @ alpha - L_ii - (n / 2) * np.log(2 * np.pi)      # pi??
+        res = res[0,0]
+        
+        print("res:", res)
+        
+        return res
+        
         raise NotImplementedError

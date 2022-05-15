@@ -93,7 +93,7 @@ class BO:
         for i in range(n_iter):
             # FIXME
             # HINT: X_next is the result of the `sample_next_point` function
-            X_next = None
+            X_next = self.sample_next_point(acquisition, gpr, xi, n_restarts=5)
 
             # DO NOT CHANGE
             # Plot samples, surrogate function, noise-free objective and next sampling location

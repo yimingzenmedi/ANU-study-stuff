@@ -74,36 +74,28 @@ class Matern(Kernel):
         #               https://docs.scipy.org/doc/scipy/reference/generated/scipy.spatial.distance.cdist.html)
         #       or come up with your own solution using numpy.
 
-        print("X:", X, "Y:", Y)
+#         print("X:", X, "Y:", Y)
 
-        shapes = []
-        shapes.append(X[0])
+#         shapes = []
+#         shapes.append(X[0])
         if Y is None:
             Y = X
-    
-        shapes.append(Y[0])
-        shapes = np.array(shapes)
-        print("shapes:", shapes)
-        
-        X_features = X[1]
-        Y_features = Y[1]
-
-        
-        d = cdist(X_features, Y_features, 'euclidean')
-        
+       
+        d = cdist(X, Y, 'euclidean')
         
         if self.nu == 1.5:
             # FIXME
-            # pass
-            kv = np.square(self.variance) * (1 + np.sqrt(3) * d / self.length_scale) * np.exp(-np.sqrt(3) * d / self.length_scale)
-
-            return shapes, kv
+            kv = self.variance * (1 + np.sqrt(3) * d / self.length_scale) * np.exp(-np.sqrt(3) * d / self.length_scale)
+#             print("kv 1.5:", kv, kv.shape)
+        
+            return kv
+#             return np.array([shapes, kv])
         elif self.nu == 2.5:
             # FIXME
-#             pass
-            kv = np.square(self.variance) * (1 + np.sqrt(5) * d / self.length_scale + 5 * np.square(d) / (3 * np.square(self.length_scale))) * np.exp(-np.sqrt(5) * d / self.length_scale)
-
-            return shapes, kv
+            kv = self.variance * (1 + np.sqrt(5) * d / self.length_scale + 5 * np.square(d) / (3 * np.square(self.length_scale))) * np.exp(-np.sqrt(5) * d / self.length_scale)
+#             print("kv 2.5:", kv, kv.shape)
+#             return np.array([shapes, kv])
+            return kv
         else:
             # Do not change
             raise NotImplementedError

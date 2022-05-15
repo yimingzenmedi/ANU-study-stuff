@@ -15,6 +15,7 @@ class TestQuestion2_1(unittest.TestCase):
                         [0.05285537943757422, 1.0]])
         self.assertEqual(ret.shape, true.shape)
         self.assertTrue(np.allclose(ret, true))
+#         print("test_matern32_X pass")
 
     def test_matern52_X(self):
         kernel = kernels.Matern(nu=2.5)
@@ -24,6 +25,8 @@ class TestQuestion2_1(unittest.TestCase):
                         [0.04581560233508662, 1.0]])
         self.assertEqual(ret.shape, true.shape)
         self.assertTrue(np.allclose(ret, true))
+#         print("test_matern52_X pass")
+
 
     def test_matern32_XY(self):
         kernel = kernels.Matern(nu=1.5)
@@ -34,6 +37,8 @@ class TestQuestion2_1(unittest.TestCase):
                         [1.0, 0.05285537943757422]])
         self.assertEqual(ret.shape, true.shape)
         self.assertTrue(np.allclose(ret, true))
+#         print("test_matern32_XY pass")
+
 
     def test_matern52_XY(self):
         kernel = kernels.Matern(nu=2.5)
@@ -44,6 +49,8 @@ class TestQuestion2_1(unittest.TestCase):
                         [1.0, 0.04581560233508662]])
         self.assertEqual(ret.shape, true.shape)
         self.assertTrue(np.allclose(ret, true))
+#         print("test_matern52_XY pass")
+
 
 
 class TestQuestion2_2(unittest.TestCase):

@@ -11,7 +11,7 @@ U_ID = "u7235649"  # You need to specify!
 
 SUBMISSION_LIST = [
     # No need to submit theory question sheet `./assignment_1.pdf` or code framework `./framework/*`
-    './_PATH_TO_SOLUTION_PDF_FILE_.pdf',  # Change to the PDF of your theory solutions!
+    './Assignment_2.pdf',  # Change to the PDF of your theory solutions!
     './contribution.py',  # Make sure to include this!
     './boframework/kernels.py',  # Make sure to include this!
     './boframework/gp.py',  # Make sure to include this!
@@ -29,10 +29,10 @@ import os, zipfile
 
 assert len(SUBMISSION_LIST) == 7, "Added extra files in, should only have the files initially listed above"
 assert './contribution.py' in SUBMISSION_LIST, "No ./contribution.py in submission list"
-assert './kernels.py' in SUBMISSION_LIST, "No ./kernels.py in submission list"
-assert './gp.py' in SUBMISSION_LIST, "No ./gp.py in submission list"
-assert './acquisitions.py' in SUBMISSION_LIST, "No ./acquisitions.py in submission list"
-assert './bayesopt.py' in SUBMISSION_LIST, "No ./bayesopt.py in submission list"
+assert './boframework/kernels.py' in SUBMISSION_LIST, "No ./kernels.py in submission list"
+assert './boframework/gp.py' in SUBMISSION_LIST, "No ./gp.py in submission list"
+assert './boframework/acquisitions.py' in SUBMISSION_LIST, "No ./acquisitions.py in submission list"
+assert './boframework/bayesopt.py' in SUBMISSION_LIST, "No ./bayesopt.py in submission list"
 assert './bayesopt_implementation_viewer.ipynb' in SUBMISSION_LIST, "No ./bayesopt_implementation_viewer.ipynb in submission list"
 assert any('.pdf' in fname for fname in SUBMISSION_LIST), "No PDF solution file in submission list"
 
