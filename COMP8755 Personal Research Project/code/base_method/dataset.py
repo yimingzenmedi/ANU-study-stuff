@@ -39,21 +39,16 @@ def random_flip_and_rotate(im1, im2):
 
 
 class TrainDataset(data.Dataset):
-    def __init__(self, path, size, scale):
+    def __init__(self, path, size):
         super(TrainDataset, self).__init__()
 
         self.size = size
         h5f = h5py.File(path, "r")
-        
-        self.hr = [v[:] for v in h5f["HR"].values()]
+
+        self.blurry = [v[:] for v in h5f["blurry"].values()]
         # perform multi-scale training
-        if scale == 0:
-            self.scale = [2, 3, 4]
-            self.lr = [[v[:] for v in h5f["X{}".format(i)].values()] for i in self.scale]
-        else:
-            self.scale = [scale]
-            self.lr = [[v[:] for v in h5f["X{}".format(scale)].values()]]
-        
+        self.sharp = [v[:] for v in h5f["sharp"].values()]
+
         h5f.close()
 
         self.transform = transforms.Compose([
@@ -61,50 +56,36 @@ class TrainDataset(data.Dataset):
         ])
 
     def __getitem__(self, index):
-        size = self.size
+        return self.blurry[index], self.sharp[index]
 
-        item = [(self.hr[index], self.lr[i][index]) for i, _ in enumerate(self.lr)]
-        item = [random_crop(hr, lr, size, self.scale[i]) for i, (hr, lr) in enumerate(item)]
-        item = [random_flip_and_rotate(hr, lr) for hr, lr in item]
-        
-        return [(self.transform(hr), self.transform(lr)) for hr, lr in item]
+        # size = self.size
+        # item = [(self.hr[index], self.lr[i][index]) for i, _ in enumerate(self.lr)]
+        # item = [random_crop(hr, lr, size, self.scale[i]) for i, (hr, lr) in enumerate(item)]
+        # item = [random_flip_and_rotate(hr, lr) for hr, lr in item]
+        # return [(self.transform(hr), self.transform(lr)) for hr, lr in item]
 
     def __len__(self):
-        return len(self.hr)
-        
+        return len(self.blurry)
+
 
 class TestDataset(data.Dataset):
-    def __init__(self, dirname, scale):
+    def __init__(self, path):
         super(TestDataset, self).__init__()
 
-        self.name  = dirname.split("/")[-1]
-        self.scale = scale
-        
-        if "DIV" in self.name:
-            self.hr = glob.glob(os.path.join("{}_HR".format(dirname), "*.png"))
-            self.lr = glob.glob(os.path.join("{}_LR_bicubic".format(dirname), 
-                                             "X{}/*.png".format(scale)))
-        else:
-            all_files = glob.glob(os.path.join(dirname, "x{}/*.png".format(scale)))
-            self.hr = [name for name in all_files if "HR" in name]
-            self.lr = [name for name in all_files if "LR" in name]
+        h5f = h5py.File(path, "r")
 
-        self.hr.sort()
-        self.lr.sort()
+        self.blurry = [v[:] for v in h5f["blurry"].values()]
+        # perform multi-scale training
+        self.sharp = [v[:] for v in h5f["sharp"].values()]
+
+        h5f.close()
 
         self.transform = transforms.Compose([
             transforms.ToTensor()
         ])
 
     def __getitem__(self, index):
-        hr = Image.open(self.hr[index])
-        lr = Image.open(self.lr[index])
-
-        hr = hr.convert("RGB")
-        lr = lr.convert("RGB")
-        filename = self.hr[index].split("/")[-1]
-
-        return self.transform(hr), self.transform(lr), filename
+        return self.blurry[index], self.sharp[index]
 
     def __len__(self):
-        return len(self.hr)
+        return len(self.blurry)

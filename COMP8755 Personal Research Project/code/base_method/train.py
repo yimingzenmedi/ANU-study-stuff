@@ -67,7 +67,7 @@ class train():
 
                 self.step += 1
                 if self.args.verbose and self.step % self.args.print_interval == 0:
-                    psnr = self.evaluate("../dataset/Set14", scale=self.args.scale)
+                    psnr = self.evaluate(self.args.test_data_path)
                     print("PSNR:", psnr)
                     self.writer.add_scalar("Set14", psnr, self.step)
 
@@ -78,49 +78,49 @@ class train():
             if self.step > self.args.max_steps:
                 break
 
-    def evaluate(self, test_data_dir, scale):
+    def evaluate(self, test_data_dir):
 
         mean_psnr = 0
-        self.refiner.eval()
+        # self.refiner.eval()
 
-        test_data = TestDataset(test_data_dir, scale=scale)
+        test_data = TestDataset(test_data_dir)
         test_loader = DataLoader(test_data,
                                  batch_size=1,
                                  num_workers=1,
                                  shuffle=False)
-        for step, inputs in enumerate(test_loader):
-            hr = inputs[0].squeeze(0)
-            lr = inputs[1].squeeze(0)
-            # name = inputs[2][0]
+        # for step, inputs in enumerate(test_loader):
+        #     hr = inputs[0].squeeze(0)
+        #     lr = inputs[1].squeeze(0)
+        #     # name = inputs[2][0]
 
-            h, w = lr.size()[1:]
-            h_half, w_half = int(h / 2), int(w / 2)
-            h_chop, w_chop = h_half + self.args.shave, w_half + self.args.shave
+            # h, w = lr.size()[1:]
+            # h_half, w_half = int(h / 2), int(w / 2)
+            # h_chop, w_chop = h_half + self.args.shave, w_half + self.args.shave
 
-            # split large image to 4 patch to avoid OOM error
-            lr_patch = torch.FloatTensor(4, 3, h_chop, w_chop)
-            lr_patch[0].copy_(lr[:, 0:h_chop, 0:w_chop])
-            lr_patch[1].copy_(lr[:, 0:h_chop, w - w_chop:w])
-            lr_patch[2].copy_(lr[:, h - h_chop:h, 0:w_chop])
-            lr_patch[3].copy_(lr[:, h - h_chop:h, w - w_chop:w])
-            lr_patch = lr_patch.to(device)
+            # # split large image to 4 patch to avoid OOM error
+            # lr_patch = torch.FloatTensor(4, 3, h_chop, w_chop)
+            # lr_patch[0].copy_(lr[:, 0:h_chop, 0:w_chop])
+            # lr_patch[1].copy_(lr[:, 0:h_chop, w - w_chop:w])
+            # lr_patch[2].copy_(lr[:, h - h_chop:h, 0:w_chop])
+            # lr_patch[3].copy_(lr[:, h - h_chop:h, w - w_chop:w])
+            # lr_patch = lr_patch.to(device)
 
-            # run refine process in here!
-            sr = self.refiner(lr_patch, scale).data
-
-            h, h_half, h_chop = h * scale, h_half * scale, h_chop * scale
-            w, w_half, w_chop = w * scale, w_half * scale, w_chop * scale
+            # # run refine process in here!
+            # sr = self.refiner(lr_patch, scale).data
+            #
+            # h, h_half, h_chop = h * scale, h_half * scale, h_chop * scale
+            # w, w_half, w_chop = w * scale, w_half * scale, w_chop * scale
 
             # merge splited patch images
-            result = torch.FloatTensor(3, h, w).to(self.device)
-            result[:, 0:h_half, 0:w_half].copy_(sr[0, :, 0:h_half, 0:w_half])
-            result[:, 0:h_half, w_half:w].copy_(sr[1, :, 0:h_half, w_chop - w + w_half:w_chop])
-            result[:, h_half:h, 0:w_half].copy_(sr[2, :, h_chop - h + h_half:h_chop, 0:w_half])
-            result[:, h_half:h, w_half:w].copy_(sr[3, :, h_chop - h + h_half:h_chop, w_chop - w + w_half:w_chop])
-            sr = result
+            # result = torch.FloatTensor(3, h, w).to(self.device)
+            # result[:, 0:h_half, 0:w_half].copy_(sr[0, :, 0:h_half, 0:w_half])
+            # result[:, 0:h_half, w_half:w].copy_(sr[1, :, 0:h_half, w_chop - w + w_half:w_chop])
+            # result[:, h_half:h, 0:w_half].copy_(sr[2, :, h_chop - h + h_half:h_chop, 0:w_half])
+            # result[:, h_half:h, w_half:w].copy_(sr[3, :, h_chop - h + h_half:h_chop, w_chop - w + w_half:w_chop])
+            # sr = result
 
-            hr = hr.cpu().mul(255).clamp(0, 255).byte().permute(1, 2, 0).numpy()
-            sr = sr.cpu().mul(255).clamp(0, 255).byte().permute(1, 2, 0).numpy()
+            # hr = hr.cpu().mul(255).clamp(0, 255).byte().permute(1, 2, 0).numpy()
+            # sr = sr.cpu().mul(255).clamp(0, 255).byte().permute(1, 2, 0).numpy()
 
             # evaluate PSNR
             # this evaluation is different to MATLAB version
@@ -154,6 +154,7 @@ def parse_args():
     parser.add_argument("--ckpt_name", type=str, default="carn_test")
     parser.add_argument("--print_interval", type=int, default=100)
     parser.add_argument("--train_data_path", type=str, default="datasets/video_train.h5")
+    parser.add_argument("--test_data_path", type=str, default="datasets/video_test.h5")
     parser.add_argument("--ckpt_dir", type=str, default="../checkpoint/m")
     parser.add_argument("--num_gpu", type=int, default=1)
     parser.add_argument("--shave", type=int, default=20)
@@ -164,8 +165,7 @@ def parse_args():
     parser.add_argument("--decay", type=int, default=400000)
     parser.add_argument("--lr", type=float, default=0.0001)
     parser.add_argument("--clip", type=float, default=10.0)
-    parser.add_argument("--loss_fn", type=str, choices=["MSE", "L1", "SmoothL1"], default="L1")
-    parser.add_argument("--valid_data_dir", type=str, default="../dataset/B100")
+    # parser.add_argument("--loss_fn", type=str, choices=["MSE", "L1", "SmoothL1"], default="L1")
     parser.add_argument("--net", type=int, default=1, choices=[1, 2, 3, 4])
     parser.add_argument("--cuda", type=bool, default=False)
 
@@ -203,6 +203,8 @@ if __name__ == "__main__":
     # net4 = importlib.import_module("F17_N9")
     net1 = centerEsti
     net2 = F35_N8
+    net3 = F26_N9
+    net4 = F17_N9
 
     if args.net == 1:
         train = train(args, net1)
