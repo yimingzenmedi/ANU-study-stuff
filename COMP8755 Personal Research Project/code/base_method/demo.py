@@ -2,7 +2,6 @@ from __future__ import print_function
 import argparse
 import torch
 from torch.autograd import Variable
-from PIL import Image
 from torchvision import transforms
 import utils
 from model import centerEsti
@@ -21,6 +20,7 @@ model1 = centerEsti()
 model2 = F35_N8()
 model3 = F26_N9()
 model4 = F17_N9()
+
 checkpoint = torch.load('models/center_v3.pth')
 model1.load_state_dict(checkpoint['state_dict_G'])
 checkpoint = torch.load('models/F35_N8.pth')
@@ -52,6 +52,7 @@ input = input_transform(input)
 input = input.unsqueeze(0)
 if args.cuda:
     input = input.cuda()
+
 input = Variable(input, volatile=True)
 output4 = model1(input)
 output3_5 = model2(input, output4)
@@ -74,16 +75,16 @@ else:
     output6 = output2_6[1]
     output7 = output1_7[1]
 output_data = output1.data[0]*255
-utils.save_image(inputFile[:-4] + '-esti1' + inputFile[-4:], output_data)                
+utils.save_image("sharp_outputs\\" + inputFile[:-4] + '-esti1' + inputFile[-4:], output_data)
 output_data = output2.data[0]*255
-utils.save_image(inputFile[:-4] + '-esti2' + inputFile[-4:], output_data)                
+utils.save_image("sharp_outputs\\" + inputFile[:-4] + '-esti2' + inputFile[-4:], output_data)
 output_data = output3.data[0]*255
-utils.save_image(inputFile[:-4] + '-esti3' + inputFile[-4:], output_data)
+utils.save_image("sharp_outputs\\" + inputFile[:-4] + '-esti3' + inputFile[-4:], output_data)
 output_data = output4.data[0]*255
-utils.save_image(inputFile[:-4] + '-esti4' + inputFile[-4:], output_data)
+utils.save_image("sharp_outputs\\" + inputFile[:-4] + '-esti4' + inputFile[-4:], output_data)
 output_data = output5.data[0]*255
-utils.save_image(inputFile[:-4] + '-esti5' + inputFile[-4:], output_data)
+utils.save_image("sharp_outputs\\" + inputFile[:-4] + '-esti5' + inputFile[-4:], output_data)
 output_data = output6.data[0]*255
-utils.save_image(inputFile[:-4] + '-esti6' + inputFile[-4:], output_data)
+utils.save_image("sharp_outputs\\" + inputFile[:-4] + '-esti6' + inputFile[-4:], output_data)
 output_data = output7.data[0]*255
-utils.save_image(inputFile[:-4] + '-esti7' + inputFile[-4:], output_data)
+utils.save_image("sharp_outputs\\" + inputFile[:-4] + '-esti7' + inputFile[-4:], output_data)

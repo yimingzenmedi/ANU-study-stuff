@@ -1,0 +1,13 @@
+html, body {
+    margin: 0;
+    background-color: aliceblue;
+}
+
+/* header: */
+.header {
+    margin-top: 10px;
+    padding: 0 10px;
+}
+.logo {
+    width: 150px;
+}
