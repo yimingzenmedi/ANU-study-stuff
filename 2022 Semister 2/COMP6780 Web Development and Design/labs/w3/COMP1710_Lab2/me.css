@@ -1,0 +1,22 @@
+body {
+    color: rgb(88, 88, 88);
+}
+
+#aboutMe {
+    color: red;
+}
+
+ul li {
+    display: inline;
+    text-decoration: none;
+}
+
+ul {
+    background-color: aliceblue;
+    font-weight: bold;
+    text-align: center;
+}
+
+img {
+    width: 400px;
+}
