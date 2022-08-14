@@ -1,0 +1,12 @@
+#aboutme_fake_bg {
+    position: absolute;
+    top: 100px;
+    right: 0;
+    max-height: calc(100vh - 200px);
+    opacity: 0.25;
+}
+
+.txt {
+    position: relative;
+    padding-bottom: 20px;
+}

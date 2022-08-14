@@ -1,0 +1,106 @@
+html, body {
+    margin: 0;
+    height: 100%;
+    /* background-color: aliceblue; */
+}
+
+/* header: */
+.header {
+    margin: 0;
+    background: black;
+    height: 100px;
+    z-index: 999;
+    top: 0;
+    width: 100%;
+}
+
+.logo {
+    margin: 5px 10px;
+    height: 90px;
+    width: 150px;
+}
+
+.mySocialMidiaIcons {
+    text-align: right;
+    position: absolute;
+    top: 15px;
+    right: 30px;
+    opacity: 0.5;
+}
+
+.mySocialMidiaIcons span {
+    height: 25px;
+    width: 25px;
+    display: inline-block;
+    margin-left: 15px;
+}
+
+.mySocialMidiaIcons a, .mySocialMidiaIcons img {
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+}
+
+#nav_h {
+    text-decoration: none;
+    color: white;
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-right: 30px;
+    margin-top: 70px;
+    margin-bottom: 0;
+}
+
+#nav_h li {
+    display: inline;
+    margin: 0 10px;
+    font-size: 20px;
+}
+
+#nav_h a {
+    text-decoration: none;
+}
+
+#nav_h a, #nav_h a:active, #nav_h a:hover {
+    color: white;
+}
+li:hover {
+    text-shadow: 0 0 5px white;
+}
+
+.selected {
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+/* main content */
+.main {
+    padding: 0 20px;
+    color: #0a0a0a;
+    z-index: 1;
+    min-height: calc(100vh - 200px);
+    margin: 0;
+}
+
+
+/* footer */
+.footer {
+    position: relative;
+    bottom: 17px;
+    width: 100%;
+    height: 100px;
+    background-color: black;
+    color: white;
+    z-index: 999;
+}
+
+.footer p {
+    text-align: center;
+    position: relative;
+    top: 40px;
+}
+
+.footer a {
+    color: white;
+}
