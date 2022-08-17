@@ -16,6 +16,7 @@ parser = argparse.ArgumentParser(description='Demo MPRNet')
 parser.add_argument('--input_dir', default='./samples/input/', type=str, help='Input images')
 parser.add_argument('--result_dir', default='./samples/output/', type=str, help='Directory for results')
 parser.add_argument('--task', required=True, type=str, help='Task to run', choices=['Deblurring', 'Denoising', 'Deraining'])
+parser.add_argument("--cuda", type=bool, default=False)
 
 args = parser.parse_args()
 
@@ -51,7 +52,8 @@ if len(files) == 0:
 # Load corresponding model architecture and weights
 load_file = run_path(os.path.join(task, "MPRNet.py"))
 model = load_file['MPRNet']()
-model.cuda()
+if args.cuda:
+    model.cuda()
 
 weights = os.path.join(task, "pretrained_models", "model_"+task.lower()+".pth")
 load_checkpoint(model, weights)
@@ -61,7 +63,9 @@ img_multiple_of = 8
 
 for file_ in files:
     img = Image.open(file_).convert('RGB')
-    input_ = TF.to_tensor(img).unsqueeze(0).cuda()
+    input_ = TF.to_tensor(img).unsqueeze(0)
+    if args.cuda:
+        input_.cuda()
 
     # Pad the input if not_multiple_of 8
     h,w = input_.shape[2], input_.shape[3]

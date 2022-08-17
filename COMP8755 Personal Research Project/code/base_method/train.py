@@ -1,14 +1,13 @@
 """
 This file refers to https://github.com/nmhkahn/CARN-pytorch and made changes.
 """
-import importlib as importlib
 import os
 from tensorboardX import SummaryWriter
 import torch.nn as nn
 import torch.optim as optim
 from torch.utils.data import DataLoader
 from dataset import TrainDataset, TestDataset
-from model import centerEsti, F35_N8, F26_N9, F17_N9
+from models.LTEVSFSMBI import centerEsti, F35_N8, F26_N9, F17_N9
 from utils import *
 import argparse
 
@@ -151,7 +150,7 @@ def parse_args():
 
     # config:
     parser.add_argument("--scale", type=int, default=4)
-    parser.add_argument("--ckpt_name", type=str, default="carn_test")
+    parser.add_argument("--ckpt_name", type=str, default="video_test")  # check points
     parser.add_argument("--print_interval", type=int, default=100)
     parser.add_argument("--train_data_path", type=str, default="datasets/video_train.h5")
     parser.add_argument("--test_data_path", type=str, default="datasets/video_test.h5")

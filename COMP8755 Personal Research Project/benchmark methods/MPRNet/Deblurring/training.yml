@@ -1,5 +1,5 @@
 ###############
-## 
+##
 ####
 
 GPU: [0,1,2,3]
@@ -26,5 +26,5 @@ TRAINING:
   VAL_PS: 256
   TRAIN_DIR: './Datasets/GoPro/train' # path to training data
   VAL_DIR: './Datasets/GoPro/test'    # path to validation data
-  SAVE_DIR: './checkpoints'     # path to save models and images
+  SAVE_DIR: './ckpt'     # path to save models and images
   # SAVE_IMAGES: False
