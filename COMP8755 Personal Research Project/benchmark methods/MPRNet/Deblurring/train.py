@@ -27,12 +27,8 @@ import losses
 from warmup_scheduler import GradualWarmupScheduler
 from tqdm import tqdm
 
-# import argparse
-
-# parser = argparse.ArgumentParser(description='Train MPRNet')
-# parser.add_argument('--cuda', default=False, type=bool, help='Turn on cuda computing?')
-
 if __name__ == '__main__':
+
     ######### Set Seeds ###########
     random.seed(1234)
     np.random.seed(1234)
@@ -77,7 +73,6 @@ if __name__ == '__main__':
         path_chk_rest = utils.get_last_path(model_dir, '_latest.pth')
         utils.load_checkpoint(model_restoration, path_chk_rest)
         start_epoch = utils.load_start_epoch(path_chk_rest) + 1
-        print("start_epoch:", start_epoch)
         utils.load_optim(optimizer, path_chk_rest)
 
         for i in range(1, start_epoch):
@@ -96,9 +91,9 @@ if __name__ == '__main__':
 
     ######### DataLoaders ###########
     train_dataset = get_training_data(train_dir, {'patch_size': opt.TRAINING.TRAIN_PS})
-    train_loader = DataLoader(dataset=train_dataset, batch_size=opt.OPTIM.BATCH_SIZE, shuffle=True, num_workers=8,
+    train_loader = DataLoader(dataset=train_dataset, batch_size=opt.OPTIM.BATCH_SIZE, shuffle=True, num_workers=16,
                               drop_last=False, pin_memory=True)
-    print("train_loader:", train_loader)
+
     val_dataset = get_validation_data(val_dir, {'patch_size': opt.TRAINING.VAL_PS})
     val_loader = DataLoader(dataset=val_dataset, batch_size=16, shuffle=False, num_workers=8, drop_last=False,
                             pin_memory=True)
@@ -115,9 +110,8 @@ if __name__ == '__main__':
         train_id = 1
 
         model_restoration.train()
-        enumerated = enumerate(tqdm(train_loader), 0)
-        # enumerated = enumerate(train_loader, 0)
-        for i, data in enumerated:
+        for i, data in enumerate(tqdm(train_loader), 0):
+
             # zero_grad
             for param in model_restoration.parameters():
                 param.grad = None
@@ -128,9 +122,10 @@ if __name__ == '__main__':
             restored = model_restoration(input_)
 
             # Compute loss at each stage
-            loss_char = np.sum([criterion_char(restored[j], target) for j in range(len(restored))])
-            loss_edge = np.sum([criterion_edge(restored[j], target) for j in range(len(restored))])
-            loss = (loss_char) + (0.05 * loss_edge)
+
+            loss_char = sum([criterion_char(restored[j], target) for j in range(len(restored))])
+            loss_edge = sum([criterion_edge(restored[j], target) for j in range(len(restored))])
+            loss = loss_char + (0.05 * loss_edge)
 
             loss.backward()
             optimizer.step()
