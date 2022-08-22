@@ -2,11 +2,7 @@
     position: absolute;
     top: 100px;
     right: 0;
-    max-height: calc(100vh - 200px);
+    max-height: calc(100vh - 300px);
     opacity: 0.25;
 }
 
-.txt {
-    position: relative;
-    padding-bottom: 20px;
-}

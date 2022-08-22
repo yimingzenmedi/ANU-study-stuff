@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback</title>
+    <link rel="stylesheet" href="./css/feedback.css">
+</head>
+<body>
+    <h1>Feedback Form</h1>
+    <form action="mailto:u7235649@anu.edu.au">
+        <label for="name">Your name</label>
+        <br/>
+        <input type="text" id="name" name="name"/>
+        <br/>
+        <label for="email">Your email address</label>
+        <br/>
+        <input type="email" id="email" name="email"/>
+        <br/>
+        <label>What is your gender</label>
+        <br/>
+        <input type="radio" value="Male" name="gender" id="male"/>
+        <label for="male">Male</label>
+        <input type="radio" value="Female" name="gender" id="female"/>
+        <label for="female">Female</label>
+        <input type="radio" value="Other" name="gender" id="other"/>
+        <label for="other">Other</label>
+        <input type="radio" value="I prefer not to say" name="gender" id="nottosay"/>
+        <label for="nottosay">I prefer not to say</label>
+        <br/>
+        <label for="feedback">Please fill in the your feedback</label>
+        <br>
+        <textarea name="feedback" id="feedback" cols="30" rows="10"></textarea>
+        <hr/>
+        <button type="submit">Send it</button>
+        <button type="reset">Cleare</button>
+    </form>
+</body>
+</html>
