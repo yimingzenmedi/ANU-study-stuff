@@ -1,3 +1,41 @@
 /* label, input {
     display: block;
 } */
+
+.main {
+    text-align: center;
+}
+
+label {
+    display: inline-block;
+    margin: 5px 0;
+}
+
+.genderInfo {
+    cursor: pointer;
+}
+
+form {
+    width: 50%;
+    margin-left: 25%;
+    text-align: left;
+}
+
+.form_input {
+    width: 100%;
+    line-height: 1.5rem;
+}
+
+.form_label {
+    font-weight: bold;
+}
+
+.buttons {
+    text-align: center;
+}
+
+button {
+    margin: 0 20px;
+    padding: 5px 20px;
+    font-size: 1.1rem;
+}

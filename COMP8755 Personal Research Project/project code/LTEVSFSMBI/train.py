@@ -126,7 +126,7 @@ if __name__ == '__main__':
     # train_dataset = get_training_data(train_dir, {'patch_size': opt.TRAINING.TRAIN_PS})
     # val_dataset = get_validation_data(val_dir, {'patch_size': opt.TRAINING.VAL_PS})
 
-    train_loader = DataLoader(dataset=train_dataset, batch_size=opt.OPTIM.BATCH_SIZE, shuffle=True, num_workers=16,
+    train_loader = DataLoader(dataset=train_dataset, batch_size=opt.OPTIM.BATCH_SIZE, shuffle=True, num_workers=8,
                               drop_last=False, pin_memory=True)
     val_loader = DataLoader(dataset=val_dataset, batch_size=16, shuffle=False, num_workers=8, drop_last=False,
                             pin_memory=True)
@@ -163,7 +163,7 @@ if __name__ == '__main__':
             loss = criterion(restored, target)
             # print("!!! type loss:", type(loss), loss)
             # loss = loss.numpy().tolist()
-            
+
             loss.backward()
             optimizer.step()
             epoch_loss += loss.item()

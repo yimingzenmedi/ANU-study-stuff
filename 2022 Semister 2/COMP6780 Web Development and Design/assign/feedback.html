@@ -1,40 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Feedback</title>
-    <link rel="stylesheet" href="./css/feedback.css">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Feedback</title>
+  <link rel="stylesheet" href="./css/common.css">
+  <link rel="stylesheet" href="./css/feedback.css">
 </head>
 <body>
+  <!-- header -->
+  <div class="header">
+    <a href="./index.html">
+      <img class="logo" src="./asset/logo_white.png" alt="logo">
+    </a>
+    <!-- links to my social network page: -->
+    <div class="mySocialMidiaIcons">
+      <span>
+        <a href="https://www.instagram.com/qing_yan.yi_ren/" target="_blank">
+          <img src="./asset/instagram_icon.png" alt="instagram" title="My Instagram">
+        </a>
+      </span>
+      <span>
+        <a href="https://www.facebook.com/profile.php?id=100009920863788" target="_blank">
+          <img src="./asset/facebook_icon.png" alt="facebook" title="My Facebook">
+        </a>
+      </span>
+      <span>
+        <a href="https://weibo.com/7365397741/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1" target="_blank">
+          <img src="./asset/weibo_icon.png" alt="weibo" title="My Weibo">
+        </a>
+      </span>
+    </div>
+  </div>
+
+  <!-- main content here -->
+  <div class="main">
     <h1>Feedback Form</h1>
+    <hr/>
     <form action="mailto:u7235649@anu.edu.au">
-        <label for="name">Your name</label>
-        <br/>
-        <input type="text" id="name" name="name"/>
-        <br/>
-        <label for="email">Your email address</label>
-        <br/>
-        <input type="email" id="email" name="email"/>
-        <br/>
-        <label>What is your gender</label>
-        <br/>
-        <input type="radio" value="Male" name="gender" id="male"/>
-        <label for="male">Male</label>
-        <input type="radio" value="Female" name="gender" id="female"/>
-        <label for="female">Female</label>
-        <input type="radio" value="Other" name="gender" id="other"/>
-        <label for="other">Other</label>
-        <input type="radio" value="I prefer not to say" name="gender" id="nottosay"/>
-        <label for="nottosay">I prefer not to say</label>
-        <br/>
-        <label for="feedback">Please fill in the your feedback</label>
-        <br>
-        <textarea name="feedback" id="feedback" cols="30" rows="10"></textarea>
-        <hr/>
-        <button type="submit">Send it</button>
+      <label class="form_label" for="name">Your name:</label>
+      <br/>
+      <input class="form_input" type="text" id="name" name="name"/>
+      <br/>
+      <br/>
+      <label class="form_label" for="email">Your email address:</label>
+      <br/>
+      <input class="form_input" type="email" id="email" name="email"/>
+      <br/>
+      <br/>
+      <label class="form_label">What is your gender:</label>
+      <br/>
+      <input class="genderInfo" type="radio" value="Male" name="gender" id="male"/>
+      <label class="genderInfo" for="male">Male</label>
+      <input class="genderInfo" type="radio" value="Female" name="gender" id="female"/>
+      <label class="genderInfo" for="female">Female</label>
+      <input class="genderInfo" type="radio" value="Other" name="gender" id="other"/>
+      <label class="genderInfo" for="other">Other</label>
+      <input class="genderInfo" type="radio" value="I prefer not to say" name="gender" id="nottosay"/>
+      <label class="genderInfo" for="nottosay">I prefer not to say</label>
+      <br/>
+      <br/>
+      <label class="form_label" for="feedback">Please fill in the your feedback:</label>
+      <br/>
+      <textarea class="form_input" name="feedback" id="feedback" cols="30" rows="10"></textarea>
+      <br/>
+      <br/>
+      <hr/>
+      <br/>
+      <div class="buttons">
         <button type="reset">Cleare</button>
+        <button class="inverse_btn" type="submit">Send it</button>
+      </div>
+
     </form>
+    <br/>
+  </div>
+
+  <div class="footer"></div>
 </body>
 </html>

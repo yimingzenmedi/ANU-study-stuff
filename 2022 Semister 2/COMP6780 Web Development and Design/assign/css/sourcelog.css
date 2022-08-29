@@ -1,3 +1,29 @@
-table, td, th {
-    border: 1px solid black;
+.main {
+    text-align: center;
 }
+
+td, th {
+    border-top: solid 1px black;
+    border-left: solid 1px black;
+    padding: 0;
+    line-height: 1.7rem;
+    padding: 0 5px;
+}
+
+th {
+    background-color: black;
+    color: white;
+}
+
+table {
+    display: inline-block;
+    border-spacing: 0;
+    border-right: solid 1px black;
+    border-bottom: solid 1px black;
+    max-width: 80%;
+    text-align: left;
+}
+
+/* .content {
+    text-align: left;
+} */

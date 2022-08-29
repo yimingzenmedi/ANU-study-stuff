@@ -19,30 +19,31 @@
     <a href="./index.html">
       <img class="logo" src="./asset/logo_white.png" alt="logo">
     </a>
+    <!-- links to my social network page: -->
     <div class="mySocialMidiaIcons">
-        <!-- icons from: https://www.vecteezy.com/ -->
       <span>
         <a href="https://www.instagram.com/qing_yan.yi_ren/" target="_blank">
-          <img src="./asset/instagram_icon.png" alt="instagram">
+          <img src="./asset/instagram_icon.png" alt="instagram" title="My Instagram">
         </a>
       </span>
       <span>
         <a href="https://www.facebook.com/profile.php?id=100009920863788" target="_blank">
-          <img src="./asset/facebook_icon.png" alt="facebook">
+          <img src="./asset/facebook_icon.png" alt="facebook" title="My Facebook">
         </a>
       </span>
-      <!-- icons from: https://www.51yuansu.com/ -->
       <span>
         <a href="https://weibo.com/7365397741/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1" target="_blank">
-          <img src="./asset/weibo_icon.png" alt="weibo">
+          <img src="./asset/weibo_icon.png" alt="weibo" title="My Weibo">
         </a>
       </span>
     </div>
+
+    <!-- main navigation bar: -->
     <ul id="nav_h">
       <li><a href="./index.html">Home</a></li>
-      <li><a href="./blogs.html">Blogs</a></li>
+      <li><a href="./blog_1.html">Blogs</a></li>
       <li><a href="./destinations.html">Destinations</a></li>
-      <li><a href="./photos.html">Photos</a></li>
+      <li><a href="./gallery.html">Gallery</a></li>
       <li class="selected"><a href="./about_me.html">About me</a></li>
     </ul>
   </div>
@@ -54,9 +55,9 @@
       thus by using css "opacity" I can adjust the background opacity but do not change 
       the text opacity.
     -->
-    <img id="aboutme_fake_bg" src="../asset/aboutme_bg.png" alt="background img">
+    <img id="aboutme_fake_bg" src="./asset/aboutme_bg.png" alt="background img">
     <div class="txt">
-      <div class="about_me">
+      <div class="about_me" id="about_me">
         <h1>About me</h1>
         <p>Nice to meet you!</p>
         <p>
@@ -66,7 +67,7 @@
           I'm really happy to meet everyone and make friends!
         </p>
       </div>
-      <div class="my_passion">
+      <div class="my_passion" id="my_passion">
         <h1>My passion</h1>
         <p>
           I have many hobbies, but I really love travel and photography. 
@@ -75,7 +76,12 @@
           most of the results that came up were very famous places, 
           however most places around me were not so famous, so there are only little relevant information, 
           which was very distressing to me.
-          So here I hope I can show these wonderful places, and give some reference to the others.
+          Most of the time I scrutinize satellite maps to find points of interest 
+          and check out Street View and photos uploaded by others, 
+          but that doesn't always work.
+          So here I'd love to share these places I've been to with all of you, 
+          as well as my experiences, hoping to give people some information,
+          and hope that these places can be your travel destinations.
         </p>
         <p>
           In this website you can find travel blog posts, tourist attractions information, photos, and more.
@@ -90,42 +96,6 @@
           But I believe that as I travel more and more places, 
           the information on this site will become more and more comprehensive.
         </p>
-        <p>
-          Sadly, these locations are currently limited to a limited number of places I've been to, 
-          most of which are concentrated around Auckland. 
-          But I believe that as I travel more and more places, 
-          the information on this site will become more and more comprehensive.
-        </p>
-        <!-- <p>
-          Sadly, these locations are currently limited to a limited number of places I've been to, 
-          most of which are concentrated around Auckland. 
-          But I believe that as I travel more and more places, 
-          the information on this site will become more and more comprehensive.
-        </p>
-        <p>
-          Sadly, these locations are currently limited to a limited number of places I've been to, 
-          most of which are concentrated around Auckland. 
-          But I believe that as I travel more and more places, 
-          the information on this site will become more and more comprehensive.
-        </p>
-        <p>
-          Sadly, these locations are currently limited to a limited number of places I've been to, 
-          most of which are concentrated around Auckland. 
-          But I believe that as I travel more and more places, 
-          the information on this site will become more and more comprehensive.
-        </p>
-        <p>
-          Sadly, these locations are currently limited to a limited number of places I've been to, 
-          most of which are concentrated around Auckland. 
-          But I believe that as I travel more and more places, 
-          the information on this site will become more and more comprehensive.
-        </p>
-        <p>
-          Sadly, these locations are currently limited to a limited number of places I've been to, 
-          most of which are concentrated around Auckland. 
-          But I believe that as I travel more and more places, 
-          the information on this site will become more and more comprehensive.
-        </p> -->
       </div>
     </div>
   </div>
@@ -138,7 +108,12 @@
       <p><a href="./feedback.html" target="_blank">Feedback</a></p>
     </div>
     <div class="footer_right">
-      <p><a href="mailto:u7235649@anu.edu.au">Contact me</a></p>
+      <p class="footer_right_item">
+        <a href="mailto:u7235649@anu.edu.au">
+          <img src="./asset/email.png" alt="email" class="footer_icon">
+          Contact me
+        </a>
+      </p>
     </div>
   </div>
 

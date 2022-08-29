@@ -1,13 +1,11 @@
-import torch
 import torch.nn as nn
-import torch.nn.functional as F
-from torchvision.models import vgg16
+from torchvision.models import vgg16, VGG16_Weights
 
 
 def perceptualLoss(fakeIm, realIm):
     # print("\n!!! faleIm:", fakeIm.size(), ", realIm:", realIm.size())
     weights = [1, 1, 1]       # TODO: 改为relu2_2和relu3_3的层为1其他为0
-    vggnet = vgg16(pretrained=True).features.cuda()
+    vggnet = vgg16(pretrained=VGG16_Weights.IMAGENET1K_V1).features.cuda()
     vggnet.eval()
     features_fake = vggnet(fakeIm)
     features_real = vggnet(realIm)
@@ -15,7 +13,8 @@ def perceptualLoss(fakeIm, realIm):
     mse_loss = nn.MSELoss(reduction='mean')
 
     loss = 0
-    # print("!!! \nlen features_real:", len(features_real), ", \nlen features_real_no_grad:", len(features_real_no_grad), ", \nlen features_fake:", len(features_fake))
+    # print("!!! \nlen features_real:", len(features_real), ", \nlen features_real_no_grad:",
+    # len(features_real_no_grad), ", \nlen features_fake:", len(features_fake))
     for i in range(len(features_real)):
         features_fake_i = features_fake[i]
         features_real_no_grad_i = features_real_no_grad[i]

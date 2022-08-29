@@ -15,7 +15,7 @@ html, body {
 }
 
 .logo {
-    margin: 5px 10px;
+    margin: 5px 0 5px 20px;
     height: 90px;
     width: 150px;
 }
@@ -25,7 +25,18 @@ html, body {
     position: absolute;
     top: 15px;
     right: 30px;
+}
+
+.mySocialMidiaIcons img {
     opacity: 0.5;
+}
+
+.mySocialMidiaIcons img:hover {
+    opacity: 0.8;
+}
+
+.mySocialMidiaIcons img:active {
+    opacity: 0.3;
 }
 
 .mySocialMidiaIcons span {
@@ -70,24 +81,21 @@ li:hover {
 }
 
 .selected {
-    font-weight: bold;
     text-decoration: underline;
 }
 
 /* main content */
 .main {
-    padding: 0 20px;
-    color: #0a0a0a;
+    color:rgb(50, 50, 50);
     z-index: 1;
     min-height: calc(100vh - 272px);
     margin: 0 0 50px 0;
 }
 
-
 /* footer */
 .footer {
     position: relative;
-    bottom: 30px;
+    bottom: 0;
     width: 100%;
     height: 130px;
     background-color: black;
@@ -95,19 +103,16 @@ li:hover {
     z-index: 999;
 }
 
-/* .footer p {
-    text-align: center;
-    position: relative;
-    top: 40px;
-} */
-
 .footer a {
-    color: rgb(174, 174, 174);
+    color: white;
     text-decoration: none;
+    opacity: 0.7;
+    font-weight: lighter;
+    font-size: 0.9rem;
 }
 
 .footer a:hover {
-    color: white;
+    opacity: 1;
 }
 
 .footer p {
@@ -124,5 +129,36 @@ li:hover {
 }
 
 .footer_right {
-    border-left: 1px solid rgb(150, 150, 150);
+    border-left: 1px solid rgba(255, 255, 255, 0.3);
 }
+
+.footer_icon {
+    display: inline-block;
+    width: 16px;
+    height: 0.7rem;
+    margin-right: 5px;
+}
+
+
+/* components */
+button {
+    border-radius: 0;
+    border: 2px solid rgb(50, 50, 50);
+    background-color: rgba(0, 0, 0, 0);
+    cursor: pointer;
+    font-weight: bolder;
+}
+
+button:hover {
+    box-shadow: 0 0 2px rgb(100, 100, 100);
+}
+
+button:active {
+    box-shadow: 0 0 1px rgba(100, 100, 100, 50);
+}
+
+button.inverse_btn {
+    background-color: rgb(50, 50, 50);
+    color: white;
+}
+
