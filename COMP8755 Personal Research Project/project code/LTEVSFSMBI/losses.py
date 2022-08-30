@@ -34,7 +34,7 @@ class CenterEstiLoss(nn.Module):
         return diff
 
     def forward(self, x4, y4):
-        return self.loss(x4, y4).mean()
+        return self.loss(x4, y4).abs().mean()
 
 
 class F17_N9Loss(nn.Module):

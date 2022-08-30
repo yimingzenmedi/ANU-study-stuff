@@ -2,14 +2,14 @@ import os
 from dataset_RGB import DataLoaderTrain, DataLoaderVal, DataLoaderTest
 
 
-def get_training_data(rgb_dir, img_options, pic_index=None, group=7):
+def get_training_data(rgb_dir, img_options, group_size, pic_index):
     assert os.path.exists(rgb_dir)
-    return DataLoaderTrain(rgb_dir, pic_index=pic_index, group=group, img_options=img_options)
+    return DataLoaderTrain(rgb_dir, img_options=img_options, group_size=group_size, pic_index=pic_index)
 
 
-def get_validation_data(rgb_dir, img_options, pic_index=None, group=7):
+def get_validation_data(rgb_dir, img_options, group_size, pic_index):
     assert os.path.exists(rgb_dir)
-    return DataLoaderVal(rgb_dir, pic_index=pic_index, group=group, img_options=img_options)
+    return DataLoaderVal(rgb_dir, img_options=img_options, group_size=group_size, pic_index=pic_index)
 
 
 def get_test_data(rgb_dir, img_options):
