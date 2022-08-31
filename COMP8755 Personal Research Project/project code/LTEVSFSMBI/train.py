@@ -59,15 +59,21 @@ if __name__ == '__main__':
     train_dir = opt.TRAINING.TRAIN_DIR
     val_dir = opt.TRAINING.VAL_DIR
 
+    group_size = 7
+
     ######### Model ###########
     if mode == "centerEsti":
         model_restoration = centerEsti()
+        pic_index = 3
     elif mode == "F17_N9":
         model_restoration = F17_N9
+        pic_index = 0
     elif mode == "F26_N9":
         model_restoration = F26_N9
+        pic_index = 1
     else:
         model_restoration = F35_N8
+        pic_index = 2
     model_restoration.cuda()
 
 
@@ -115,8 +121,12 @@ if __name__ == '__main__':
     ######### DataLoaders ###########
 
     if mode == "centerEsti":
-        train_dataset = get_training_data(train_dir, {'patch_size': opt.TRAINING.TRAIN_PS}, pic_index=3, group=7)
-        val_dataset = get_validation_data(val_dir, {'patch_size': opt.TRAINING.VAL_PS}, pic_index=3, group=7)
+        train_dataset = get_training_data(train_dir, {'patch_size': opt.TRAINING.TRAIN_PS},
+                                          group_size=group_size, pic_index=pic_index)
+        val_dataset = get_validation_data(val_dir, {'patch_size': opt.TRAINING.VAL_PS},
+                                          group_size=group_size, pic_index=pic_index)
+        print("train_dataset:", len(train_dataset), train_dataset)
+        print("val_dataset:", len(val_dataset), val_dataset)
     elif mode == "F17_N9":
         criterion = losses.F17_N9Loss()
     elif mode == "F26_N9":
@@ -128,8 +138,8 @@ if __name__ == '__main__':
 
     train_loader = DataLoader(dataset=train_dataset, batch_size=opt.OPTIM.BATCH_SIZE, shuffle=True, num_workers=8,
                               drop_last=False, pin_memory=True)
-    val_loader = DataLoader(dataset=val_dataset, batch_size=16, shuffle=False, num_workers=8, drop_last=False,
-                            pin_memory=True)
+    val_loader = DataLoader(dataset=val_dataset, batch_size=opt.OPTIM.BATCH_SIZE, shuffle=False, num_workers=8,
+                            drop_last=False, pin_memory=True)
 
     print('===> Start Epoch {} End Epoch {}'.format(start_epoch, opt.OPTIM.NUM_EPOCHS + 1))
     print('===> Loading datasets')
@@ -170,9 +180,14 @@ if __name__ == '__main__':
 
         #### Evaluation ####
         if epoch % opt.TRAINING.VAL_AFTER_EVERY == 0:
+            print("> Evaluation")
             model_restoration.eval()
             psnr_val_rgb = []
-            for ii, data_val in enumerate((val_loader), 0):
+            val_loader_emur = enumerate(val_loader, 0)
+            print("> val_loader:", len(val_loader))
+            for i, v in val_loader_emur:
+                print(i)
+            for ii, data_val in val_loader_emur:
                 target = data_val[0].cuda()
                 input_ = data_val[1].cuda()
 
@@ -180,7 +195,9 @@ if __name__ == '__main__':
                     restored = model_restoration(input_)
                 restored = restored[0]
 
-                for res, tar in zip(restored, target):
+                print("> target:", target, ",\ninput_:", input_, ",\nrestored:", restored)
+
+            for res, tar in zip(restored, target):
                     psnr_val_rgb.append(utils.torchPSNR(res, tar))
 
             psnr_val_rgb = torch.stack(psnr_val_rgb).mean().item()
