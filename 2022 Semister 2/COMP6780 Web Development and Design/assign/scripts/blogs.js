@@ -24,6 +24,78 @@ var data = [
         tags: [
             "destinations", "travel notes", "road"
         ]
+    }, {
+        href: "./blog_1.html",
+        coverImg: "./asset/blog1_cover.jpg",
+        title: "The BEST places to see Auckland City",
+        abstract: "Where is the best places to see Auckland City?",
+        tags: [
+            "trip", "city", "destinations"
+        ]
+    }, {
+        href: "./blog_2.html",
+        coverImg: "./asset/blog2_cover.jpg",
+        title: "How to: Astrophotography",
+        abstract: "How to photograph the starry sky?",
+        tags: [
+            "tutorial", "photography", "stars"
+        ]
+    }, {
+        href: "./blog_3.html",
+        coverImg: "./asset/blog3_cover.jpg",
+        title: "All the way north: Auckland to Cape Reinga",
+        abstract: "From New Zealand's busiest city to the northernmost point",
+        tags: [
+            "destinations", "travel notes", "road"
+        ]
+    }, {
+        href: "./blog_1.html",
+        coverImg: "./asset/blog1_cover.jpg",
+        title: "The BEST places to see Auckland City",
+        abstract: "Where is the best places to see Auckland City?",
+        tags: [
+            "trip", "city", "destinations"
+        ]
+    }, {
+        href: "./blog_2.html",
+        coverImg: "./asset/blog2_cover.jpg",
+        title: "How to: Astrophotography",
+        abstract: "How to photograph the starry sky?",
+        tags: [
+            "tutorial", "photography", "stars"
+        ]
+    }, {
+        href: "./blog_3.html",
+        coverImg: "./asset/blog3_cover.jpg",
+        title: "All the way north: Auckland to Cape Reinga",
+        abstract: "From New Zealand's busiest city to the northernmost point",
+        tags: [
+            "destinations", "travel notes", "road"
+        ]
+    }, {
+        href: "./blog_1.html",
+        coverImg: "./asset/blog1_cover.jpg",
+        title: "The BEST places to see Auckland City",
+        abstract: "Where is the best places to see Auckland City?",
+        tags: [
+            "trip", "city", "destinations"
+        ]
+    }, {
+        href: "./blog_2.html",
+        coverImg: "./asset/blog2_cover.jpg",
+        title: "How to: Astrophotography",
+        abstract: "How to photograph the starry sky?",
+        tags: [
+            "tutorial", "photography", "stars"
+        ]
+    }, {
+        href: "./blog_3.html",
+        coverImg: "./asset/blog3_cover.jpg",
+        title: "All the way north: Auckland to Cape Reinga",
+        abstract: "From New Zealand's busiest city to the northernmost point",
+        tags: [
+            "destinations", "travel notes", "road"
+        ]
     }
 ];
 
@@ -73,7 +145,12 @@ function renderArticals () {
         for (const tag of artical.tags) {
             const articalTagEleSpan = document.createElement("span");
             articalTagEleSpan.className = "artical_tag";
-            articalTagEleSpan.innerText = tag;
+            const iconEleImg = document.createElement("img");
+            iconEleImg.src = "./asset/tag_icon.png";
+            iconEleImg.className = "tag_icon";
+            articalTagEleSpan.appendChild(iconEleImg);
+            const articalTagTextEleTxt = document.createTextNode(tag);
+            articalTagEleSpan.appendChild(articalTagTextEleTxt);
             const color = colors[tagCounter++ % colors.length];     // pick a color from the list
             articalTagEleSpan.style.backgroundColor = color;
             articalTagsEleDiv.appendChild(articalTagEleSpan);

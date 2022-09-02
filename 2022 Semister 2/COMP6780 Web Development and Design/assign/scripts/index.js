@@ -45,6 +45,7 @@ function carousel() {
     }, 5000);
 }
 
+// set the img to display and return the next index
 function setCarouselDisplay(index) {
     for (const carouselIndex in carouselList) {
         const carousel = carouselList[carouselIndex];
