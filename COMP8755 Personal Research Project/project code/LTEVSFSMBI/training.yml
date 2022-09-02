@@ -12,7 +12,7 @@ MODEL:
 
 # Optimization arguments.
 OPTIM:
-  BATCH_SIZE: 6
+  BATCH_SIZE: 60
   NUM_EPOCHS: 3000
   # NEPOCH_DECAY: [10]
   LR_INITIAL: 2e-4
@@ -24,7 +24,7 @@ TRAINING:
   RESUME: False
   TRAIN_PS: 64
   VAL_PS: 64
-  TRAIN_DIR: '../Datasets/video_min/train' # path to training data
-  VAL_DIR: '../Datasets/video_min/test'    # path to validation data
+  TRAIN_DIR: '../Datasets/video_reduced/train' # path to training data
+  VAL_DIR: '../Datasets/video_reduced/test'    # path to validation data
   SAVE_DIR: './ckpt'     # path to save models and images
   # SAVE_IMAGES: False
