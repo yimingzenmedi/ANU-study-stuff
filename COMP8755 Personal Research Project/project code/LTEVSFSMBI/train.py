@@ -27,6 +27,7 @@ from LTEVSFSMBI import centerEsti, F17_N9, F26_N9, F35_N8
 import losses
 from warmup_scheduler import GradualWarmupScheduler
 from tqdm import tqdm
+
 # import argparse
 #
 # parser = argparse.ArgumentParser(description='Train LTEVSFSMBI')
@@ -71,11 +72,13 @@ if __name__ == '__main__':
     elif mode == "F26_N9":
         model_restoration = F26_N9
         pic_index = 1
-    else:
+    elif mode == "F35_N8":
         model_restoration = F35_N8
         pic_index = 2
+    else:
+        raise Exception('Illegal parameter mode == {}. Can only choose from "centerEsti", '
+                        '"F35_N8", "F26_N9" and "F17_N9"'.format(mode))
     model_restoration.cuda()
-
 
     ######### Loss ###########
     # criterion_char = losses.CharbonnierLoss()
@@ -86,9 +89,11 @@ if __name__ == '__main__':
         criterion = losses.F17_N9Loss()
     elif mode == "F26_N9":
         criterion = losses.F26_N9Loss()
-    else:
+    elif mode == "F35_N8":
         criterion = losses.F35_N8Loss()
-
+    else:
+        raise Exception('Illegal parameter mode == {}. Can only choose from "centerEsti", '
+                        '"F35_N8", "F26_N9" and "F17_N9"'.format(mode))
     new_lr = opt.OPTIM.LR_INITIAL
 
     optimizer = optim.Adam(model_restoration.parameters(), lr=new_lr, betas=(0.9, 0.999), eps=1e-8)
@@ -125,14 +130,17 @@ if __name__ == '__main__':
                                           group_size=group_size, pic_index=pic_index)
         val_dataset = get_validation_data(val_dir, {'patch_size': opt.TRAINING.VAL_PS},
                                           group_size=group_size, pic_index=pic_index)
-        print("train_dataset:", len(train_dataset), train_dataset)
-        print("val_dataset:", len(val_dataset), val_dataset)
+        # print("train_dataset:", len(train_dataset), train_dataset)
+        # print("val_dataset:", len(val_dataset), val_dataset)
     elif mode == "F17_N9":
-        criterion = losses.F17_N9Loss()
+        pass
     elif mode == "F26_N9":
-        criterion = losses.F26_N9Loss()
+        pass
+    elif mode == "F35_N8":
+        pass
     else:
-        criterion = losses.F35_N8Loss()
+        raise Exception('Illegal parameter mode == {}. Can only choose from "centerEsti", '
+                        '"F35_N8", "F26_N9" and "F17_N9"'.format(mode))
     # train_dataset = get_training_data(train_dir, {'patch_size': opt.TRAINING.TRAIN_PS})
     # val_dataset = get_validation_data(val_dir, {'patch_size': opt.TRAINING.VAL_PS})
 
@@ -159,17 +167,13 @@ if __name__ == '__main__':
             for param in model_restoration.parameters():
                 param.grad = None
 
-            target = data[0].cuda()
+            target = data[0][0].cuda()
             input_ = data[1].cuda()
 
             restored = model_restoration(input_)
             # print("!!! size of restored:", restored.size())
 
             # Compute loss at each stage
-
-            # loss_char = sum([criterion_char(restored[j], target) for j in range(len(restored))])
-            # loss_edge = sum([criterion_edge(restored[j], target) for j in range(len(restored))])
-            # loss = loss_char + (0.05 * loss_edge)
             loss = criterion(restored, target)
             # print("!!! type loss:", type(loss), loss)
             # loss = loss.numpy().tolist()
@@ -185,20 +189,20 @@ if __name__ == '__main__':
             psnr_val_rgb = []
             val_loader_emur = enumerate(val_loader, 0)
             print("> val_loader:", len(val_loader))
-            for i, v in val_loader_emur:
-                print(i)
+
             for ii, data_val in val_loader_emur:
-                target = data_val[0].cuda()
+                target = data_val[0][0].cuda()
                 input_ = data_val[1].cuda()
 
                 with torch.no_grad():
                     restored = model_restoration(input_)
                 restored = restored[0]
 
-                print("> target:", target, ",\ninput_:", input_, ",\nrestored:", restored)
+                # print("> target:", target, ",\ninput_:", input_, ",\nrestored:", restored)
 
-            for res, tar in zip(restored, target):
+                for res, tar in zip(restored, target):
                     psnr_val_rgb.append(utils.torchPSNR(res, tar))
+                    # print("psnr_val_rgb appended. Now:", psnr_val_rgb)
 
             psnr_val_rgb = torch.stack(psnr_val_rgb).mean().item()
 
