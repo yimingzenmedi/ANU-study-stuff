@@ -67,13 +67,13 @@ if __name__ == '__main__':
         model_restoration = centerEsti()
         pic_index = 3
     elif mode == "F17_N9":
-        model_restoration = F17_N9
+        model_restoration = F17_N9()
         pic_index = 0
     elif mode == "F26_N9":
-        model_restoration = F26_N9
+        model_restoration = F26_N9()
         pic_index = 1
     elif mode == "F35_N8":
-        model_restoration = F35_N8
+        model_restoration = F35_N8()
         pic_index = 2
     else:
         raise Exception('Illegal parameter mode == {}. Can only choose from "centerEsti", '
@@ -125,24 +125,10 @@ if __name__ == '__main__':
 
     ######### DataLoaders ###########
 
-    if mode == "centerEsti":
-        train_dataset = get_training_data(train_dir, {'patch_size': opt.TRAINING.TRAIN_PS},
-                                          group_size=group_size, pic_index=pic_index)
-        val_dataset = get_validation_data(val_dir, {'patch_size': opt.TRAINING.VAL_PS},
-                                          group_size=group_size, pic_index=pic_index)
-        # print("train_dataset:", len(train_dataset), train_dataset)
-        # print("val_dataset:", len(val_dataset), val_dataset)
-    elif mode == "F17_N9":
-        pass
-    elif mode == "F26_N9":
-        pass
-    elif mode == "F35_N8":
-        pass
-    else:
-        raise Exception('Illegal parameter mode == {}. Can only choose from "centerEsti", '
-                        '"F35_N8", "F26_N9" and "F17_N9"'.format(mode))
-    # train_dataset = get_training_data(train_dir, {'patch_size': opt.TRAINING.TRAIN_PS})
-    # val_dataset = get_validation_data(val_dir, {'patch_size': opt.TRAINING.VAL_PS})
+    train_dataset = get_training_data(train_dir, {'patch_size': opt.TRAINING.TRAIN_PS},
+                                      group_size=group_size, pic_index=pic_index)
+    val_dataset = get_validation_data(val_dir, {'patch_size': opt.TRAINING.VAL_PS},
+                                      group_size=group_size, pic_index=pic_index)
 
     train_loader = DataLoader(dataset=train_dataset, batch_size=opt.OPTIM.BATCH_SIZE, shuffle=True, num_workers=8,
                               drop_last=False, pin_memory=True)
@@ -167,16 +153,30 @@ if __name__ == '__main__':
             for param in model_restoration.parameters():
                 param.grad = None
 
-            target = data[0][0].cuda()
             input_ = data[1].cuda()
 
-            restored = model_restoration(input_)
-            # print("!!! size of restored:", restored.size())
+            if mode == "centerEsti":
+                target = data[0][0].cuda()
+                # print("!!! size of restored:", restored.size())
+                restored = model_restoration(input_)
 
-            # Compute loss at each stage
-            loss = criterion(restored, target)
-            # print("!!! type loss:", type(loss), loss)
-            # loss = loss.numpy().tolist()
+                # Compute loss at each stage
+                loss = criterion(restored, target)
+                # print("!!! type loss:", type(loss), loss)
+                # loss = loss.numpy().tolist()
+            else:
+                target1 = data[0][0].cuda()
+                target2 = data[0][1].cuda()
+                centerEsti_model = centerEsti().cuda()
+                centerEsit_model_path = os.path.join(opt.TRAINING.SAVE_DIR, "centerEsti", 'models', session,
+                                                     "centerEsti_model_latest.pth")
+                centerEsti_ckpt = torch.load(centerEsit_model_path)
+                restored4 = centerEsti_model(input_)
+                restored4 = restored4.data * 255
+                # print("input_:", input_.shape, ", restored4:", restored4.shape)
+
+                restored = model_restoration(input_, restored4)
+                loss = criterion(restored[0], restored[1], target1, target2)
 
             loss.backward()
             optimizer.step()

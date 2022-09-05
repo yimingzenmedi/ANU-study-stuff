@@ -7,8 +7,8 @@ GPU: [0,1,2,3]
 VERBOSE: True
 
 MODEL:
-  MODE: 'centerEsti'
-#  MODE: 'F35_N8'
+#  MODE: 'centerEsti'
+  MODE: 'F35_N8'
 #  MODE: 'F26_N9'
 #  MODE: 'F17_N9'
   SESSION: 'LTEVSFSMBI'
@@ -27,7 +27,7 @@ TRAINING:
   RESUME: False
   TRAIN_PS: 64
   VAL_PS: 64
-  TRAIN_DIR: '../Datasets/video_reduced/train' # path to training data
-  VAL_DIR: '../Datasets/video_reduced/test'    # path to validation data
+  TRAIN_DIR: '../Datasets/video_min/train' # path to training data
+  VAL_DIR: '../Datasets/video_min/test'    # path to validation data
   SAVE_DIR: './ckpt'     # path to save models and images
   # SAVE_IMAGES: False

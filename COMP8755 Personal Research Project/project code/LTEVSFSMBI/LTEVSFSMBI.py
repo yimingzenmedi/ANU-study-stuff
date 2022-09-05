@@ -16,14 +16,14 @@ def _get_orthogonal_init_weights(weights):
         return torch.Tensor(v.reshape(weights.size()))
 
 
-def pixel_reshuffle(input, upscale_factor):
+def pixel_reshuffle(input_, upscale_factor):
     r"""Rearranges elements in a tensor of shape ``[*, C, H, W]`` to a
     tensor of shape ``[C*r^2, H/r, W/r]``.
 
     See :class:`~torch.nn.PixelShuffle` for details.
 
     Args:
-        input (Variable): Input
+        input_ (Variable): Input
         upscale_factor (int): factor to increase spatial resolution by
 
     Examples:
@@ -32,12 +32,20 @@ def pixel_reshuffle(input, upscale_factor):
         >>> print(output.size())
         torch.Size([1, 12, 6, 6])
     """
-    batch_size, channels, in_height, in_width = input.size()
+    batch_size, channels, in_height, in_width = input_.size()
 
     # // division is to keep data type unchanged. In this way, the out_height is still int type
     out_height = in_height // upscale_factor
     out_width = in_width // upscale_factor
-    input_view = input.contiguous().view(batch_size, channels, out_height, upscale_factor, out_width, upscale_factor)
+    # print("\n> upscale_factor:", upscale_factor, "\nin_height:", in_height, ", out_height:", out_height,
+    #       "\nin_width:", in_width, ", out_width:", out_width)
+    # print("input.contiguous().shape:", input_.contiguous().shape, ", input.shape:", input_.shape)
+    # print("batch_size, channels, out_height, out_width", batch_size, channels, out_height, out_width)
+    # if out_height * upscale_factor != in_height or out_width * upscale_factor != in_width:
+    #     input_ = nn.functional.upsample(input_, mode="bilinear",
+    #                                     size=(out_height * upscale_factor, out_width * upscale_factor),)
+    #     print("resized input_:", input_.shape)
+    input_view = input_.contiguous().view(batch_size, channels, out_height, upscale_factor, out_width, upscale_factor)
     channels = channels * upscale_factor * upscale_factor
 
     shuffle_out = input_view.permute(0, 1, 3, 5, 2, 4).contiguous()
@@ -519,19 +527,34 @@ class F35_N8(nn.Module):
         self.generateFrame5 = N8_IN()
 
     def forward(self, Blurry, ref4):
+        # print("> Blurry:", Blurry.shape)
+        upscale_factor = 5
+
+        need_resize = False
+        batch_size, channels, in_height, in_width = Blurry.size()
+        out_height = in_height // upscale_factor
+        out_width = in_width // upscale_factor
+        if out_width != in_width / upscale_factor or out_height != in_height / upscale_factor:
+            need_resize = True
+            Blurry = nn.functional.interpolate(Blurry, mode="bilinear",
+                                               size=[out_height * upscale_factor, out_width * upscale_factor])
+            ref4 = nn.functional.interpolate(ref4, mode="bilinear",
+                                             size=[out_height * upscale_factor, out_width * upscale_factor])
+            # print("> resized Blurry:", Blurry.shape)
+
         Blurry_r = Blurry[:, 0, :, :].unsqueeze(1)
         Blurry_g = Blurry[:, 1, :, :].unsqueeze(1)
         Blurry_b = Blurry[:, 2, :, :].unsqueeze(1)
-        Blurry_r_0 = pixel_reshuffle(Blurry_r, 5)
-        Blurry_g_0 = pixel_reshuffle(Blurry_g, 5)
-        Blurry_b_0 = pixel_reshuffle(Blurry_b, 5)
+        Blurry_r_0 = pixel_reshuffle(Blurry_r, upscale_factor)
+        Blurry_g_0 = pixel_reshuffle(Blurry_g, upscale_factor)
+        Blurry_b_0 = pixel_reshuffle(Blurry_b, upscale_factor)
 
         ref4_r = ref4[:, 0, :, :].unsqueeze(1)
         ref4_g = ref4[:, 1, :, :].unsqueeze(1)
         ref4_b = ref4[:, 2, :, :].unsqueeze(1)
-        ref4_r_0 = pixel_reshuffle(ref4_r, 5)
-        ref4_g_0 = pixel_reshuffle(ref4_g, 5)
-        ref4_b_0 = pixel_reshuffle(ref4_b, 5)
+        ref4_r_0 = pixel_reshuffle(ref4_r, upscale_factor)
+        ref4_g_0 = pixel_reshuffle(ref4_g, upscale_factor)
+        ref4_b_0 = pixel_reshuffle(ref4_b, upscale_factor)
 
         ref3 = self.generateFrame3(Blurry_r_0, Blurry_g_0, Blurry_b_0, ref4_r_0, ref4_g_0, ref4_b_0, ref4_r_0, ref4_g_0,
                                    ref4_b_0) + ref4
@@ -539,10 +562,16 @@ class F35_N8(nn.Module):
         ref3_r = ref3[:, 0, :, :].unsqueeze(1)
         ref3_g = ref3[:, 1, :, :].unsqueeze(1)
         ref3_b = ref3[:, 2, :, :].unsqueeze(1)
-        ref3_r_0 = pixel_reshuffle(ref3_r, 5)
-        ref3_g_0 = pixel_reshuffle(ref3_g, 5)
-        ref3_b_0 = pixel_reshuffle(ref3_b, 5)
+        ref3_r_0 = pixel_reshuffle(ref3_r, upscale_factor)
+        ref3_g_0 = pixel_reshuffle(ref3_g, upscale_factor)
+        ref3_b_0 = pixel_reshuffle(ref3_b, upscale_factor)
 
         ref5 = self.generateFrame5(Blurry_r_0, Blurry_g_0, Blurry_b_0, ref3_r_0, ref3_g_0, ref3_b_0, ref4_r_0, ref4_g_0,
                                    ref4_b_0) + ref4
+        if need_resize:
+            ref3 = nn.functional.interpolate(ref3, mode="bilinear",
+                                             size=[in_height, in_height])
+            ref5 = nn.functional.interpolate(ref5, mode="bilinear",
+                                             size=[in_height, in_height])
+
         return ref3, ref5
