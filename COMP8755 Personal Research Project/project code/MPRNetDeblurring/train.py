@@ -23,7 +23,8 @@ import numpy as np
 import utils
 from data_RGB import get_training_data, get_validation_data
 from MPRNet import MPRNet
-import losses
+# import losses
+import LTEVSFSMBILosses
 from warmup_scheduler import GradualWarmupScheduler
 from tqdm import tqdm
 
@@ -86,8 +87,9 @@ if __name__ == '__main__':
         model_restoration = nn.DataParallel(model_restoration, device_ids=device_ids)
 
     ######### Loss ###########
-    criterion_char = losses.CharbonnierLoss()
-    criterion_edge = losses.EdgeLoss()
+    # criterion_char = losses.CharbonnierLoss()
+    # criterion_edge = losses.EdgeLoss()
+    criterion = LTEVSFSMBILosses.CenterEstiLoss()
 
     ######### DataLoaders ###########
     train_dataset = get_training_data(train_dir, {'patch_size': opt.TRAINING.TRAIN_PS})
@@ -127,9 +129,10 @@ if __name__ == '__main__':
 
             # Compute loss at each stage
 
-            loss_char = sum([criterion_char(restored[j], target) for j in range(len(restored))])
-            loss_edge = sum([criterion_edge(restored[j], target) for j in range(len(restored))])
-            loss = loss_char + (0.05 * loss_edge)
+            # loss_char = sum([criterion_char(restored[j], target) for j in range(len(restored))])
+            # loss_edge = sum([criterion_edge(restored[j], target) for j in range(len(restored))])
+            # loss = loss_char + (0.05 * loss_edge)
+            loss = criterion(restored, target)
 
             loss.backward()
             optimizer.step()
