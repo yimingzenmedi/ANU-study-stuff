@@ -17,5 +17,7 @@ def mkdir(path):
 
 
 def get_last_path(path, session):
-    x = natsorted(glob(os.path.join(path, '*%s' % session)))[-1]
+    print("session:", session)
+    print("path:", os.path.join(path, session))
+    x = natsorted(glob(os.path.join(path, session)))[-1]
     return x

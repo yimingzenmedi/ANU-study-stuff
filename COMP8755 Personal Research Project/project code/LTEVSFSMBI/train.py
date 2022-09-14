@@ -108,7 +108,7 @@ if __name__ == '__main__':
 
     ######### Resume ###########
     if opt.TRAINING.RESUME:
-        path_chk_rest = utils.get_last_path(model_dir, "_" + mode + '_latest.pth')
+        path_chk_rest = utils.get_last_path(model_dir, mode + '_model_latest.pth')
         utils.load_checkpoint(model_restoration, path_chk_rest)
         start_epoch = utils.load_start_epoch(path_chk_rest) + 1
         utils.load_optim(optimizer, path_chk_rest)

@@ -7,7 +7,10 @@ GPU: [0,1,2,3]
 VERBOSE: True
 
 MODEL:
-  MODE: 'Deblurring'
+  MODE: 'centerEsti'
+  #  MODE: 'F35_N8'
+  #  MODE: 'F26_N9'
+  #  MODE: 'F17_N9'
   SESSION: 'MPRNet'
 
 # Optimization arguments.
@@ -20,11 +23,13 @@ OPTIM:
   # BETA1: 0.9
 
 TRAINING:
-  VAL_AFTER_EVERY: 20
+  VAL_AFTER_EVERY: 50
   RESUME: False
-  TRAIN_PS: 32
-  VAL_PS: 32
-  TRAIN_DIR: '../Datasets/GoPro/train' # path to training data
-  VAL_DIR: '../Datasets/GoPro/test'    # path to validation data
+  TRAIN_PS: 64
+  VAL_PS: 64
+  #  TRAIN_DIR: '../Datasets/1000fps/train' # path to training data
+  #  VAL_DIR: '../Datasets/1000fps/test'    # path to validation data
+  TRAIN_DIR: '../Datasets/video_reduced/train' # path to training data
+  VAL_DIR: '../Datasets/video_reduced/test'    # path to validation data
   SAVE_DIR: './ckpt'     # path to save models and images
   # SAVE_IMAGES: False

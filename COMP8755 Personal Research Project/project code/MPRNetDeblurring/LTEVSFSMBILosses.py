@@ -1,5 +1,7 @@
 import torch.nn as nn
 from torchvision.models import vgg16, VGG16_Weights
+import torch
+import numpy as np
 
 
 def perceptualLoss(fakeIm, realIm):
@@ -34,6 +36,8 @@ class CenterEstiLoss(nn.Module):
         super(CenterEstiLoss, self).__init__()
 
     def loss(self, x, y):
+        # print("y:", type(y), y.shape)
+        # print("x:", type(x), len(x[0][0]))
         loss = (y - x) ** 2 + perceptualLoss(y, x)
         return loss
 
