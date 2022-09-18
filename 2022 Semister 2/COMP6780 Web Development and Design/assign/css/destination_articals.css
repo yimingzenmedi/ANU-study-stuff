@@ -1,0 +1,57 @@
+.main {
+    width: 80%;
+    margin-left: 10%;
+}
+
+.title {
+    font-weight: lighter;
+    font-size: 3rem;
+}
+
+.info {
+    height: 1rem;
+}
+
+.share_box {
+    float: right;
+}
+
+.desti_icons {
+    float: right;
+    margin-left: 8px;
+}
+
+.desti_icon {
+    width: 25px;
+    height: 25px;
+    position: relative;
+    cursor: pointer;
+    text-decoration: none;
+    border-radius: 50%;
+}
+
+.desti_icon img {
+    width: 25px;
+    height: 25px;
+}
+
+.text {
+    margin-top: 60px;
+}
+
+.text img {
+    width: 80%;
+    margin: 10px 10%;
+}
+
+.text p {
+    line-height: 1.5rem;
+}
+
+.text li a {
+    color: rgb(20, 20, 20);
+}
+
+.text li a:visited {
+    color: rgb(124, 124, 124);
+}
