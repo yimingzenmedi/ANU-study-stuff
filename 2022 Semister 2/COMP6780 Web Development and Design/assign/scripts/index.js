@@ -119,7 +119,7 @@ function renderAreas1(areasList) {
         const naturalHeight = img.naturalHeight;
         const scaleX = width / naturalWidth;
         const scaleY = height / naturalHeight;
-        console.log(img.width, img.height, img.naturalWidth);
+        // console.log(img.width, img.height, img.naturalWidth);
         areaEle.coords = `${areaData.coords[0] * scaleX},${areaData.coords[1] * scaleY},${areaData.coords[2]}`;
         target.appendChild(areaEle);
     } 

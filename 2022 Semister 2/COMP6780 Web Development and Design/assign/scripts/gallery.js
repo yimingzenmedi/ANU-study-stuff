@@ -288,7 +288,7 @@ function renderLargeImg(imgIndex) {
 // on thumb image click:
 function onThumbClick(imgIndex) {
     const img = imgList[imgIndex];
-    console.log(img.title);
+    // console.log(img.title);
     const bodyEle = document.getElementsByTagName("body")[0];
     bodyEle.style.overflowX = "hidden";
     bodyEle.style.overflowY = "hidden";
@@ -309,10 +309,13 @@ function onCloseClick() {
 // on last btn click:
 function onLastBtnClick(imgIndex) {
     const lastIndex = Number(imgIndex) - 1;
-    console.log("current:", imgIndex, ", last:", lastIndex);
+    // console.log("current:", imgIndex, ", last:", lastIndex);
 
     if (imgIndex > 0) {
         onCloseClick();
+        const bodyEle = document.getElementsByTagName("body")[0];
+        bodyEle.style.overflowX = "hidden";
+        bodyEle.style.overflowY = "hidden";
         renderLargeImg(lastIndex);
     }
 }
@@ -321,10 +324,13 @@ function onLastBtnClick(imgIndex) {
 function onNextBtnClick(imgIndex) {
     const nextIndex = Number(imgIndex) + 1;
     const imgListSize = imgList.length;
-    console.log("current:", imgIndex, ", next:", nextIndex);
+    // console.log("current:", imgIndex, ", next:", nextIndex);
 
     if (imgIndex < imgListSize - 1) {
         onCloseClick();
+        const bodyEle = document.getElementsByTagName("body")[0];
+        bodyEle.style.overflowX = "hidden";
+        bodyEle.style.overflowY = "hidden";
         renderLargeImg(nextIndex);
     }
 }
