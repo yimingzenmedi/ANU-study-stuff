@@ -8,29 +8,8 @@
     font-size: 3rem;
 }
 
-.time {
-    color: rgb(163, 163, 163);
-}
-
-.tags {
-    display: inline-block;
-    margin-left: 20px;
-}
-
-.tag {
-    border: 1px dashed rgb(151, 151, 151);
-    padding: 3px;
-    font-size: 0.8rem;
-    display: inline-block;
-    margin-right: 5px;
-    border-radius: 3px;   
-}
-
-.tag_icon {
-    width: 12px;
-    position: relative;
-    top: 2px;
-    display: inline-block;
+.info {
+    height: 1rem;
 }
 
 .share_box {
@@ -61,10 +40,18 @@
 }
 
 .text img {
-    width: 100%;
-    margin: 10px 0;
+    width: 80%;
+    margin: 10px 10%;
 }
 
 .text p {
     line-height: 1.5rem;
+}
+
+.text li a {
+    color: rgb(20, 20, 20);
+}
+
+.text li a:visited {
+    color: rgb(124, 124, 124);
 }

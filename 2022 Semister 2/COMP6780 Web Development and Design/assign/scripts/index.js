@@ -7,7 +7,7 @@ var carouselList = [
         title: "carousel1"
     }, {
         image: "./asset/carousel2.jpg",
-        link: "./destination_1.html",
+        link: "./destination_7.html",
         id: "carousel2",
         title: "carousel2"
     }, {
@@ -18,37 +18,38 @@ var carouselList = [
     }
 ];
 
+// image map area list:
 var areasList1 = [
     {
         title: "Wellington",
         href: "./destination_1.html",
         shape: "circle",
-        coords: [396, 1412, 30]
+        coords: [380, 1350, 13]
     }, {
         title: "Palmerston North",
-        href: "./destination_1.html",
+        href: "./destination_2.html",
         shape: "circle",
-        coords: [541, 1230, 30]
+        coords: [500, 1170, 13]
     }, {
         title: "New Plymouth",
-        href: "./destination_1.html",
+        href: "./destination_3.html",
         shape: "circle",
-        coords: [295, 975, 30]
+        coords: [270, 925, 13]
     }, {
         title: "Taupo",
-        href: "./destination_1.html",
+        href: "./destination_4.html",
         shape: "circle",
-        coords: [600,892,30]
+        coords: [573,847,13]
     }, {
         title: "Hamilton",
-        href: "./destination_1.html",
+        href: "./destination_5.html",
         shape: "circle",
-        coords: [480,714,30]
+        coords: [450,677,13]
     }, {
         title: "Auckland",
-        href: "./destination_1.html",
+        href: "./destination_6.html",
         shape: "circle",
-        coords: [406,547,30]
+        coords: [380,517,13]
     }
 ];
 
@@ -111,7 +112,15 @@ function renderAreas1(areasList) {
         areaEle.coords = areaData.coords;
         areaEle.shape = areaData.shape;
         // calculate coordinate:
-        areaEle.coords = `${areaData.coords[0] * 0.6},${areaData.coords[1] * 0.6},${areaData.coords[2] * 0.6}`;
+        const img = document.getElementById("image_map_1");
+        const width = img.width;
+        const height = img.height;
+        const naturalWidth = img.naturalWidth;
+        const naturalHeight = img.naturalHeight;
+        const scaleX = width / naturalWidth;
+        const scaleY = height / naturalHeight;
+        console.log(img.width, img.height, img.naturalWidth);
+        areaEle.coords = `${areaData.coords[0] * scaleX},${areaData.coords[1] * scaleY},${areaData.coords[2]}`;
         target.appendChild(areaEle);
     } 
 }

@@ -2,9 +2,39 @@ var data = [
     {
         href: "./destination_1.html",
         coverImg: "./asset/desti1_cover.jpg",
+        title: "Wellington",
+        abstract: "Capital city of new zealand."
+    }, {
+        href: "./destination_2.html",
+        coverImg: "./asset/desti2_cover.jpg",
+        title: "Palmerstion North",
+        abstract: "University City"
+    }, {
+        href: "./destination_3.html",
+        coverImg: "./asset/desti3_cover.jpg",
+        title: "New Plymouth",
+        abstract: "One of Auckland's most famous west coast black sand beaches"
+    }, {
+        href: "./destination_4.html",
+        coverImg: "./asset/desti4_cover.jpg",
+        title: "Taupo",
+        abstract: "One of Auckland's most famous west coast black sand beaches"
+    }, {
+        href: "./destination_5.html",
+        coverImg: "./asset/desti5_cover.jpg",
+        title: "Hamilton",
+        abstract: "One of Auckland's most famous west coast black sand beaches"
+    }, {
+        href: "./destination_6.html",
+        coverImg: "./asset/desti6_cover.jpg",
+        title: "Auckland",
+        abstract: "One of Auckland's most famous west coast black sand beaches"
+    }, {
+        href: "./destination_7.html",
+        coverImg: "./asset/desti7_cover.jpg",
         title: "Piha",
         abstract: "One of Auckland's most famous west coast black sand beaches"
-    }
+    }, 
 ]
 
 // auto run:
