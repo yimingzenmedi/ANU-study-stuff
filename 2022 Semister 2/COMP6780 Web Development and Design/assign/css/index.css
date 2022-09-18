@@ -17,3 +17,66 @@
     background-size: cover;
     cursor: pointer;
 }
+
+/* sections: */
+
+.sections {
+    background-color: white;
+    color: rgb(20, 20, 20);
+}
+
+/* .effected_section:hover {
+    background-color: rgb(20, 20, 20);
+    color: white;
+} */
+
+#section1 {
+    text-align: center;
+    margin: 80px 0 50px 0;
+}
+
+#section2 {
+    background-color: rgb(20, 20, 20);
+    color: white;
+}
+
+
+#section2 h1 {
+    font-weight: lighter;
+}
+
+
+/* image map: */
+
+.image_map_set {
+    display: flex;
+}
+
+
+.image_map_desc {
+    width: 40%;
+    padding-top: 150px;
+    text-align: center;
+}
+
+.image_map_desc h1 {
+    margin: 5px 0;
+}
+
+.image_map_desc p {
+    width: 70%;
+    margin: 50px auto;
+    text-align: justify;
+    font-size: 1.1rem;
+    font-weight: lighter;
+}
+
+.image_map_1 {
+    width: 60%;
+}
+
+#section3 h2 {
+    text-align: center;
+    font-weight: lighter;
+    font-style: italic;
+}

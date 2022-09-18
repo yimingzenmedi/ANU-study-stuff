@@ -1,0 +1,70 @@
+.main {
+    width: 80%;
+    margin-left: 10%;
+}
+
+.title {
+    font-weight: lighter;
+    font-size: 3rem;
+}
+
+.time {
+    color: rgb(163, 163, 163);
+}
+
+.tags {
+    display: inline-block;
+    margin-left: 20px;
+}
+
+.tag {
+    border: 1px dashed rgb(151, 151, 151);
+    padding: 3px;
+    font-size: 0.8rem;
+    display: inline-block;
+    margin-right: 5px;
+    border-radius: 3px;   
+}
+
+.tag_icon {
+    width: 12px;
+    position: relative;
+    top: 2px;
+    display: inline-block;
+}
+
+.share_box {
+    float: right;
+}
+
+.desti_icons {
+    float: right;
+    margin-left: 8px;
+}
+
+.desti_icon {
+    width: 25px;
+    height: 25px;
+    position: relative;
+    cursor: pointer;
+    text-decoration: none;
+    border-radius: 50%;
+}
+
+.desti_icon img {
+    width: 25px;
+    height: 25px;
+}
+
+.text {
+    margin-top: 60px;
+}
+
+.text img {
+    width: 100%;
+    margin: 10px 0;
+}
+
+.text p {
+    line-height: 1.5rem;
+}

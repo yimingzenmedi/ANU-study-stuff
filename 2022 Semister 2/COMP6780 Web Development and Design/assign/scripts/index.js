@@ -18,9 +18,44 @@ var carouselList = [
     }
 ];
 
+var areasList1 = [
+    {
+        title: "Wellington",
+        href: "./destination_1.html",
+        shape: "circle",
+        coords: [396, 1412, 30]
+    }, {
+        title: "Palmerston North",
+        href: "./destination_1.html",
+        shape: "circle",
+        coords: [541, 1230, 30]
+    }, {
+        title: "New Plymouth",
+        href: "./destination_1.html",
+        shape: "circle",
+        coords: [295, 975, 30]
+    }, {
+        title: "Taupo",
+        href: "./destination_1.html",
+        shape: "circle",
+        coords: [600,892,30]
+    }, {
+        title: "Hamilton",
+        href: "./destination_1.html",
+        shape: "circle",
+        coords: [480,714,30]
+    }, {
+        title: "Auckland",
+        href: "./destination_1.html",
+        shape: "circle",
+        coords: [406,547,30]
+    }
+];
+
 // auto run:
 window.onload = function() {
     carousel();
+    renderAreas1(areasList1);
 }
 
 // carousel:
@@ -61,4 +96,22 @@ function setCarouselDisplay(index) {
     }
     index = (index + 1) % 3;
     return index;
+}
+
+// render areas for image maps:
+
+function renderAreas1(areasList) {
+    const target = document.getElementById("image-map1");
+
+    for (const areaData of areasList) {
+        const areaEle = document.createElement("area");
+        areaEle.alt = areaData.title;
+        areaEle.title = areaData.title;
+        areaEle.href = areaData.href;
+        areaEle.coords = areaData.coords;
+        areaEle.shape = areaData.shape;
+        // calculate coordinate:
+        areaEle.coords = `${areaData.coords[0] * 0.6},${areaData.coords[1] * 0.6},${areaData.coords[2] * 0.6}`;
+        target.appendChild(areaEle);
+    } 
 }
