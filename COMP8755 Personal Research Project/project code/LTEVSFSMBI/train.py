@@ -15,6 +15,7 @@ torch.backends.cudnn.benchmark = True
 
 import torch.nn as nn
 import torch.optim as optim
+import torch.nn.functional as F
 from torch.utils.data import DataLoader
 
 import random
@@ -24,6 +25,7 @@ import numpy as np
 import utils
 from data_RGB import get_training_data, get_validation_data
 from LTEVSFSMBI import centerEsti, F17_N9, F26_N9, F35_N8
+from FCDiscriminator import FCDiscriminator
 import losses
 from warmup_scheduler import GradualWarmupScheduler
 from tqdm import tqdm
@@ -60,6 +62,8 @@ if __name__ == '__main__':
     train_dir = opt.TRAINING.TRAIN_DIR
     val_dir = opt.TRAINING.VAL_DIR
 
+    new_lr = opt.OPTIM.LR_INITIAL
+
     group_size = 7
 
     ######### Model ###########
@@ -74,6 +78,11 @@ if __name__ == '__main__':
         pic_index = 1
     elif mode == "F35_N8":
         model_restoration = F35_N8()
+        discriminator = FCDiscriminator()
+        discriminator.cuda()
+        discriminator_params = discriminator.parameters()
+        discriminator_optimizer = torch.optim.Adam(discriminator_params, new_lr)
+
         pic_index = 2
     else:
         raise Exception('Illegal parameter mode == {}. Can only choose from "centerEsti", '
@@ -94,7 +103,6 @@ if __name__ == '__main__':
     else:
         raise Exception('Illegal parameter mode == {}. Can only choose from "centerEsti", '
                         '"F35_N8", "F26_N9" and "F17_N9"'.format(mode))
-    new_lr = opt.OPTIM.LR_INITIAL
 
     optimizer = optim.Adam(model_restoration.parameters(), lr=new_lr, betas=(0.9, 0.999), eps=1e-8)
 
@@ -168,15 +176,29 @@ if __name__ == '__main__':
                 target1 = data[0][0].cuda()
                 target2 = data[0][1].cuda()
                 centerEsti_model = centerEsti().cuda()
-                centerEsit_model_path = os.path.join(opt.TRAINING.SAVE_DIR, "centerEsti", 'models', session,
+                centerEsit_model_path = os.path.join(opt.TRAINING.CENTER_MODEL_DIR, "centerEsti", 'models', session,
                                                      "centerEsti_model_latest.pth")
                 centerEsti_ckpt = torch.load(centerEsit_model_path)
                 restored4 = centerEsti_model(input_)
                 restored4 = restored4.data * 255
+
                 # print("input_:", input_.shape, ", restored4:", restored4.shape)
 
                 restored = model_restoration(input_, restored4)
-                loss = criterion(restored[0], restored[1], target1, target2)
+
+                # discriminator:
+                dis_output1 = discriminator(target1, restored[0])
+                dis_output2 = discriminator(target2, restored[1])
+
+                print("dis_output:", dis_output1, dis_output2)
+                loss = criterion(restored[0], restored[1], target1, target2) + dis_output1 + dis_output2
+
+                # train discriminator
+                dis_pred1 = torch.sigmoid(restored[0]).detach()
+                dis_pred2 = torch.sigmoid(restored[1]).detach()
+                dis_output1 = discriminator(target1, dis_pred1)
+                dis_output1 = F.upsample(dis_output1, size=(target1.shape[2], target1.shape[3]),
+                                         mode="bilinear", align_corners=True)
 
             loss.backward()
             optimizer.step()

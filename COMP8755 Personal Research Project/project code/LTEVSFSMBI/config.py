@@ -2,10 +2,10 @@ from typing import Any, List
 
 from yacs.config import CfgNode as CN
 
+
 class Config(object):
 
     def __init__(self, config_yaml: str, config_override: List[Any] = []):
-
         self._C = CN()
         self._C.GPU = [0]
         self._C.VERBOSE = False
@@ -28,7 +28,8 @@ class Config(object):
         self._C.TRAINING.SAVE_IMAGES = False
         self._C.TRAINING.TRAIN_DIR = 'images_dir/train'
         self._C.TRAINING.VAL_DIR = 'images_dir/val'
-        self._C.TRAINING.SAVE_DIR = 'checkpoints'
+        self._C.TRAINING.CENTER_MODEL_DIR = 'ckpt'
+        self._C.TRAINING.SAVE_DIR = 'ckpt'
         self._C.TRAINING.TRAIN_PS = 64
         self._C.TRAINING.VAL_PS = 64
 
