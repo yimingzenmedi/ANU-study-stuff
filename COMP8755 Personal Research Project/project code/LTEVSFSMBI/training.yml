@@ -35,6 +35,6 @@ TRAINING:
 #  VAL_DIR: '../Datasets/video/test'    # path to validation data
 #  TRAIN_DIR: '../Datasets/video_min/train' # path to training data
 #  VAL_DIR: '../Datasets/video_min/test'    # path to validation data
-  CENTER_MODEL_DIR: './ckpt_test'
-  SAVE_DIR: './ckpt_test'     # path to save models and images
+  CENTER_MODEL_DIR: './ckpt'
+  SAVE_DIR: './ckpt'     # path to save models and images
   # SAVE_IMAGES: False
