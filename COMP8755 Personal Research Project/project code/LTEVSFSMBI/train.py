@@ -16,6 +16,7 @@ torch.backends.cudnn.benchmark = True
 import torch.nn as nn
 import torch.optim as optim
 import torch.nn.functional as F
+from torch.autograd import Variable
 from torch.utils.data import DataLoader
 
 import random
@@ -81,7 +82,7 @@ if __name__ == '__main__':
         discriminator = FCDiscriminator()
         discriminator.cuda()
         discriminator_params = discriminator.parameters()
-        discriminator_optimizer = torch.optim.Adam(discriminator_params, new_lr)
+        discriminator_optimizer = optim.Adam(discriminator_params, new_lr)
 
         pic_index = 2
     else:
@@ -172,13 +173,18 @@ if __name__ == '__main__':
                 loss = criterion(restored, target)
                 # print("!!! type loss:", type(loss), loss)
                 # loss = loss.numpy().tolist()
+                loss.backward()
+                optimizer.step()
             else:
+                CE = torch.nn.BCEWithLogitsLoss()
+
                 target1 = data[0][0].cuda()
                 target2 = data[0][1].cuda()
                 centerEsti_model = centerEsti().cuda()
                 centerEsit_model_path = os.path.join(opt.TRAINING.CENTER_MODEL_DIR, "centerEsti", 'models', session,
                                                      "centerEsti_model_latest.pth")
                 centerEsti_ckpt = torch.load(centerEsit_model_path)
+                # print(f">> train: input_: {input_.shape}")
                 restored4 = centerEsti_model(input_)
                 restored4 = restored4.data * 255
 
@@ -188,20 +194,64 @@ if __name__ == '__main__':
 
                 # discriminator:
                 dis_output1 = discriminator(target1, restored[0])
+                dis_output1 = F.interpolate(dis_output1, size=(target1.shape[2], target1.shape[3]),
+                                            mode="bilinear", align_corners=True)
+                labels1 = Variable(torch.FloatTensor(np.ones(dis_output1.shape))).cuda()
+                dis_output1_loss = CE(dis_output1, labels1) * np.prod(dis_output1.shape)
+                # print("> dis_output1_loss:", dis_output1_loss)
+
                 dis_output2 = discriminator(target2, restored[1])
+                dis_output2 = F.interpolate(dis_output2, size=(target2.shape[2], target2.shape[3]),
+                                            mode="bilinear", align_corners=True)
+                labels2 = Variable(torch.FloatTensor(np.ones(dis_output2.shape))).cuda()
+                dis_output2_loss = CE(dis_output2, labels2) * np.prod(dis_output1.shape)
+                # print("> dis_output2_loss:", dis_output2_loss)
 
-                print("dis_output:", dis_output1, dis_output2)
-                loss = criterion(restored[0], restored[1], target1, target2) + dis_output1 + dis_output2
+                dis_output_loss = dis_output1_loss + dis_output2_loss
+                # print("> dis_output_loss:", dis_output_loss)
 
-                # train discriminator
+                criterion_loss = criterion(restored[0], restored[1], target1, target2)
+                # print("> criterion_loss:", criterion_loss)
+
+                loss = criterion_loss + dis_output_loss * 1
+
+                loss.backward()
+                optimizer.step()
+
+                ##########################################################################################
+                # train discriminator:
+                torch.autograd.set_detect_anomaly(True)
+
                 dis_pred1 = torch.sigmoid(restored[0]).detach()
-                dis_pred2 = torch.sigmoid(restored[1]).detach()
-                dis_output1 = discriminator(target1, dis_pred1)
-                dis_output1 = F.upsample(dis_output1, size=(target1.shape[2], target1.shape[3]),
-                                         mode="bilinear", align_corners=True)
+                dis_output1 = F.interpolate(discriminator(target1, dis_pred1),
+                                            size=(target1.shape[2], target1.shape[3]),
+                                            mode="bilinear", align_corners=True)
+                dis_output1_loss = CE(dis_output1, labels1)
+                # print(f"> target1: {target1.shape}, labels1: {labels1.shape}, restored[0]: {restored[0].shape}, "
+                #       f"dis_output1: {dis_output1.shape}, dis_output1_loss: {dis_output1_loss.shape}")
+                dis_target1 = discriminator(target1, target1)
+                dis_target1 = F.interpolate(dis_target1, size=(target1.shape[2], target1.shape[3]),
+                                            mode="bilinear", align_corners=True)
+                dis_target1_loss = CE(dis_target1, labels1)
 
-            loss.backward()
-            optimizer.step()
+                dis_pred2 = torch.sigmoid(restored[1]).detach()
+                dis_output2 = F.interpolate(discriminator(target2, dis_pred2),
+                                            size=(target2.shape[2], target2.shape[3]),
+                                            mode="bilinear", align_corners=True)
+                dis_output2_loss = CE(dis_output2, labels2)
+
+                dis_target2 = discriminator(target2, target2)
+                dis_target2 = F.interpolate(dis_target2, size=(target2.shape[2], target2.shape[3]),
+                                            mode="bilinear", align_corners=True)
+                dis_target2_loss = CE(dis_target2, labels2)
+
+                dis_loss = 0.25 * (dis_output1_loss + dis_target1_loss + dis_output2_loss + dis_target2_loss)
+                # print("dis_loss:", dis_loss)
+                dis_loss.backward()
+                discriminator_optimizer.step()
+
+            # loss.backward()
+            # optimizer.step()
             epoch_loss += loss.item()
 
         #### Evaluation ####

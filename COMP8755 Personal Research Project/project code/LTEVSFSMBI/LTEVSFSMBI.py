@@ -33,12 +33,12 @@ def pixel_reshuffle(input_, upscale_factor):
         torch.Size([1, 12, 6, 6])
     """
     batch_size, channels, in_height, in_width = input_.size()
-    print(input_.size())
+    # print(input_.size())
 
     # // division is to keep data type unchanged. In this way, the out_height is still int type
     out_height = in_height // upscale_factor
     out_width = in_width // upscale_factor
-    print(f">> in_height:{in_height}, out_height:{out_height}, in_width:{in_width},out_width:{out_width}")
+    # print(f">> in_height:{in_height}, out_height:{out_height}, in_width:{in_width},out_width:{out_width}")
     input_view = input_.contiguous().view(batch_size, channels, out_height, upscale_factor, out_width, upscale_factor)
     channels = channels * upscale_factor * upscale_factor
 
@@ -92,9 +92,9 @@ class FourConvResBlockIN(nn.Module):
         self.conv4 = nn.Conv2d(in_channels, out_channels, (3, 3), (1, 1), (1, 1), bias=False)
 
     def forward(self, x):
-        print("flag10", x.shape)
+        # print("flag10", x.shape)
         out1 = self.norm1(x)
-        print("flag11")
+        # print("flag11")
         out1 = self.relu(out1)
         out1 = self.conv1(out1)
 
@@ -424,64 +424,61 @@ class F17_N9(nn.Module):
 class N8_IN(nn.Module):
     def __init__(self):
         super(N8_IN, self).__init__()
-        # self.conv1_B = nn.Conv2d(25, 64, (5, 5), (1, 1), (2, 2), bias=False)  # original
-        # self.conv1_S1 = nn.Conv2d(25, 32, (5, 5), (1, 1), (2, 2), bias=False)  # original
-        # self.conv1_S2 = nn.Conv2d(25, 32, (5, 5), (1, 1), (2, 2), bias=False)  # original
-        self.conv1_B = nn.Conv2d(16, 24, (16, 16), (1, 1), (2, 2), bias=False)
-        self.conv1_S1 = nn.Conv2d(16, 24, (16, 16), (1, 1), (2, 2), bias=False)
-        self.conv1_S2 = nn.Conv2d(16, 24, (16, 16), (1, 1), (2, 2), bias=False)
+        self.conv1_B = nn.Conv2d(25, 64, (5, 5), (1, 1), (2, 2), bias=False)  # original
+        self.conv1_S1 = nn.Conv2d(25, 32, (5, 5), (1, 1), (2, 2), bias=False)  # original
+        self.conv1_S2 = nn.Conv2d(25, 32, (5, 5), (1, 1), (2, 2), bias=False)  # original
+        # self.conv1_B = nn.Conv2d(16, 64, (5, 5), (1, 1), (2, 2), bias=False)
+        # self.conv1_S1 = nn.Conv2d(16, 32, (5, 5), (1, 1), (2, 2), bias=False)
+        # self.conv1_S2 = nn.Conv2d(16, 32, (5, 5), (1, 1), (2, 2), bias=False)
         self.conv2 = nn.Conv2d(3, 32, (3, 3), (1, 1), (1, 1), bias=False)
 
         self.norm3 = nn.InstanceNorm2d(32, affine=True, track_running_stats=True)
         self.relu = nn.ReLU(inplace=True)
         self.conv3 = nn.Conv2d(32, 3, (3, 3), (1, 1), (1, 1), bias=False)
 
-        # self.pixel_shuffle = nn.PixelShuffle(5)       # original
-        self.pixel_shuffle = nn.PixelShuffle(4)
+        self.pixel_shuffle = nn.PixelShuffle(5)       # original
+        # self.pixel_shuffle = nn.PixelShuffle(4)
 
         # original:
+        self.LocalGrad1 = self.make_layer(FourConvResBlockIN, 128, 128, 4)
+        self.LocalGrad2 = self.make_layer2(128, 128)
+        self.LocalGrad3 = self.make_layer(FourConvResBlockIN, 128, 128, 4)
+
         # print("flag1")
-        # self.LocalGrad1 = self.make_layer(FourConvResBlockIN, 128, 128, 4)
+        # self.LocalGrad1 = self.make_layer(FourConvResBlockIN, 72, 72, 4)
         # print("flag2")
-        # self.LocalGrad2 = self.make_layer2(128, 128)
+        # self.LocalGrad2 = self.make_layer2(72, 72)
         # print("flag3")
-        # self.LocalGrad3 = self.make_layer(FourConvResBlockIN, 128, 128, 4)
+        # self.LocalGrad3 = self.make_layer(FourConvResBlockIN, 72, 72, 4)
         # print("flag4")
 
-        print("flag1")
-        self.LocalGrad1 = self.make_layer(FourConvResBlockIN, 72, 72, 4)
-        print("flag2")
-        self.LocalGrad2 = self.make_layer2(72, 72)
-        print("flag3")
-        self.LocalGrad3 = self.make_layer(FourConvResBlockIN, 72, 72, 4)
-        print("flag4")
-
         # original:
-        # self.fuse1 = self.make_layer(TwoConvBlockIN, 128, 25, 1)
-        # self.fuse2 = self.make_layer(TwoConvBlockIN, 128, 25, 1)
-        # self.fuse3 = self.make_layer(TwoConvBlockIN, 128, 25, 1)
-        self.fuse1 = self.make_layer(TwoConvBlockIN, 72, 16, 1)
-        self.fuse2 = self.make_layer(TwoConvBlockIN, 72, 16, 1)
-        self.fuse3 = self.make_layer(TwoConvBlockIN, 72, 16, 1)
+        self.fuse1 = self.make_layer(TwoConvBlockIN, 128, 25, 1)
+        self.fuse2 = self.make_layer(TwoConvBlockIN, 128, 25, 1)
+        self.fuse3 = self.make_layer(TwoConvBlockIN, 128, 25, 1)
+
+        # self.fuse1 = self.make_layer(TwoConvBlockIN, 72, 25, 1)
+        # self.fuse2 = self.make_layer(TwoConvBlockIN, 72, 25, 1)
+        # self.fuse3 = self.make_layer(TwoConvBlockIN, 72, 25, 1)
 
         self.GlobalGrad = self.make_layer(TwoConvBlockIN, 32, 32, 1)
 
     def forward(self, x1_r_0, x1_g_0, x1_b_0, x2_r_0, x2_g_0, x2_b_0, x3_r_0, x3_g_0, x3_b_0):
-        print("flag12")
-        print(">> 1", x1_r_0.shape, x1_g_0.shape, x1_b_0.shape, x2_r_0.shape, x2_g_0.shape, x2_b_0.shape,
-              x3_r_0.shape, x3_g_0.shape, x3_b_0.shape)
+        # print("flag12")
+        # print(f">> 1 x1_r_0: {x1_r_0.shape}, x1_g_0: {x1_g_0.shape}, x1_b_0: {x1_b_0.shape}, x2_r_0: {x2_r_0.shape}, "
+        #       f"x2_g_0: {x2_g_0.shape}, x2_b_0: {x2_b_0.shape}, x3_r_0: {x3_r_0.shape}, x3_g_0: {x3_g_0.shape}, x3_b_0: {x3_b_0.shape}")
         x1_r_1 = self.conv1_B(x1_r_0)
         x2_r_1 = self.conv1_S1(x2_r_0)
         x3_r_1 = self.conv1_S2(x3_r_0)
         x_r_1 = torch.cat((x1_r_1, x2_r_1, x3_r_1), 1)
-        print(">> 2", x1_r_1.shape, x2_r_1.shape, x3_r_1.shape, x_r_1.shape)
+        # print(f">> 2 x1_r_1: {x1_r_1.shape}, x2_r_1: {x2_r_1.shape}, x3_r_1: {x3_r_1.shape}, x_r_1: {x_r_1.shape}")
 
-        print("flag7", x_r_1.shape)
+        # print("flag7", x_r_1.shape)
         x_r_1 = self.LocalGrad1(x_r_1)
-        print("flag8")
+        # print("flag8")
         x_r_2 = self.LocalGrad2(x_r_1)
         x_r_3 = self.LocalGrad3(x_r_2)
-        print("flag9")
+        # print("flag9")
 
         x1_g_1 = self.conv1_B(x1_g_0)
         x2_g_1 = self.conv1_S1(x2_g_0)
@@ -514,7 +511,9 @@ class N8_IN(nn.Module):
         x_b_3 = self.fuse3(x_b_3)
 
         # we only estimate the residual respect to sharp reference image.
-        x_r_5 = self.pixel_shuffle(x_r_1 + x_r_2 + x_r_3 + x3_r_0)
+        # print(f">> 3 x_r_1: {x_r_1.shape}, x_r_2: {x_r_2.shape}, x_r_3: {x_r_3.shape}, x3_r_0: {x3_r_0.shape}")
+        to_shuffle = x_r_1 + x_r_2 + x_r_3 + x3_r_0
+        x_r_5 = self.pixel_shuffle(to_shuffle)
         x_g_5 = self.pixel_shuffle(x_g_1 + x_g_2 + x_g_3 + x3_g_0)
         x_b_5 = self.pixel_shuffle(x_b_1 + x_b_2 + x_b_3 + x3_b_0)
 
@@ -550,22 +549,11 @@ class F35_N8(nn.Module):
 
     def forward(self, Blurry, ref4):
         # print("> Blurry:", Blurry.shape)
-        upscale_factor = 4
-        # need_resize = False
-        # batch_size, channels, in_height, in_width = Blurry.size()
-        # out_height = in_height // upscale_factor
-        # out_width = in_width // upscale_factor
-        # if out_width != in_width / upscale_factor or out_height != in_height / upscale_factor:
-        #     need_resize = True
-        #     Blurry = nn.functional.interpolate(Blurry, mode="bilinear",
-        #                                        size=[out_height * upscale_factor, out_width * upscale_factor])
-        #     ref4 = nn.functional.interpolate(ref4, mode="bilinear",
-        #                                      size=[out_height * upscale_factor, out_width * upscale_factor])
-        # print("> resized Blurry:", Blurry.shape)
-
+        upscale_factor = 5
         Blurry_r = Blurry[:, 0, :, :].unsqueeze(1)
         Blurry_g = Blurry[:, 1, :, :].unsqueeze(1)
         Blurry_b = Blurry[:, 2, :, :].unsqueeze(1)
+        # print("flag13", Blurry_r.shape)
         Blurry_r_0 = pixel_reshuffle(Blurry_r, upscale_factor)
         Blurry_g_0 = pixel_reshuffle(Blurry_g, upscale_factor)
         Blurry_b_0 = pixel_reshuffle(Blurry_b, upscale_factor)
@@ -577,12 +565,13 @@ class F35_N8(nn.Module):
         ref4_g_0 = pixel_reshuffle(ref4_g, upscale_factor)
         ref4_b_0 = pixel_reshuffle(ref4_b, upscale_factor)
 
-        print("flag5")
-        print(Blurry_r_0.shape, Blurry_g_0.shape, Blurry_b_0.shape, ref4_r_0.shape, ref4_g_0.shape,
-              ref4_b_0.shape, ref4_r_0.shape, ref4_g_0.shape, ref4_b_0.shape, ref4.shape)
+        # print("flag5")
+        # print(f">> 4 Blurry_r_0: {Blurry_r_0.shape}, Blurry_g_0: {Blurry_g_0.shape}, Blurry_b_0: {Blurry_b_0.shape}, "
+        #       f"ref4_r_0: {ref4_r_0.shape}, ref4_g_0: {ref4_g_0.shape}, ref4_b_0: {ref4_b_0.shape}, ref4_r_0: {ref4_r_0.shape}, "
+        #       f"ref4_g_0: {ref4_g_0.shape}, ref4_b_0: {ref4_b_0.shape}, ref4: {ref4.shape}")
         ref3 = self.generateFrame3(Blurry_r_0, Blurry_g_0, Blurry_b_0, ref4_r_0, ref4_g_0, ref4_b_0, ref4_r_0, ref4_g_0,
                                    ref4_b_0) + ref4
-        print("flag6")
+        # print("flag6")
         ref3_r = ref3[:, 0, :, :].unsqueeze(1)
         ref3_g = ref3[:, 1, :, :].unsqueeze(1)
         ref3_b = ref3[:, 2, :, :].unsqueeze(1)
@@ -592,10 +581,5 @@ class F35_N8(nn.Module):
 
         ref5 = self.generateFrame5(Blurry_r_0, Blurry_g_0, Blurry_b_0, ref3_r_0, ref3_g_0, ref3_b_0, ref4_r_0, ref4_g_0,
                                    ref4_b_0) + ref4
-        # if need_resize:
-        #     ref3 = nn.functional.interpolate(ref3, mode="bilinear",
-        #                                      size=[in_height, in_height])
-        #     ref5 = nn.functional.interpolate(ref5, mode="bilinear",
-        #                                      size=[in_height, in_height])
 
         return ref3, ref5

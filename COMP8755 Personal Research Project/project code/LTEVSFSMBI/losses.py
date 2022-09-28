@@ -24,12 +24,6 @@ def perceptualLoss(fakeIm, realIm):
 
     return loss
 
-
-def adversarialLoss(x, y):
-    print("> ", x.shape, y.shape)
-    return nn.BCELoss(x, y)
-
-
 class CenterEstiLoss(nn.Module):
     def __init__(self):
         super(CenterEstiLoss, self).__init__()
@@ -64,6 +58,4 @@ class F35_N8Loss(nn.Module):
 
     def forward(self, x3, x5, y3, y5):
         loss = ((y3 + y5).abs() - (x3 + x5).abs()).abs() + ((y3 - y5).abs() - (x3 - x5).abs()).abs()
-        print("> forward:\nloss:", loss.shape, ", adv:", adversarialLoss(x5, y5).shape)
-        loss = loss + adversarialLoss(x3, y3) + adversarialLoss(x5, y5)
-        return loss.sum()
+        return loss.abs().sum()

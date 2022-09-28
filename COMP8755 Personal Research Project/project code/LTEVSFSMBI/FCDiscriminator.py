@@ -3,10 +3,10 @@ import torch.nn as nn
 
 
 class FCDiscriminator(nn.Module):
-    def __init__(self, ndf=64):
+    def __init__(self, ndf=24):
         super(FCDiscriminator, self).__init__()
         self.conv1_1 = nn.Conv2d(7, ndf, kernel_size=3, stride=2, padding=1)
-        self.conv1_2 = nn.Conv2d(4, ndf, kernel_size=3, stride=2, padding=1)
+        self.conv1_2 = nn.Conv2d(6, ndf, kernel_size=3, stride=2, padding=1)
         self.conv2 = nn.Conv2d(ndf, ndf, kernel_size=3, stride=1, padding=1)
         self.conv3 = nn.Conv2d(ndf, ndf, kernel_size=3, stride=2, padding=1)
         self.conv4 = nn.Conv2d(ndf, ndf, kernel_size=3, stride=1, padding=1)
@@ -35,4 +35,5 @@ class FCDiscriminator(nn.Module):
         x = self.bn4(x)
         x = self.leaky_relu(x)
         x = self.classifier(x)
+        # print("> FCDisc x:", x.shape)
         return x
