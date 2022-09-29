@@ -24,6 +24,7 @@ def perceptualLoss(fakeIm, realIm):
 
     return loss
 
+
 class CenterEstiLoss(nn.Module):
     def __init__(self):
         super(CenterEstiLoss, self).__init__()

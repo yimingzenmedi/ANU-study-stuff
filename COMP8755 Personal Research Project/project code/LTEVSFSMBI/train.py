@@ -141,7 +141,7 @@ if __name__ == '__main__':
 
     train_loader = DataLoader(dataset=train_dataset, batch_size=opt.OPTIM.BATCH_SIZE, shuffle=True, num_workers=8,
                               drop_last=False, pin_memory=True)
-    val_loader = DataLoader(dataset=val_dataset, batch_size=opt.OPTIM.BATCH_SIZE, shuffle=False, num_workers=8,
+    val_loader = DataLoader(dataset=val_dataset, batch_size=opt.OPTIM.VAL_BATCH_SIZE, shuffle=False, num_workers=8,
                             drop_last=False, pin_memory=True)
 
     print('===> Start Epoch {} End Epoch {}'.format(start_epoch, opt.OPTIM.NUM_EPOCHS + 1))
@@ -262,19 +262,46 @@ if __name__ == '__main__':
             val_loader_emur = enumerate(val_loader, 0)
             print("> val_loader:", len(val_loader))
 
-            for ii, data_val in val_loader_emur:
-                target = data_val[0][0].cuda()
-                input_ = data_val[1].cuda()
+            if mode == "centerEsti":
+                for ii, data_val in val_loader_emur:
+                    target = data_val[0][0].cuda()
+                    input_ = data_val[1].cuda()
 
-                with torch.no_grad():
-                    restored = model_restoration(input_)
-                restored = restored[0]
+                    with torch.no_grad():
+                        restored = model_restoration(input_)
+                    restored = restored[0]
 
-                # print("> target:", target, ",\ninput_:", input_, ",\nrestored:", restored)
+                    # print("> target:", target, ",\ninput_:", input_, ",\nrestored:", restored)
 
-                for res, tar in zip(restored, target):
-                    psnr_val_rgb.append(utils.torchPSNR(res, tar))
-                    # print("psnr_val_rgb appended. Now:", psnr_val_rgb)
+                    for res, tar in zip(restored, target):
+                        psnr_val_rgb.append(utils.torchPSNR(res, tar))
+                        # print("psnr_val_rgb appended. Now:", psnr_val_rgb)
+
+            else:
+                for ii, data_val in val_loader_emur:
+                    target1 = data_val[0][0].cuda()
+                    target2 = data_val[0][1].cuda()
+                    input_ = data_val[1].cuda()
+
+                    # centerEsti_model = centerEsti().cuda()
+                    # centerEsit_model_path = os.path.join(opt.TRAINING.CENTER_MODEL_DIR, "centerEsti", 'models', session,
+                    #                                      "centerEsti_model_latest.pth")
+                    # centerEsti_ckpt = torch.load(centerEsit_model_path)
+                    restored4 = centerEsti_model(input_)
+                    restored4 = restored4.data * 255
+
+                    with torch.no_grad():
+                        restored = model_restoration(input_, restored4)
+                    restored1 = restored[0]
+                    restored2 = restored[1]
+
+                    # print("> target:", target, ",\ninput_:", input_, ",\nrestored:", restored)
+
+                    for res1, res2, tar1, tar2 in zip(restored1, restored2, target1, target2):
+                        # print(f"> res1: {res1.shape}, res2: {res2.shape}, tar1: {tar1.shape}, tar2: {tar2.shape}")
+                        psnr_val_rgb.append(utils.torchPSNR(res1, tar1))
+                        psnr_val_rgb.append(utils.torchPSNR(res2, tar2))
+                        # print("psnr_val_rgb appended. Now:", psnr_val_rgb)
 
             psnr_val_rgb = torch.stack(psnr_val_rgb).mean().item()
 

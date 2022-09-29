@@ -288,7 +288,7 @@ class DataLoaderVal(Dataset):
             if self.ps is not None:
                 inp_img = TF.center_crop(inp_img, [ps, ps])
                 tar_img1 = TF.center_crop(tar_img1, [ps, ps])
-                tar_img1 = TF.center_crop(tar_img1, [ps, ps])
+                tar_img2 = TF.center_crop(tar_img2, [ps, ps])
 
             inp_img = TF.to_tensor(inp_img)
             tar_img1 = TF.to_tensor(tar_img1)
