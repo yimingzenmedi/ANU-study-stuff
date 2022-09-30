@@ -15,7 +15,7 @@ MODEL:
 
 # Optimization arguments.
 OPTIM:
-  BATCH_SIZE: 84
+  BATCH_SIZE: 85
   VAL_BATCH_SIZE: 64
   NUM_EPOCHS: 3000
   # NEPOCH_DECAY: [10]
