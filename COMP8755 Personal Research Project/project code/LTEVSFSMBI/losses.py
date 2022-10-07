@@ -1,5 +1,5 @@
 import torch.nn as nn
-import torch
+import matplotlib.pyplot as plt
 from torchvision.models import vgg16, VGG16_Weights
 
 
@@ -58,5 +58,13 @@ class F35_N8Loss(nn.Module):
         super(F35_N8Loss, self).__init__()
 
     def forward(self, x3, x5, y3, y5):
-        loss = ((y3 + y5).abs() - (x3 + x5).abs()).abs() + ((y3 - y5).abs() - (x3 - x5).abs()).abs()
-        return loss.abs().sum()
+        # print(f"\n>>>\n(y3 + y5).abs() = {(y3 + y5).sum()}")
+        # print(f"(x3 + x5).abs() = {(x3 + x5).sum()}")
+        # print(f"(y3 - y5).abs() = {(y3 - y5).sum()}")
+        # print(f"(x3 - x5).abs() = {(x3 - x5).sum()}")
+        # print(f"((y3 + y5).abs() - (x3 + x5).abs()).abs() = {((y3 + y5) - (x3 + x5)).abs().sum()}")
+        # print(f"((y3 - y5).abs() - (x3 - x5).abs()).abs() = {((y3 - y5) - (x3 - x5)).abs().sum()}")
+        # print(f"((y3 + y5).abs() - (x3 + x5).abs()).abs() + ((y3 - y5).abs() - (x3 - x5).abs()).abs() "
+        #       f"= {(((y3 + y5).abs() - (x3 + x5).abs()).abs() + ((y3 - y5).abs() - (x3 - x5).abs()).abs()).sum()}")
+        loss = ((x3 + x5) - (y3 + y5)).norm() + ((x3 - x5) - (y3 - y5)).norm()
+        return loss.mean()

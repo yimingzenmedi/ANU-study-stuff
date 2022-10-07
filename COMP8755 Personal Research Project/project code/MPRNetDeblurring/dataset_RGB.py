@@ -28,6 +28,7 @@ class DataLoaderTrain(Dataset):
 
         # middle frame:
         if is_mid_index(group_size, pic_index):
+            # print("!! Center")
             tar_files = []
             for i in range(len(tar_files_all)):
                 if i % group_size == pic_index:
@@ -36,6 +37,7 @@ class DataLoaderTrain(Dataset):
             self.tar_filenames_set = [[os.path.join(rgb_dir, 'sharp', x) for x in tar_files if is_image_file(x)]]
         # others:
         else:
+            # print("!! Not Center")
             pic_index1 = pic_index
             pic_index2 = group_size - pic_index
             tar_files1 = []
@@ -132,6 +134,10 @@ class DataLoaderTrain(Dataset):
             filename_set = [os.path.splitext(os.path.split(tar_path)[-1])[0]]
 
         else:
+            # print(f">> tar_filenames_set: {len(self.tar_filenames_set)}, child len: {len(self.tar_filenames_set[0])}, index_: {index_}")
+            # print(f">> tar_path1: {self.tar_filenames_set[0][index_]}")
+            # print(f">> tar_path2: {self.tar_filenames_set[1][index_]}")
+
             tar_path1 = self.tar_filenames_set[0][index_]
             tar_path2 = self.tar_filenames_set[1][index_]
             tar_img1 = Image.open(tar_path1)
@@ -266,6 +272,8 @@ class DataLoaderVal(Dataset):
             inp_img = Image.open(inp_path)
             tar_img = Image.open(tar_path)
 
+            # print("!! ps:", self.ps)
+
             # Validate on center crop
             if self.ps is not None:
                 inp_img = TF.center_crop(inp_img, [ps, ps])
@@ -284,11 +292,12 @@ class DataLoaderVal(Dataset):
             tar_img1 = Image.open(tar_path1)
             tar_img2 = Image.open(tar_path2)
 
+            # print("!! ps:", self.ps)
             # Validate on center crop
             if self.ps is not None:
                 inp_img = TF.center_crop(inp_img, [ps, ps])
                 tar_img1 = TF.center_crop(tar_img1, [ps, ps])
-                tar_img1 = TF.center_crop(tar_img1, [ps, ps])
+                tar_img2 = TF.center_crop(tar_img2, [ps, ps])
 
             inp_img = TF.to_tensor(inp_img)
             tar_img1 = TF.to_tensor(tar_img1)

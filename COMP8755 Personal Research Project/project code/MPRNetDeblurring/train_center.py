@@ -23,7 +23,6 @@ import numpy as np
 import utils
 from data_RGB import get_training_data, get_validation_data
 from MPRNet import MPRNet
-# import losses
 import LTEVSFSMBILosses
 from warmup_scheduler import GradualWarmupScheduler
 from tqdm import tqdm
@@ -58,6 +57,7 @@ if __name__ == '__main__':
         print("\n\nLet's use", torch.cuda.device_count(), "GPUs!\n\n")
 
     new_lr = opt.OPTIM.LR_INITIAL
+    mode = opt.MODEL.MODE
 
     optimizer = optim.Adam(model_restoration.parameters(), lr=new_lr, betas=(0.9, 0.999), eps=1e-8)
 
@@ -71,7 +71,7 @@ if __name__ == '__main__':
 
     ######### Resume ###########
     if opt.TRAINING.RESUME:
-        path_chk_rest = utils.get_last_path(model_dir, '_latest.pth')
+        path_chk_rest = utils.get_last_path(model_dir, f'{mode}_model_latest.pth')
         utils.load_checkpoint(model_restoration, path_chk_rest)
         start_epoch = utils.load_start_epoch(path_chk_rest) + 1
         utils.load_optim(optimizer, path_chk_rest)
@@ -92,11 +92,11 @@ if __name__ == '__main__':
     criterion = LTEVSFSMBILosses.CenterEstiLoss()
 
     ######### DataLoaders ###########
-    train_dataset = get_training_data(train_dir, {'patch_size': opt.TRAINING.TRAIN_PS})
-    train_loader = DataLoader(dataset=train_dataset, batch_size=opt.OPTIM.BATCH_SIZE, shuffle=True, num_workers=16,
+    train_dataset = get_training_data(train_dir, {'patch_size': opt.TRAINING.TRAIN_PS}, group_size=7, pic_index=3)
+    train_loader = DataLoader(dataset=train_dataset, batch_size=opt.OPTIM.BATCH_SIZE, shuffle=True, num_workers=12,
                               drop_last=False, pin_memory=True)
 
-    val_dataset = get_validation_data(val_dir, {'patch_size': opt.TRAINING.VAL_PS})
+    val_dataset = get_validation_data(val_dir, {'patch_size': opt.TRAINING.VAL_PS}, group_size=7, pic_index=3)
     val_loader = DataLoader(dataset=val_dataset, batch_size=16, shuffle=False, num_workers=8, drop_last=False,
                             pin_memory=True)
 
@@ -118,10 +118,12 @@ if __name__ == '__main__':
             for param in model_restoration.parameters():
                 param.grad = None
 
-            target = data[0].cuda()
             input_ = data[1].cuda()
+            target = data[0][0].cuda()
 
             restored = model_restoration(input_)
+            restored = restored[0]
+            # print(">> restored:", len(restored))
             # print("!!! size of restored:", len(restored))
             # for i in range(len(restored)):
             #     print(i, ">", restored[i].size() )
@@ -143,7 +145,7 @@ if __name__ == '__main__':
             model_restoration.eval()
             psnr_val_rgb = []
             for ii, data_val in enumerate((val_loader), 0):
-                target = data_val[0].cuda()
+                target = data_val[0][0].cuda()
                 input_ = data_val[1].cuda()
 
                 with torch.no_grad():
@@ -161,7 +163,7 @@ if __name__ == '__main__':
                 torch.save({'epoch': epoch,
                             'state_dict': model_restoration.state_dict(),
                             'optimizer': optimizer.state_dict()
-                            }, os.path.join(model_dir, "model_best.pth"))
+                            }, os.path.join(model_dir, f"{mode}_model_epoch_{epoch}.pth"))
 
             print(
                 "[epoch %d PSNR: %.4f --- best_epoch %d Best_PSNR %.4f]" % (epoch, psnr_val_rgb, best_epoch, best_psnr))
@@ -169,7 +171,7 @@ if __name__ == '__main__':
             torch.save({'epoch': epoch,
                         'state_dict': model_restoration.state_dict(),
                         'optimizer': optimizer.state_dict()
-                        }, os.path.join(model_dir, f"model_epoch_{epoch}.pth"))
+                        }, os.path.join(model_dir, f"{mode}_model_epoch_{epoch}.pth"))
 
         scheduler.step()
 
@@ -181,4 +183,4 @@ if __name__ == '__main__':
         torch.save({'epoch': epoch,
                     'state_dict': model_restoration.state_dict(),
                     'optimizer': optimizer.state_dict()
-                    }, os.path.join(model_dir, "model_latest.pth"))
+                    }, os.path.join(model_dir, f"{mode}_model_latest.pth"))

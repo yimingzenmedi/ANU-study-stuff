@@ -7,6 +7,7 @@ import torchvision.transforms.functional as TF
 from PIL import Image
 from torch.utils.data import Dataset
 
+import matplotlib.pyplot as plt
 
 def is_image_file(filename):
     return any(filename.endswith(extension) for extension in ['jpeg', 'JPEG', 'jpg', 'png', 'JPG', 'PNG', 'gif'])
@@ -67,6 +68,10 @@ class DataLoaderTrain(Dataset):
         # print("!!! inp_filenames:", len(self.inp_filenames), ", tar_filenames:", self.sizex, ", index_:", index_)
         inp_path = self.inp_filenames[index_]
         inp_img = Image.open(inp_path)
+        # print("inp_img:", inp_img)
+        # inp_img.show()
+        # img_array = np.array(inp_img)
+        # plt.imsave(f"./view/{index_}.png", img_array)
 
         w, h = inp_img.size
         padw = ps - w if w < ps else 0
@@ -137,6 +142,12 @@ class DataLoaderTrain(Dataset):
             tar_img1 = Image.open(tar_path1)
             tar_img2 = Image.open(tar_path2)
 
+            # img_array = np.array(inp_img)
+            # plt.imsave(f"./view/inp_img{index_}.png", img_array)
+            # img_array = np.array(tar_img1)
+            # plt.imsave(f"./view/tar_img1_{index_}.png", img_array)
+            # img_array = np.array(tar_img2)
+            # plt.imsave(f"./view/tar_img2_{index_}.png", img_array)
             # Reflect Pad in case image is smaller than patch_size
             if padw != 0 or padh != 0:
                 inp_img = TF.pad(inp_img, (0, 0, padw, padh), padding_mode='reflect')
@@ -216,6 +227,8 @@ class DataLoaderVal(Dataset):
         self.group_size = group_size
         self.pic_index = pic_index
 
+        print("!! DataLoaderVal")
+
         inp_files = sorted(os.listdir(os.path.join(rgb_dir, 'blurry')))
         # tar_files = sorted(os.listdir(os.path.join(rgb_dir, 'sharp')))
 
@@ -267,9 +280,11 @@ class DataLoaderVal(Dataset):
             tar_img = Image.open(tar_path)
 
             # Validate on center crop
+            print("> Val ps:", self.ps)
             if self.ps is not None:
                 inp_img = TF.center_crop(inp_img, [ps, ps])
                 tar_img = TF.center_crop(tar_img, [ps, ps])
+
 
             inp_img = TF.to_tensor(inp_img)
             tar_img = TF.to_tensor(tar_img)
@@ -285,6 +300,7 @@ class DataLoaderVal(Dataset):
             tar_img2 = Image.open(tar_path2)
 
             # Validate on center crop
+            print("> Val ps:", self.ps)
             if self.ps is not None:
                 inp_img = TF.center_crop(inp_img, [ps, ps])
                 tar_img1 = TF.center_crop(tar_img1, [ps, ps])

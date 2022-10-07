@@ -120,7 +120,7 @@ if __name__ == '__main__':
         path_chk_rest = utils.get_last_path(model_dir, mode + '_model_latest.pth')
         utils.load_checkpoint(model_restoration, path_chk_rest)
         start_epoch = utils.load_start_epoch(path_chk_rest) + 1
-        utils.load_optim(optimizer, path_chk_rest)
+        # utils.load_optim(optimizer, path_chk_rest)
 
         for i in range(1, start_epoch):
             scheduler.step()
@@ -176,13 +176,11 @@ if __name__ == '__main__':
                 loss.backward()
                 optimizer.step()
             else:
-                CE = torch.nn.BCEWithLogitsLoss()
-
                 target1 = data[0][0].cuda()
                 target2 = data[0][1].cuda()
                 centerEsti_model = centerEsti().cuda()
                 centerEsit_model_path = os.path.join(opt.TRAINING.CENTER_MODEL_DIR, "centerEsti", 'models', session,
-                                                     "centerEsti_model_latest.pth")
+                                                     "centerEsti_model_best.pth")
                 centerEsti_ckpt = torch.load(centerEsit_model_path)
                 # print(f">> train: input_: {input_.shape}")
                 restored4 = centerEsti_model(input_)
@@ -191,8 +189,12 @@ if __name__ == '__main__':
                 # print("input_:", input_.shape, ", restored4:", restored4.shape)
 
                 restored = model_restoration(input_, restored4)
+                # print("restored:", restored)
 
+                #######################################################
                 # discriminator:
+                CE = torch.nn.BCEWithLogitsLoss()
+
                 dis_output1 = discriminator(target1, restored[0])
                 dis_output1 = F.interpolate(dis_output1, size=(target1.shape[2], target1.shape[3]),
                                             mode="bilinear", align_corners=True)
@@ -208,17 +210,19 @@ if __name__ == '__main__':
                 # print("> dis_output2_loss:", dis_output2_loss)
 
                 dis_output_loss = dis_output1_loss + dis_output2_loss
-                # print("> dis_output_loss:", dis_output_loss)
+                print("> dis_output_loss:", dis_output_loss.data)
 
                 criterion_loss = criterion(restored[0], restored[1], target1, target2)
-                # print("> criterion_loss:", criterion_loss)
-
+                print("> criterion_loss:", criterion_loss.data)
+                #
                 loss = criterion_loss + dis_output_loss * 1
+                print("> loss:", loss.data)
+                # loss = criterion_loss
 
                 loss.backward()
                 optimizer.step()
-
-                ##########################################################################################
+                #
+                # ##########################################################################################
                 # train discriminator:
                 torch.autograd.set_detect_anomaly(True)
 
@@ -309,7 +313,7 @@ if __name__ == '__main__':
                 best_psnr = psnr_val_rgb
                 best_epoch = epoch
                 torch.save({'epoch': epoch,
-                            'state_dict': model_restoration.state_dict(),
+                            'state_dict_G': model_restoration.state_dict(),
                             'optimizer': optimizer.state_dict()
                             }, os.path.join(model_dir, mode + "_model_best.pth"))
 
@@ -317,7 +321,7 @@ if __name__ == '__main__':
                 "[epoch %d PSNR: %.4f --- best_epoch %d Best_PSNR %.4f]" % (epoch, psnr_val_rgb, best_epoch, best_psnr))
 
             torch.save({'epoch': epoch,
-                        'state_dict': model_restoration.state_dict(),
+                        'state_dict_G': model_restoration.state_dict(),
                         'optimizer': optimizer.state_dict()
                         }, os.path.join(model_dir, f"{mode}_model_epoch_{epoch}.pth"))
 
@@ -329,6 +333,6 @@ if __name__ == '__main__':
         print("------------------------------------------------------------------")
 
         torch.save({'epoch': epoch,
-                    'state_dict': model_restoration.state_dict(),
+                    'state_dict_G': model_restoration.state_dict(),
                     'optimizer': optimizer.state_dict()
                     }, os.path.join(model_dir, mode + "_model_latest.pth"))

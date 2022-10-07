@@ -7,15 +7,15 @@ GPU: [0,1,2,3]
 VERBOSE: True
 
 MODEL:
-  MODE: 'centerEsti'
-#  MODE: 'F35_N8'
+#  MODE: 'centerEsti'
+  MODE: 'F35_N8'
 #  MODE: 'F26_N9'
 #  MODE: 'F17_N9'
   SESSION: 'MPRNet'
 
 # Optimization arguments.
 OPTIM:
-  BATCH_SIZE: 31
+  BATCH_SIZE: 15
   NUM_EPOCHS: 3000
   # NEPOCH_DECAY: [10]
   LR_INITIAL: 1e-4

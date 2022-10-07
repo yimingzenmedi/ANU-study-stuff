@@ -1,6 +1,6 @@
 import torch.nn as nn
-from torchvision.models import vgg16, VGG16_Weights
 import torch
+from torchvision.models import vgg16, VGG16_Weights
 import numpy as np
 
 
@@ -26,11 +26,6 @@ def perceptualLoss(fakeIm, realIm):
     return loss
 
 
-def adversarialLoss(x, y):
-    print("> ", x.shape, y.shape)
-    return nn.BCELoss(x, y)
-
-
 class CenterEstiLoss(nn.Module):
     def __init__(self):
         super(CenterEstiLoss, self).__init__()
@@ -42,23 +37,17 @@ class CenterEstiLoss(nn.Module):
         return loss
 
     def forward(self, x4, y4):
-        return self.loss(x4, y4).abs().sum()
+        return self.loss(x4, y4).abs().mean()
 
 
-class F17_N9Loss(nn.Module):
+class F17_N9Loss_F26_N9Loss(nn.Module):
     def __init__(self):
-        super(F17_N9Loss, self).__init__()
+        super(F17_N9Loss_F26_N9Loss, self).__init__()
 
-    def forward(self, x1, x7, y1, y7):
-        pass
-
-
-class F26_N9Loss(nn.Module):
-    def __init__(self):
-        super(F26_N9Loss, self).__init__()
-
-    def forward(self):
-        pass
+    def forward(self, x1, x7, x2, x6, y1, y7, y2, y6):
+        loss = ((x1 + x7) - (y1 + y7)).abs() + ((x1 - x7) - (y1 - y7)).abs() + ((x2 + x6) - (y2 + y6)).abs() + ((x2 - x6) - (y2 - y6)).abs()
+        loss = loss.mean()
+        return loss
 
 
 class F35_N8Loss(nn.Module):
@@ -66,7 +55,15 @@ class F35_N8Loss(nn.Module):
         super(F35_N8Loss, self).__init__()
 
     def forward(self, x3, x5, y3, y5):
-        loss = ((y3 + y5).abs() - (x3 + x5).abs()).abs() + ((y3 - y5).abs() - (x3 - x5).abs()).abs()
-        print("> forward:\nloss:", loss.shape, ", adv:", adversarialLoss(x5, y5).shape)
-        loss = loss + adversarialLoss(x3, y3) + adversarialLoss(x5, y5)
-        return loss.sum()
+        # print("x3:", type(x3), x3[0].shape)
+        # print("x5:", type(x5), len(x5))
+        # print("y3:", type(y3), y3.shape)
+        # print("y5:", type(y5), y5.shape)
+        # x3 = torch.Tensor(x3)
+        # x5 = torch.Tensor(x5)
+        # print("x3_:", type(x3), x3.shape)
+        # print("x5_:", type(x5), x5.shape)
+        loss = ((x3 + x5) - (y3 + y5)).abs() + ((x3 - x5) - (y3 - y5)).abs()
+        loss = loss.mean()
+        print(">> loss:", loss.data)
+        return loss

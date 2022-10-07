@@ -8,10 +8,12 @@ def get_training_data(rgb_dir, img_options, group_size, pic_index):
 
 
 def get_validation_data(rgb_dir, img_options, group_size, pic_index):
+    # print("!! get_validation_data")
     assert os.path.exists(rgb_dir)
     return DataLoaderVal(rgb_dir, img_options=img_options, group_size=group_size, pic_index=pic_index)
 
 
 def get_test_data(rgb_dir, img_options):
+    print(rgb_dir, img_options)
     assert os.path.exists(rgb_dir)
     return DataLoaderTest(rgb_dir, img_options)
