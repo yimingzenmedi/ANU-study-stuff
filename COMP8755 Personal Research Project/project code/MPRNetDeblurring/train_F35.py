@@ -38,16 +38,15 @@ if __name__ == '__main__':
     start_epoch = 1
     mode = opt.MODEL.MODE
     session = opt.MODEL.SESSION
-    mode = opt.MODEL.MODE
     if mode == 'F35_N8':
-        index1 = 3
-        index2 = 5
+        index3 = 3
+        index5 = 5
     elif mode == 'F26_N9':
-        index1 = 2
-        index2 = 6
+        index3 = 2
+        index5 = 6
     else:
-        index1 = 1
-        index2 = 7
+        index3 = 1
+        index5 = 7
 
     result_dir1 = os.path.join(opt.TRAINING.SAVE_DIR, f"{mode}", 'results', session)
     model_dir1 = os.path.join(opt.TRAINING.SAVE_DIR, f"{mode}", 'models', session)
@@ -93,12 +92,12 @@ if __name__ == '__main__':
 
     ######### Resume ###########
     if opt.TRAINING.RESUME:
-        path_chk_rest1 = utils.get_last_path(model_dir1, f'{mode}_model_{index1}_latest.pth')
+        path_chk_rest1 = utils.get_last_path(model_dir1, f'{mode}_model_{index3}_latest.pth')
         utils.load_checkpoint(model_restoration1, path_chk_rest1)
         start_epoch = utils.load_start_epoch(path_chk_rest1) + 1
         utils.load_optim(optimizer1, path_chk_rest1)
 
-        path_chk_rest2 = utils.get_last_path(model_dir2, f'{mode}_model_{index2}_latest.pth')
+        path_chk_rest2 = utils.get_last_path(model_dir2, f'{mode}_model_{index5}_latest.pth')
         utils.load_checkpoint(model_restoration2, path_chk_rest2)
         utils.load_optim(optimizer2, path_chk_rest2)
 
@@ -107,7 +106,6 @@ if __name__ == '__main__':
             scheduler2.step()
         new_lr1 = scheduler1.get_lr()[0]
         new_lr2 = scheduler2.get_lr()[0]
-
 
         print('------------------------------------------------------------------------------')
         print(f"==> Resuming Training with learning rate - new_lr2: {new_lr1}, new_lr2: {new_lr2}")
@@ -123,11 +121,11 @@ if __name__ == '__main__':
     criterion = LTEVSFSMBILosses.F35_N8Loss()
 
     ######### DataLoaders ###########
-    train_dataset = get_training_data(train_dir, {'patch_size': opt.TRAINING.TRAIN_PS}, 7, index1-1)
+    train_dataset = get_training_data(train_dir, {'patch_size': opt.TRAINING.TRAIN_PS}, 7, index3 - 1)
     train_loader = DataLoader(dataset=train_dataset, batch_size=opt.OPTIM.BATCH_SIZE, shuffle=True, num_workers=8,
                               drop_last=False, pin_memory=True)
     # print("!! Read val_dataset")
-    val_dataset = get_validation_data(val_dir, {'patch_size': opt.TRAINING.VAL_PS}, 7, index1-1)
+    val_dataset = get_validation_data(val_dir, {'patch_size': opt.TRAINING.VAL_PS}, 7, index3 - 1)
     val_loader = DataLoader(dataset=val_dataset, batch_size=16, shuffle=False, num_workers=8, drop_last=False,
                             pin_memory=True)
 
@@ -165,7 +163,7 @@ if __name__ == '__main__':
             # print(f">> restored1: mean: {restored1.mean()}, max: {restored1.max()}, min: {restored1.min()}")
             # print(f">> restored2: mean: {restored2.mean()}, max: {restored2.max()}, min: {restored2.min()}")
 
-        # Compute loss at each stage
+            # Compute loss at each stage
             loss = criterion(restored1, restored2, target1, target2)
             # print(f"\nrestored1: {restored1.mean()}, restored2: {restored2.mean()}, \ntarget1:   {target1.mean()}, target2:   {target2.mean()}, ")
 
@@ -195,8 +193,8 @@ if __name__ == '__main__':
                 # print(target1.shape)
                 # print(target2.shape)
                 for res1, res2, tar1, tar2 in zip(restored1, restored2, target1, target2):
-                    psnr_val_rgb1.append(utils.torchPSNR(res1, tar2))
-                    psnr_val_rgb2.append(utils.torchPSNR(res1, tar2))
+                    psnr_val_rgb1.append(utils.torchPSNR(res1, tar1))
+                    psnr_val_rgb2.append(utils.torchPSNR(res2, tar2))
 
             psnr_val_rgb1 = torch.stack(psnr_val_rgb1).mean().item()
             psnr_val_rgb2 = torch.stack(psnr_val_rgb2).mean().item()
@@ -207,11 +205,11 @@ if __name__ == '__main__':
                 torch.save({'epoch': epoch,
                             'state_dict': model_restoration1.state_dict(),
                             'optimizer': optimizer1.state_dict()
-                            }, os.path.join(model_dir1, f'{mode}_model_{index1}_best.pth'))
+                            }, os.path.join(model_dir1, f'{mode}_model_{index3}_best.pth'))
                 torch.save({'epoch': epoch,
                             'state_dict': model_restoration2.state_dict(),
                             'optimizer': optimizer2.state_dict()
-                            }, os.path.join(model_dir2, f'{mode}_model_{index2}_best.pth'))
+                            }, os.path.join(model_dir2, f'{mode}_model_{index5}_best.pth'))
 
             print(
                 "[epoch %d PSNR: %.4f, %.4f --- best_epoch %d Best_PSNR %.4f, %.4f]" % (
@@ -220,28 +218,30 @@ if __name__ == '__main__':
             torch.save({'epoch': epoch,
                         'state_dict': model_restoration1.state_dict(),
                         'optimizer': optimizer1.state_dict()
-                        }, os.path.join(model_dir1, f"{mode}_model_{index1}_epoch_{epoch}.pth"))
+                        }, os.path.join(model_dir1, f"{mode}_model_{index3}_epoch_{epoch}.pth"))
             torch.save({'epoch': epoch,
                         'state_dict': model_restoration2.state_dict(),
                         'optimizer': optimizer2.state_dict()
-                        }, os.path.join(model_dir2, f"{mode}_model_{index2}_epoch_{epoch}.pth"))
+                        }, os.path.join(model_dir2, f"{mode}_model_{index5}_epoch_{epoch}.pth"))
 
         scheduler1.step()
         scheduler2.step()
 
         print("------------------------------------------------------------------")
         print("Epoch: {}\tTime: {:.4f}\tLoss: {:.4f}\tLearningRate1 {:.6f}\tLearningRate2 {:.6f}".format(epoch,
-                                                                                  time.time() - epoch_start_time,
-                                                                                  epoch_loss,
-                                                                                  scheduler1.get_lr()[0],
-                                                                                  scheduler2.get_lr()[0]))
+                                                                                                         time.time() - epoch_start_time,
+                                                                                                         epoch_loss,
+                                                                                                         scheduler1.get_lr()[
+                                                                                                             0],
+                                                                                                         scheduler2.get_lr()[
+                                                                                                             0]))
         print("------------------------------------------------------------------")
 
         torch.save({'epoch': epoch,
                     'state_dict': model_restoration1.state_dict(),
                     'optimizer': optimizer1.state_dict()
-                    }, os.path.join(model_dir1, f'{mode}_model_{index1}_latest.pth'))
+                    }, os.path.join(model_dir1, f'{mode}_model_{index3}_latest.pth'))
         torch.save({'epoch': epoch,
                     'state_dict': model_restoration2.state_dict(),
                     'optimizer': optimizer2.state_dict()
-                    }, os.path.join(model_dir2, f'{mode}_model_{index2}_latest.pth'))
+                    }, os.path.join(model_dir2, f'{mode}_model_{index5}_latest.pth'))

@@ -40,8 +40,8 @@ elif args.index == 2 or args.index == 6:
     ckpt_path = f'./ckpt/{mode}/models/MPRNet/{mode}_model_{args.index}_best.pth'
 elif args.index == 3 or args.index == 5:
     mode = 'F35_N8'
-    # ckpt_path = f'./ckpt/{mode}/models/MPRNet/{mode}_model_{args.index}_epoch_110.pth'
-    ckpt_path = f'./ckpt/{mode}/models/MPRNet/{mode}_model_{args.index}_latest.pth'
+    ckpt_path = f'./ckpt/{mode}/models/MPRNet/{mode}_model_{args.index}_best.pth'
+    # ckpt_path = f'./ckpt/{mode}/models/MPRNet/{mode}_model_{args.index}_latest.pth'
 else:   # args.index == 4
     mode = 'centerEsti'
     ckpt_path = f'./ckpt/{mode}/models/MPRNet/{mode}_model_latest.pth'
