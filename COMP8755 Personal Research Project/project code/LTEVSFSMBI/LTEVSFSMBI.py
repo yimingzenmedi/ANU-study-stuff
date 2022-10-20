@@ -548,9 +548,9 @@ class F35_N8(nn.Module):
 
         ref5 = self.generateFrame5(Blurry_r_0, Blurry_g_0, Blurry_b_0, ref3_r_0, ref3_g_0, ref3_b_0, ref4_r_0, ref4_g_0,
                                    ref4_b_0) + ref4
-        print(f"\n>> ref4: mean: {ref4.data.mean()}, max: {ref4.data.max()}, min: {ref4.data.min()}")
-        print(f">> ref3: mean: {ref3.data.mean()}, max: {ref3.data.max()}, min: {ref3.data.min()}, {ref3.data.mean() - ref4.data.mean()}")
-        print(f">> ref5: mean: {ref5.data.mean()}, max: {ref5.data.max()}, min: {ref5.data.min()}, {ref5.data.mean() - ref4.data.mean()}")
+        # print(f"\n>> ref4: mean: {ref4.data.mean()}, max: {ref4.data.max()}, min: {ref4.data.min()}")
+        # print(f">> ref3: mean: {ref3.data.mean()}, max: {ref3.data.max()}, min: {ref3.data.min()}, {ref3.data.mean() - ref4.data.mean()}")
+        # print(f">> ref5: mean: {ref5.data.mean()}, max: {ref5.data.max()}, min: {ref5.data.min()}, {ref5.data.mean() - ref4.data.mean()}")
         # img_array = ref3.clone().cpu()
         # plt.imsave(f"./view/ref3.png", img_array)
         # print(img_array.data)

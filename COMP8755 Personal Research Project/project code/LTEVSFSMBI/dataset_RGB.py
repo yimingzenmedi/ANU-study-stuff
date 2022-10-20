@@ -280,7 +280,7 @@ class DataLoaderVal(Dataset):
             tar_img = Image.open(tar_path)
 
             # Validate on center crop
-            print("> Val ps:", self.ps)
+            # print("> Val ps:", self.ps)
             if self.ps is not None:
                 inp_img = TF.center_crop(inp_img, [ps, ps])
                 tar_img = TF.center_crop(tar_img, [ps, ps])
@@ -300,7 +300,7 @@ class DataLoaderVal(Dataset):
             tar_img2 = Image.open(tar_path2)
 
             # Validate on center crop
-            print("> Val ps:", self.ps)
+            # print("> Val ps:", self.ps)
             if self.ps is not None:
                 inp_img = TF.center_crop(inp_img, [ps, ps])
                 tar_img1 = TF.center_crop(tar_img1, [ps, ps])

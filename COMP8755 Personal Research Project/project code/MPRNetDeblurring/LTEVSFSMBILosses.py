@@ -45,7 +45,10 @@ class F17_N9Loss_F26_N9Loss(nn.Module):
         super(F17_N9Loss_F26_N9Loss, self).__init__()
 
     def forward(self, x1, x7, x2, x6, y1, y7, y2, y6):
-        loss = ((x1 + x7) - (y1 + y7)).abs() + ((x1 - x7) - (y1 - y7)).abs() + ((x2 + x6) - (y2 + y6)).abs() + ((x2 - x6) - (y2 - y6)).abs()
+        loss  = ((x1 + x7) - (y1 + y7)).abs()
+        loss += ((x1 - x7) - (y1 - y7)).abs()
+        loss += ((x2 + x6) - (y2 + y6)).abs()
+        loss += ((x2 - x6) - (y2 - y6)).abs()
         loss = loss.mean()
         return loss
 
@@ -65,5 +68,5 @@ class F35_N8Loss(nn.Module):
         # print("x5_:", type(x5), x5.shape)
         loss = ((x3 + x5) - (y3 + y5)).abs() + ((x3 - x5) - (y3 - y5)).abs()
         loss = loss.mean()
-        print(">> loss:", loss.data)
+        # print(">> loss:", loss.data)
         return loss

@@ -1,0 +1,17 @@
+checkpoints/
+run.sh
+tmp/
+*.bak
+work_dirs
+work_dirs_ln
+dataset
+__pycache__/
+experiment/
+results/
+model/
+*.py[cod]
+*.so
+*.egg
+*.egg-info
+dist
+build
