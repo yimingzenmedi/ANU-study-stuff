@@ -55,3 +55,70 @@
 .text li a:visited {
     color: rgb(124, 124, 124);
 }
+
+.youtube_video {
+    width: 80%;
+    height: 600px;
+    margin-left: 10%;
+}
+
+/* alternative CSS for print */
+
+
+@media print {
+    @page {
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    .header {
+        background: none;
+    }
+
+    .mySocialMidiaIcons {
+        display: none;
+    }
+
+    #nav_h {
+        position: relative;
+        top: -70px;
+        width: 100%;
+        text-align: center;
+        padding: 0;
+    }
+
+    #nav_h a {
+        color: rgba(20, 20, 20, 0.7) !important;
+    }
+
+    .main {
+        margin-top: 70px;
+    }
+
+    .share_box {
+        display: none;
+    }
+
+    .title {
+        margin-bottom: 10px;
+        margin-top: 40px;
+    }
+
+    .text {
+        margin-top: 0;
+    }
+
+    .text img {
+        width: 100%;
+        margin-left: 0;
+    }
+
+    .footer {
+        display: none;
+    }
+
+    .youtube_video { 
+        display: none;
+    }
+}
+

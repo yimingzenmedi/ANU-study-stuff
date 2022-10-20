@@ -58,3 +58,48 @@
     white-space: nowrap;
     margin: 10px;
 }
+
+/* alternative CSS for print */
+
+@media print {
+    @page {
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    .header {
+        background: none;
+    }
+
+    .mySocialMidiaIcons {
+        display: none;
+    }
+
+    #nav_h {
+        position: relative;
+        top: -70px;
+        width: 100%;
+        text-align: center;
+        padding: 0;
+    }
+
+    #nav_h a {
+        color: rgba(20, 20, 20, 0.7) !important;
+    }
+
+    .main {
+        margin-top: 70px;
+    }
+
+    .artical:hover {
+        background-color: #fafafa;
+        color: black;
+        transform: none;
+        box-shadow: none;
+    }
+
+    .footer {
+        display: none;
+    }
+}
+

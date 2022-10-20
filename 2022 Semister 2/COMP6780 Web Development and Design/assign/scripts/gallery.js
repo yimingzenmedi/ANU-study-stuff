@@ -157,7 +157,7 @@ window.onload = function() {
 
 function renderImageThumbs() {
     const targetEle = document.getElementById("gallery");
-    for (const imgIndex in imgList) {
+    for (const imgIndex in imgList) {       
         const img = imgList[imgIndex];
         const picDivEle = document.createElement("div");
         picDivEle.className = "pic_div";

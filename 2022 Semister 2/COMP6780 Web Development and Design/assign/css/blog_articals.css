@@ -68,3 +68,55 @@
 .text p {
     line-height: 1.5rem;
 }
+
+/* alternative CSS for print */
+
+
+@media print {
+    @page {
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    .header {
+        background: none;
+    }
+
+    .mySocialMidiaIcons {
+        display: none;
+    }
+
+    #nav_h {
+        position: relative;
+        top: -70px;
+        width: 100%;
+        text-align: center;
+        padding: 0;
+    }
+
+    #nav_h a {
+        color: rgba(20, 20, 20, 0.7) !important;
+    }
+
+    .main {
+        margin-top: 70px;
+    }
+
+    .tags {
+        float: right;
+    }
+
+    .share_box {
+        display: none;
+    }
+
+    .text img {
+        width: 100%;
+        margin-left: 0;
+    }
+
+    .footer {
+        display: none;
+    }
+}
+

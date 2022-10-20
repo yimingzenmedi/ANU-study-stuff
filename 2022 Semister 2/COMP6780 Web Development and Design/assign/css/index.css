@@ -80,3 +80,68 @@
     font-weight: lighter;
     font-style: italic;
 }
+
+
+/* alternative CSS for print */
+
+@media print {
+    @page {
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    .header {
+        background: none;
+    }
+
+    .mySocialMidiaIcons {
+        display: none;
+    }
+
+    #nav_h {
+        position: relative;
+        top: -70px;
+        width: 100%;
+        text-align: center;
+        padding: 0;
+    }
+
+    #nav_h a {
+        color: rgba(20, 20, 20, 0.7) !important;
+    }
+
+    .main {
+        margin-top: 70px;
+        -webkit-print-color-adjust:exact;
+        -moz-print-color-adjust:exact;
+        -ms-print-color-adjust:exact;
+        print-color-adjust: exact;
+    }
+
+    .section {
+        background: none !important;
+    }
+
+    .image_map_set {
+        display: block;
+        background: none;
+    }
+
+    .image_map_desc {
+        width: 100%;
+        padding-top: 50px;
+        color: rgb(20, 20, 20);
+        background: none;
+    }
+
+    .image_map_1 {
+        width: 100%;
+    }
+
+    .footer {
+        display: none;
+    }
+    
+}
+
+
