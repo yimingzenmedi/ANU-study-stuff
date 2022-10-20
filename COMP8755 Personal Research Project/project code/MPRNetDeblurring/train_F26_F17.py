@@ -2,7 +2,7 @@ import os
 
 from config import Config
 
-opt = Config('./training_F26_N9_F17_N9.yml')
+opt = Config('./Ftraining_F26_N9_F17_N9.yml')
 
 gpus = ','.join([str(i) for i in opt.GPU])
 os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
@@ -302,12 +302,16 @@ if __name__ == '__main__':
         scheduler7.step()
 
         print("------------------------------------------------------------------")
-        print("Epoch: {}\tTime: {:.4f}\tLoss: {:.4f}\tLearningRate1 {:.6f}\tLearningRate2 {:.6f}".format(epoch,
+        print("Epoch: {}\tTime: {:.4f}\tLoss: {:.4f}\tLearningRate1 {:.6f}\tLearningRate2 {:.6f}\tLearningRate6 {:.6f}\tLearningRate7 {:.6f}".format(epoch,
                                                                                                          time.time() - epoch_start_time,
                                                                                                          epoch_loss,
                                                                                                          scheduler1.get_lr()[
                                                                                                              0],
                                                                                                          scheduler2.get_lr()[
+                                                                                                             0],
+                                                                                                         scheduler6.get_lr()[
+                                                                                                             0],
+                                                                                                         scheduler7.get_lr()[
                                                                                                              0]))
         print("------------------------------------------------------------------")
 

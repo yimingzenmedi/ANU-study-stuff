@@ -14,4 +14,8 @@ LTEVSFSMBI/ckpt_video
 LTEVSFSMBI/examples
 LTEVSFSMBI/sharp_outputs
 LTEVSFSMBI/pretrained_models
+MPRNetPlus/ckpt
+MPRNetPlus/Datasets
+MPRNetPlus/pretrained_models
+MPRNetPlus/results
 

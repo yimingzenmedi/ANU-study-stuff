@@ -25,7 +25,7 @@ import numpy as np
 
 import utils
 from data_RGB import get_training_data, get_validation_data
-from LTEVSFSMBI import centerEsti, F17_N9, F26_N9, F35_N8
+from LTEVSFSMBI import centerEsti
 from FCDiscriminator import FCDiscriminator
 import losses
 from warmup_scheduler import GradualWarmupScheduler
@@ -54,10 +54,8 @@ if __name__ == '__main__':
     mode = opt.MODEL.MODE
     session = opt.MODEL.SESSION
 
-    result_dir = os.path.join(opt.TRAINING.SAVE_DIR, mode, 'results', session)
-    model_dir = os.path.join(opt.TRAINING.SAVE_DIR, mode, 'models', session)
+    model_dir = os.path.join(opt.TRAINING.SAVE_DIR, session, mode)
 
-    utils.mkdir(result_dir)
     utils.mkdir(model_dir)
 
     train_dir = opt.TRAINING.TRAIN_DIR
@@ -68,42 +66,14 @@ if __name__ == '__main__':
     group_size = 7
 
     ######### Model ###########
-    if mode == "centerEsti":
-        model_restoration = centerEsti()
-        pic_index = 3
-    elif mode == "F17_N9":
-        model_restoration = F17_N9()
-        pic_index = 0
-    elif mode == "F26_N9":
-        model_restoration = F26_N9()
-        pic_index = 1
-    elif mode == "F35_N8":
-        model_restoration = F35_N8()
-        discriminator = FCDiscriminator()
-        discriminator.cuda()
-        discriminator_params = discriminator.parameters()
-        discriminator_optimizer = optim.Adam(discriminator_params, new_lr)
-
-        pic_index = 2
-    else:
-        raise Exception('Illegal parameter mode == {}. Can only choose from "centerEsti", '
-                        '"F35_N8", "F26_N9" and "F17_N9"'.format(mode))
+    model_restoration = centerEsti()
+    pic_index = 3
     model_restoration.cuda()
 
     ######### Loss ###########
     # criterion_char = losses.CharbonnierLoss()
     # criterion_edge = losses.EdgeLoss()
-    if mode == "centerEsti":
-        criterion = losses.CenterEstiLoss()
-    elif mode == "F17_N9":
-        criterion = losses.F17_N9Loss()
-    elif mode == "F26_N9":
-        criterion = losses.F26_N9Loss()
-    elif mode == "F35_N8":
-        criterion = losses.F35_N8Loss()
-    else:
-        raise Exception('Illegal parameter mode == {}. Can only choose from "centerEsti", '
-                        '"F35_N8", "F26_N9" and "F17_N9"'.format(mode))
+    criterion = losses.CenterEstiLoss()
 
     optimizer = optim.Adam(model_restoration.parameters(), lr=new_lr, betas=(0.9, 0.999), eps=1e-8)
 
@@ -164,98 +134,16 @@ if __name__ == '__main__':
 
             input_ = data[1].cuda()
 
-            if mode == "centerEsti":
-                target = data[0][0].cuda()
-                # print("!!! size of restored:", restored.size())
-                restored = model_restoration(input_)
+            target = data[0][0].cuda()
+            # print("!!! size of restored:", restored.size())
+            restored = model_restoration(input_)
 
-                # Compute loss at each stage
-                loss = criterion(restored, target)
-                # print("!!! type loss:", type(loss), loss)
-                # loss = loss.numpy().tolist()
-                loss.backward()
-                optimizer.step()
-            else:
-                target1 = data[0][0].cuda()
-                target2 = data[0][1].cuda()
-                centerEsti_model = centerEsti().cuda()
-                centerEsit_model_path = os.path.join(opt.TRAINING.CENTER_MODEL_DIR, "centerEsti", 'models', session,
-                                                     "centerEsti_model_best.pth")
-                centerEsti_ckpt = torch.load(centerEsit_model_path)
-                # print(f">> train: input_: {input_.shape}")
-                restored4 = centerEsti_model(input_)
-                restored4 = restored4.data * 255
-
-                # print("input_:", input_.shape, ", restored4:", restored4.shape)
-
-                restored = model_restoration(input_, restored4)
-                # print("restored:", restored)
-
-                #######################################################
-                # discriminator:
-                CE = torch.nn.BCEWithLogitsLoss()
-
-                dis_output1 = discriminator(target1, restored[0])
-                dis_output1 = F.interpolate(dis_output1, size=(target1.shape[2], target1.shape[3]),
-                                            mode="bilinear", align_corners=True)
-                labels1 = Variable(torch.FloatTensor(np.ones(dis_output1.shape))).cuda()
-                dis_output1_loss = CE(dis_output1, labels1) * np.prod(dis_output1.shape)
-                # print("> dis_output1_loss:", dis_output1_loss)
-
-                dis_output2 = discriminator(target2, restored[1])
-                dis_output2 = F.interpolate(dis_output2, size=(target2.shape[2], target2.shape[3]),
-                                            mode="bilinear", align_corners=True)
-                labels2 = Variable(torch.FloatTensor(np.ones(dis_output2.shape))).cuda()
-                dis_output2_loss = CE(dis_output2, labels2) * np.prod(dis_output1.shape)
-                # print("> dis_output2_loss:", dis_output2_loss)
-
-                dis_output_loss = dis_output1_loss + dis_output2_loss
-                print("> dis_output_loss:", dis_output_loss.data)
-
-                criterion_loss = criterion(restored[0], restored[1], target1, target2)
-                print("> criterion_loss:", criterion_loss.data)
-                #
-                loss = criterion_loss + dis_output_loss * 1
-                print("> loss:", loss.data)
-                # loss = criterion_loss
-
-                loss.backward()
-                optimizer.step()
-                #
-                # ##########################################################################################
-                # train discriminator:
-                torch.autograd.set_detect_anomaly(True)
-
-                dis_pred1 = torch.sigmoid(restored[0]).detach()
-                dis_output1 = F.interpolate(discriminator(target1, dis_pred1),
-                                            size=(target1.shape[2], target1.shape[3]),
-                                            mode="bilinear", align_corners=True)
-                dis_output1_loss = CE(dis_output1, labels1)
-                # print(f"> target1: {target1.shape}, labels1: {labels1.shape}, restored[0]: {restored[0].shape}, "
-                #       f"dis_output1: {dis_output1.shape}, dis_output1_loss: {dis_output1_loss.shape}")
-                dis_target1 = discriminator(target1, target1)
-                dis_target1 = F.interpolate(dis_target1, size=(target1.shape[2], target1.shape[3]),
-                                            mode="bilinear", align_corners=True)
-                dis_target1_loss = CE(dis_target1, labels1)
-
-                dis_pred2 = torch.sigmoid(restored[1]).detach()
-                dis_output2 = F.interpolate(discriminator(target2, dis_pred2),
-                                            size=(target2.shape[2], target2.shape[3]),
-                                            mode="bilinear", align_corners=True)
-                dis_output2_loss = CE(dis_output2, labels2)
-
-                dis_target2 = discriminator(target2, target2)
-                dis_target2 = F.interpolate(dis_target2, size=(target2.shape[2], target2.shape[3]),
-                                            mode="bilinear", align_corners=True)
-                dis_target2_loss = CE(dis_target2, labels2)
-
-                dis_loss = 0.25 * (dis_output1_loss + dis_target1_loss + dis_output2_loss + dis_target2_loss)
-                # print("dis_loss:", dis_loss)
-                dis_loss.backward()
-                discriminator_optimizer.step()
-
-            # loss.backward()
-            # optimizer.step()
+            # Compute loss at each stage
+            loss = criterion(restored, target)
+            # print("!!! type loss:", type(loss), loss)
+            # loss = loss.numpy().tolist()
+            loss.backward()
+            optimizer.step()
             epoch_loss += loss.item()
 
         #### Evaluation ####
@@ -266,46 +154,19 @@ if __name__ == '__main__':
             val_loader_emur = enumerate(val_loader, 0)
             print("> val_loader:", len(val_loader))
 
-            if mode == "centerEsti":
-                for ii, data_val in val_loader_emur:
-                    target = data_val[0][0].cuda()
-                    input_ = data_val[1].cuda()
+            for ii, data_val in val_loader_emur:
+                target = data_val[0][0].cuda()
+                input_ = data_val[1].cuda()
 
-                    with torch.no_grad():
-                        restored = model_restoration(input_)
-                    restored = restored[0]
+                with torch.no_grad():
+                    restored = model_restoration(input_)
+                restored = restored[0]
 
-                    # print("> target:", target, ",\ninput_:", input_, ",\nrestored:", restored)
+                # print("> target:", target, ",\ninput_:", input_, ",\nrestored:", restored)
 
-                    for res, tar in zip(restored, target):
-                        psnr_val_rgb.append(utils.torchPSNR(res, tar))
-                        # print("psnr_val_rgb appended. Now:", psnr_val_rgb)
-
-            else:
-                for ii, data_val in val_loader_emur:
-                    target1 = data_val[0][0].cuda()
-                    target2 = data_val[0][1].cuda()
-                    input_ = data_val[1].cuda()
-
-                    # centerEsti_model = centerEsti().cuda()
-                    # centerEsit_model_path = os.path.join(opt.TRAINING.CENTER_MODEL_DIR, "centerEsti", 'models', session,
-                    #                                      "centerEsti_model_latest.pth")
-                    # centerEsti_ckpt = torch.load(centerEsit_model_path)
-                    restored4 = centerEsti_model(input_)
-                    restored4 = restored4.data * 255
-
-                    with torch.no_grad():
-                        restored = model_restoration(input_, restored4)
-                    restored1 = restored[0]
-                    restored2 = restored[1]
-
-                    # print("> target:", target, ",\ninput_:", input_, ",\nrestored:", restored)
-
-                    for res1, res2, tar1, tar2 in zip(restored1, restored2, target1, target2):
-                        # print(f"> res1: {res1.shape}, res2: {res2.shape}, tar1: {tar1.shape}, tar2: {tar2.shape}")
-                        psnr_val_rgb.append(utils.torchPSNR(res1, tar1))
-                        psnr_val_rgb.append(utils.torchPSNR(res2, tar2))
-                        # print("psnr_val_rgb appended. Now:", psnr_val_rgb)
+                for res, tar in zip(restored, target):
+                    psnr_val_rgb.append(utils.torchPSNR(res, tar))
+                    # print("psnr_val_rgb appended. Now:", psnr_val_rgb)
 
             psnr_val_rgb = torch.stack(psnr_val_rgb).mean().item()
 

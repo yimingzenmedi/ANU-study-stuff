@@ -1,5 +1,5 @@
 import torch.nn as nn
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 from torchvision.models import vgg16, VGG16_Weights
 
 
@@ -34,23 +34,20 @@ class CenterEstiLoss(nn.Module):
         return loss
 
     def forward(self, x4, y4):
-        return self.loss(x4, y4).abs().sum()
+        return self.loss(x4, y4).abs().mean()
 
 
-class F17_N9Loss(nn.Module):
+class F17_N9_F26_N9Loss(nn.Module):
     def __init__(self):
-        super(F17_N9Loss, self).__init__()
+        super(F17_N9_F26_N9Loss, self).__init__()
 
-    def forward(self, x1, x7, y1, y7):
-        pass
-
-
-class F26_N9Loss(nn.Module):
-    def __init__(self):
-        super(F26_N9Loss, self).__init__()
-
-    def forward(self):
-        pass
+    def forward(self, x1, x7, x2, x6, y1, y7, y2, y6):
+        loss = ((x1 + x7) - (y1 + y7)).abs()
+        loss += ((x1 - x7) - (y1 - y7)).abs()
+        loss += ((x2 + x6) - (y2 + y6)).abs()
+        loss += ((x2 - x6) - (y2 - y6)).abs()
+        loss = loss.mean()
+        return loss
 
 
 class F35_N8Loss(nn.Module):
