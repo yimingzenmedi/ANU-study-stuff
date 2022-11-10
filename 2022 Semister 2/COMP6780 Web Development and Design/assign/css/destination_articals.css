@@ -83,12 +83,21 @@
         position: relative;
         top: -70px;
         width: 100%;
-        text-align: center;
+        text-align: right;
         padding: 0;
     }
 
     #nav_h a {
         color: rgba(20, 20, 20, 0.7) !important;
+    }
+
+    #nav_h li {
+        display: none;
+    }
+
+    #nav_h li.selected {
+        display: block;
+        text-decoration: none;
     }
 
     .main {

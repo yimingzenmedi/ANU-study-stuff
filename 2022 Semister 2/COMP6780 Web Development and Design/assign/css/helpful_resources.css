@@ -15,12 +15,18 @@
 }
 
 .txt a {
+    /* color:rgba(20, 20, 20, 0); */
     color:rgba(20, 20, 20, 0.7);
     font-weight: bold;
 }
 
 .txt a:visited {
     color:rgba(20, 20, 20, 0.5);
+}
+
+.txt a:hover {
+    text-shadow: 0 0 2px rgb(194, 194, 194);
+    color: rgb(20, 20, 20);
 }
 
 .txt li {
